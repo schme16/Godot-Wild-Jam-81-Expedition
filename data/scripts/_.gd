@@ -2,18 +2,12 @@ extends Node
 
 #an easy to grab delta time
 @export var delta:float
+@export var cancellable_ids = {}
 
 
 
 
 #Game specific stuff
-@export var player:CharacterBody3D
-@export var bike:VehicleController
-@export var cancellable_ids = {}
-@export var peddles:Node3D
-@export var left_peddle:Node3D
-@export var right_peddle:Node3D
-@export var bike_look_at_target:Node3D
 
 
 
