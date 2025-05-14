@@ -37,7 +37,7 @@ func _physics_process(delta: float) -> void:
 
 	#Path changed?
 	if path != current_path:
-		
+
 		path = current_path
 
 		match current_path:
@@ -49,16 +49,17 @@ func _physics_process(delta: float) -> void:
 				character_body_2d.position.y = path_c.position.y
 
 	#backup the y pos
-	last_y_pos = character_body_2d.y
-	
+	last_y_pos = character_body_2d.position.y
+
 	#detect any collisions
 	var collisions = character_body_2d.move_and_collide(Vector2.ZERO)
-	
+
 	#did we find one?
-	if collisions: 
+	if collisions:
 		var object = collisions.get_collider()
-		print()
-	
+		if object and object.has_method("invoke") and (!object.trigger_once or (object.trigger_once and !object.has_triggered)):
+			object.invoke()
+
 	#reset the x and y positions
 	character_body_2d.position.x = 0
 	character_body_2d.position.y = last_y_pos
