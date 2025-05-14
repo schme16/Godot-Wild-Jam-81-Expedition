@@ -14,7 +14,8 @@ enum paths {
 
 @export var current_path:paths = paths.B
 var path:paths = -1
-
+var last_y_pos
+var last_x_pos
 
 func _ready() -> void:
 	pass
@@ -32,8 +33,11 @@ func _input(event: InputEvent) -> void:
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _physics_process(delta: float) -> void:
+
+	#Path changed?
 	if path != current_path:
+		
 		path = current_path
 
 		match current_path:
@@ -43,3 +47,18 @@ func _process(delta: float) -> void:
 				character_body_2d.position.y = path_b.position.y
 			paths.C:
 				character_body_2d.position.y = path_c.position.y
+
+	#backup the y pos
+	last_y_pos = character_body_2d.y
+	
+	#detect any collisions
+	var collisions = character_body_2d.move_and_collide(Vector2.ZERO)
+	
+	#did we find one?
+	if collisions: 
+		var object = collisions.get_collider()
+		print()
+	
+	#reset the x and y positions
+	character_body_2d.position.x = 0
+	character_body_2d.position.y = last_y_pos
