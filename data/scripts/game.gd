@@ -20,6 +20,7 @@ enum states {
 @export var end_progress:float = 198790
 @export var progress:float
 var start_ratio:float
+var max_progress:float
 
 @export var _player_speed:float = 50
 var player_speed:float
@@ -49,9 +50,12 @@ func new_game():
 	progress = start_progress
 	
 	player.progress = progress
+	
 	camera_follow.progress = progress
+	
 	start_ratio = player.progress_ratio
-	print()
+	
+	max_progress = (end_progress - start_progress)
 
 
 func reset_stats():
@@ -132,14 +136,21 @@ func _physics_process(delta: float) -> void:
 			ui.morale_icons.ok.visible = ship_morale >= 33 and ship_morale < 66
 			ui.morale_icons.sad.visible = ship_morale < 33
 			
-			var ratio = player.progress / (end_progress - start_progress)
-			
+		
 			#update the voyage tracker
-			ui.voyage_bar.bar.position.x = (ui.voyage_bar.max * ratio) - 2
+			ui.voyage_bar.bar.position.x = (ui.voyage_bar.max *  player.progress / max_progress) - 2
 						
 			#update the ship health bar
-			ui.health_bar
+			ui.health_bar.bar.size.x = ui.health_bar.max - (ui.health_bar.max * (1 - (ship_health / _ship_health)))
 			
+			var grad = Gradient.new()
+			grad.add_point(1, Color.RED)
+			grad.add_point(50, Color.ORANGE)
+			grad.add_point(100, Color.GREEN)
+			
+			print((ship_health / _ship_health) *100)
+			
+			ui.health_bar.bar.color = grad.sample((ship_health / _ship_health) * 100)
 
 		states.in_dialogue:
 			pass

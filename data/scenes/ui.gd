@@ -40,4 +40,3 @@ func _ready() -> void:
 		"bar": voyage_tracker_current
 	}
 	
-	
