@@ -36,7 +36,7 @@ func _ready() -> void:
 	}
 	
 	voyage_bar = {
-		"max": voyage_tracker.size.x,
+		"max": voyage_tracker.size.x - voyage_tracker_current.size.x,
 		"bar": voyage_tracker_current
 	}
 	

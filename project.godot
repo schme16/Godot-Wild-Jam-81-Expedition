@@ -51,4 +51,3 @@ down={
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
 environment/defaults/default_clear_color=Color(0.80037, 0.795508, 0.742493, 1)
-2d/snap/snap_2d_transforms_to_pixel=true
