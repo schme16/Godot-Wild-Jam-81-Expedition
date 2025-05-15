@@ -1,4 +1,4 @@
-extends PathFollow2D
+extends CharacterBody2D
 
 enum paths {
 	A,
@@ -10,8 +10,6 @@ enum paths {
 @export var path_b:Node
 @export var path_c:Node
 @export var start_path:paths
-@onready var character_body_2d: CharacterBody2D = $CharacterBody2D
-
 @export var current_path:paths = paths.B
 var path:paths = -1
 var last_y_pos
@@ -43,17 +41,18 @@ func _physics_process(delta: float) -> void:
 
 		match current_path:
 			paths.A:
-				character_body_2d.position.y = path_a.position.y
+				global_position.y = path_a.global_position.y
 			paths.B:
-				character_body_2d.position.y = path_b.position.y
+				global_position.y = path_b.global_position.y
 			paths.C:
-				character_body_2d.position.y = path_c.position.y
+				global_position.y = path_c.global_position.y
 
 	#backup the y pos
-	last_y_pos = character_body_2d.position.y
+	last_y_pos = global_position.y
+	last_x_pos = global_position.x
 
 	#detect any collisions
-	var collisions = character_body_2d.move_and_collide(Vector2.ZERO)
+	var collisions = move_and_collide(Vector2.ZERO)
 
 	#did we find one?
 	if collisions:
@@ -61,6 +60,5 @@ func _physics_process(delta: float) -> void:
 		if object and object.has_method("invoke") and (!object.trigger_once or (object.trigger_once and !object.has_triggered)):
 			object.invoke()
 
-	#reset the x and y positions
-	character_body_2d.position.x = 0
-	character_body_2d.position.y = last_y_pos
+	global_position.x = last_x_pos
+	global_position.y = last_y_pos

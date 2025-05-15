@@ -1,6 +1,6 @@
 [gd_scene load_steps=10 format=3 uid="uid://bug7nsohlajhg"]
 
-[ext_resource type="Script" uid="uid://celv11jruaedo" path="res://data/scenes/ui.gd" id="1_jlrtr"]
+[ext_resource type="Script" uid="uid://celv11jruaedo" path="res://data/scripts/ui.gd" id="1_jlrtr"]
 [ext_resource type="Texture2D" uid="uid://c2miiwhbct63l" path="res://data/textures/icons/morale-icons-dummy-happy.png" id="1_udgi0"]
 [ext_resource type="Texture2D" uid="uid://bxho6slt13oec" path="res://data/textures/icons/morale-icons-dummy-ok.png" id="2_jlrtr"]
 [ext_resource type="Shader" uid="uid://c78uros544rvj" path="res://data/shaders/colour_tint.gdshader" id="2_rsqs2"]

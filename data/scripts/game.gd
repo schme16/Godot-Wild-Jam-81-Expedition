@@ -12,14 +12,13 @@ enum states {
 	game_over,
 }
 
-@export var player:PathFollow2D
-@onready var clouds: Node2D = $Path2D/Camera/Camera2D/Clouds
-
-@export var camera_follow:PathFollow2D
+@export var player:Node2D
+@onready var clouds: Node2D = $Clouds
 @export var camera:Camera2D
 @export var start_progress:float = 1280
 @export var end_progress:float = 198790
 @export var progress:float
+@export var editor_only_items:Node2D
 var start_ratio:float
 var max_progress:float
 
@@ -36,14 +35,34 @@ var ship_morale:float
 var last_state:states = -1
 
 @onready var ui: Control = $CanvasLayer/UI
+var gradient_red_orange_green = Gradient.new()
+
+var last_check_zone:float
+
+
+@onready var objects_list: Dictionary = {
+	"rock": preload("res://data/prefabs/rock.tscn"),
+	"shark": preload("res://data/prefabs/shark_fin.tscn")
+}
+
+@onready var objects: Node2D = $"objects"
+
+
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	gradient_red_orange_green.add_point(1, Color.RED)
+	gradient_red_orange_green.add_point(50, Color.ORANGE)
+	gradient_red_orange_green.add_point(100, Color.GREEN)
+
 	events.listen("player_damage", player_damage)
+	editor_only_items.visible = false
 	pass
 
 func new_game():
+
+	last_check_zone = 0
 
 	#reset the players data
 	reset_stats()
@@ -51,11 +70,11 @@ func new_game():
 	#place them back at the start position
 	progress = start_progress
 
-	player.progress = progress
+	player.position.x = progress
 
-	camera_follow.progress = progress
+	camera.position.x = progress
 
-	start_ratio = player.progress_ratio
+	player.position.x = start_ratio
 
 	max_progress = (end_progress - start_progress)
 
@@ -129,9 +148,8 @@ func _physics_process(delta: float) -> void:
 			#move the player along
 			progress += delta * player_speed
 
-			camera_follow.progress = progress
-			player.progress = progress
-			camera.global_rotation = 0
+			camera.position.x = progress
+			player.position.x = progress
 
 			#update the morale icons
 			ui.morale_icons.happy.visible = ship_morale >= 66
@@ -140,20 +158,33 @@ func _physics_process(delta: float) -> void:
 
 
 			#update the voyage tracker
-			ui.voyage_bar.bar.position.x = (ui.voyage_bar.max *  player.progress / max_progress) - 2
+			ui.voyage_bar.bar.position.x = (ui.voyage_bar.max *  player.position.x / max_progress) - 2
 
 			#update the ship health bar
 			ui.health_bar.bar.size.x = ui.health_bar.max - (ui.health_bar.max * (1 - (ship_health / _ship_health)))
 
-			var grad = Gradient.new()
-			grad.add_point(1, Color.RED)
-			grad.add_point(50, Color.ORANGE)
-			grad.add_point(100, Color.GREEN)
+			if player.position.x - last_check_zone > 200:
+				last_check_zone = player.position.x
+				var roll = randi_range(1, 3) == 2
+				if roll:
+					var new_object = objects_list.rock.instantiate()
+					new_object.position.x = player.position.x + 1280
+					var path = randi_range(1, 3)
+					if path == 1:
+						new_object.position.y = player.path_a.position.y
+					elif path == 2:
+						new_object.position.y = player.path_b.position.y
+					else:
+						new_object.position.y = player.path_c.position.y
+
+					new_object.position.x = player.position.x + 1280
+
+					objects.add_child(new_object)
+
+					print("Rock!")
 
 
-			clouds.global_position.x = 0
-
-			ui.health_bar.bar.color = grad.sample((ship_health / _ship_health) * 100)
+			ui.health_bar.bar.color = gradient_red_orange_green.sample((ship_health / _ship_health) * 100)
 
 		states.in_dialogue:
 			pass

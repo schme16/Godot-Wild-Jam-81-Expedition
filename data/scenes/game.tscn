@@ -1,30 +1,20 @@
-[gd_scene load_steps=15 format=3 uid="uid://3rjxq0102uu2"]
+[gd_scene load_steps=9 format=3 uid="uid://3rjxq0102uu2"]
 
 [ext_resource type="Script" uid="uid://dnmxwgvrqx1ny" path="res://data/scripts/game.gd" id="1_00ru4"]
-[ext_resource type="Script" uid="uid://polvuhomcgmr" path="res://data/scripts/camera.gd" id="1_03a6x"]
-[ext_resource type="Script" uid="uid://cckbhaw8tp6vk" path="res://data/scripts/line2d_by_path2d.gd" id="2_qydo8"]
-[ext_resource type="Texture2D" uid="uid://db4oigsmy8g2b" path="res://data/textures/waves.png" id="2_vs16y"]
 [ext_resource type="Texture2D" uid="uid://8g6tokbyrrct" path="res://data/textures/Cloud1.png" id="3_fbe1l"]
-[ext_resource type="Script" uid="uid://dxf6jd5qm0fd1" path="res://data/scripts/player.gd" id="4_0ltkx"]
 [ext_resource type="Texture2D" uid="uid://ct4djqgvygvyy" path="res://data/textures/BackgroundPlain.png" id="4_i525v"]
 [ext_resource type="Texture2D" uid="uid://dywjpikoq43sd" path="res://data/textures/Cloud2.png" id="4_vqr8c"]
 [ext_resource type="Texture2D" uid="uid://b70t0r88xmkun" path="res://data/textures/Cloud3.png" id="5_nb3oj"]
 [ext_resource type="Texture2D" uid="uid://pa6w082guxtg" path="res://data/textures/BoatDraft.png" id="7_i525v"]
-[ext_resource type="Script" uid="uid://0d6yda6fyli7" path="res://data/scripts/collidable.gd" id="7_yynfw"]
-[ext_resource type="Texture2D" uid="uid://cvknacn6rfd87" path="res://data/textures/Rock1.png" id="9_i525v"]
+[ext_resource type="Script" uid="uid://dxf6jd5qm0fd1" path="res://data/scripts/player.gd" id="7_jxq38"]
 [ext_resource type="PackedScene" uid="uid://bug7nsohlajhg" path="res://data/scenes/ui.tscn" id="9_wyj50"]
 
-[sub_resource type="Curve2D" id="Curve2D_6yv14"]
-_data = {
-"points": PackedVector2Array(0, 0, 0, 0, 343, 431, -1775.62, -430.121, 1775.62, 430.121, 6092, 627, -1888.19, -26.91, 1888.19, 26.91, 10280, 1430, -2547.48, 0, 2547.48, 0, 17574, -1257, -3337.09, 3035.16, 3337.09, -3035.16, 31615, -676, -2685.56, -2359.8, 2685.56, 2359.8, 44457, 883, -3297.36, 993.182, 3297.36, -993.182, 53889, -834, -4624.25, 2765.02, 4624.25, -2765.02, 64931, 1314, 0, 0, 0, 0, 75959, -1734, -3948.89, -3082.84, 3948.89, 3082.84, 98830, 325, -2272.4, 1946.64, 2272.4, -1946.64, 106286, 267, -969.346, -325.764, 969.346, 325.764, 114429, -1536, 0, 0, 0, 0, 117512, 209, -842.218, -246.309, 842.218, 246.309, 119083, 1232, -1251.34, 791.747, 1251.34, -791.747, 124678, 1000, -2449.38, 393.369, 2449.38, -393.369, 130031, -1358, -2400.77, -476.602, 2400.77, 476.602, 139126, -1885, -1499.41, -610.785, 1499.41, 610.785, 146839, 1767, -937.564, 103.291, 937.564, -103.291, 156645, 1314, -1096.47, 762.764, 1096.47, -762.764, 159972, -606, 0, 0, 0, 0, 163090, -664, -836.418, -19.228, 836.418, 19.228, 164951, -1, 0, 0, 0, 0, 191219, -12)
-}
-point_count = 23
-
-[node name="Game" type="Node2D" node_paths=PackedStringArray("player", "camera_follow", "camera")]
+[node name="Game" type="Node2D" node_paths=PackedStringArray("player", "camera", "editor_only_items")]
 script = ExtResource("1_00ru4")
-player = NodePath("Path2D/Player")
-camera_follow = NodePath("Path2D/Camera")
-camera = NodePath("Path2D/Camera/Camera2D")
+player = NodePath("Player")
+camera = NodePath("Camera")
+start_progress = 0.0
+editor_only_items = NodePath("Camera/editor only")
 _player_speed = 250.0
 state = 3
 
@@ -36,810 +26,705 @@ offset_right = 0.000244141
 grow_horizontal = 1
 grow_vertical = 1
 
-[node name="Path2D" type="Path2D" parent="."]
-position = Vector2(64, 483)
-scale = Vector2(0.5, 0.5)
-curve = SubResource("Curve2D_6yv14")
-
-[node name="Camera" type="PathFollow2D" parent="Path2D"]
-position = Vector2(1621.99, 381.335)
-scale = Vector2(2, 2)
-progress = 1280.0
-rotates = false
-cubic_interp = false
-
-[node name="Camera2D" type="Camera2D" parent="Path2D/Camera"]
-position = Vector2(-627.5, -623.515)
+[node name="Camera" type="Camera2D" parent="."]
 anchor_mode = 0
 limit_smoothed = true
 position_smoothing_speed = 1.0
-script = ExtResource("1_03a6x")
 
-[node name="BackgroundPlain" type="Sprite2D" parent="Path2D/Camera/Camera2D"]
+[node name="BackgroundPlain" type="Sprite2D" parent="Camera"]
 scale = Vector2(2, 2)
 texture = ExtResource("4_i525v")
 centered = false
 
-[node name="Clouds" type="Node2D" parent="Path2D/Camera/Camera2D"]
-position = Vector2(-247.494, -50.1525)
+[node name="editor only" type="Node2D" parent="Camera"]
 
-[node name="Cloud1" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="lane 1" type="ColorRect" parent="Camera/editor only"]
+offset_top = 311.0
+offset_right = 200000.0
+offset_bottom = 319.0
+
+[node name="lane 2" type="ColorRect" parent="Camera/editor only"]
+offset_top = 460.0
+offset_right = 200000.0
+offset_bottom = 468.0
+
+[node name="lane 3" type="ColorRect" parent="Camera/editor only"]
+offset_top = 614.0
+offset_right = 200000.0
+offset_bottom = 622.0
+
+[node name="Clouds" type="Node2D" parent="."]
+z_index = 455
+position = Vector2(-24, -53)
+
+[node name="Cloud1" type="Sprite2D" parent="Clouds"]
 position = Vector2(16770, 99)
 texture = ExtResource("3_fbe1l")
 
-[node name="Cloud2" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud2" type="Sprite2D" parent="Clouds"]
 position = Vector2(16905, 145)
 texture = ExtResource("4_vqr8c")
 
-[node name="Cloud3" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud3" type="Sprite2D" parent="Clouds"]
 position = Vector2(18056, 140)
 texture = ExtResource("5_nb3oj")
 
-[node name="Cloud4" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud4" type="Sprite2D" parent="Clouds"]
 position = Vector2(19244, 177)
 texture = ExtResource("3_fbe1l")
 
-[node name="Cloud5" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud5" type="Sprite2D" parent="Clouds"]
 position = Vector2(19856, 99)
 texture = ExtResource("3_fbe1l")
 
-[node name="Cloud6" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud6" type="Sprite2D" parent="Clouds"]
 position = Vector2(20764, 156)
 texture = ExtResource("3_fbe1l")
 
-[node name="Cloud7" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud7" type="Sprite2D" parent="Clouds"]
 position = Vector2(20717, 156)
 texture = ExtResource("5_nb3oj")
 
-[node name="Cloud8" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud8" type="Sprite2D" parent="Clouds"]
 position = Vector2(21952, 130)
 texture = ExtResource("3_fbe1l")
 
-[node name="Cloud9" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud9" type="Sprite2D" parent="Clouds"]
 position = Vector2(23472, 109)
 texture = ExtResource("4_vqr8c")
 
-[node name="Cloud10" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud10" type="Sprite2D" parent="Clouds"]
 position = Vector2(24302, 161)
 texture = ExtResource("5_nb3oj")
 
-[node name="Cloud11" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud11" type="Sprite2D" parent="Clouds"]
 position = Vector2(24229, 171)
 texture = ExtResource("3_fbe1l")
 
-[node name="Cloud12" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud12" type="Sprite2D" parent="Clouds"]
 position = Vector2(25671, 145)
 texture = ExtResource("4_vqr8c")
 
-[node name="Cloud13" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud13" type="Sprite2D" parent="Clouds"]
 position = Vector2(25675, 160)
 texture = ExtResource("5_nb3oj")
 
-[node name="Cloud14" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud14" type="Sprite2D" parent="Clouds"]
 position = Vector2(26485, 151)
 texture = ExtResource("4_vqr8c")
 
-[node name="Cloud15" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud15" type="Sprite2D" parent="Clouds"]
 position = Vector2(26859, 151)
 texture = ExtResource("3_fbe1l")
 
-[node name="Cloud16" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud16" type="Sprite2D" parent="Clouds"]
 position = Vector2(27253, 155)
 texture = ExtResource("4_vqr8c")
 
-[node name="Cloud17" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud17" type="Sprite2D" parent="Clouds"]
 position = Vector2(27763, 158)
 texture = ExtResource("3_fbe1l")
 
-[node name="Cloud18" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud18" type="Sprite2D" parent="Clouds"]
 position = Vector2(28056, 143)
 texture = ExtResource("4_vqr8c")
 
-[node name="Cloud19" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud19" type="Sprite2D" parent="Clouds"]
 position = Vector2(28625, 123)
 texture = ExtResource("5_nb3oj")
 
-[node name="Cloud20" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud20" type="Sprite2D" parent="Clouds"]
 position = Vector2(30090, 123)
 texture = ExtResource("3_fbe1l")
 
-[node name="Cloud21" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud21" type="Sprite2D" parent="Clouds"]
 position = Vector2(355, 146)
 texture = ExtResource("3_fbe1l")
 
-[node name="Cloud22" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud22" type="Sprite2D" parent="Clouds"]
 position = Vector2(609, 202)
 texture = ExtResource("4_vqr8c")
 
-[node name="Cloud23" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud23" type="Sprite2D" parent="Clouds"]
 position = Vector2(1236, 96)
 texture = ExtResource("5_nb3oj")
 
-[node name="Cloud24" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud24" type="Sprite2D" parent="Clouds"]
 position = Vector2(2279, 96)
 texture = ExtResource("3_fbe1l")
 
-[node name="Cloud25" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud25" type="Sprite2D" parent="Clouds"]
 position = Vector2(2957, 229)
 texture = ExtResource("4_vqr8c")
 
-[node name="Cloud26" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud26" type="Sprite2D" parent="Clouds"]
 position = Vector2(3570, 96)
 texture = ExtResource("3_fbe1l")
 
-[node name="Cloud27" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud27" type="Sprite2D" parent="Clouds"]
 position = Vector2(4470, 143)
 texture = ExtResource("5_nb3oj")
 
-[node name="Cloud28" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud28" type="Sprite2D" parent="Clouds"]
 position = Vector2(5375, 143)
 texture = ExtResource("4_vqr8c")
 
-[node name="Cloud29" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud29" type="Sprite2D" parent="Clouds"]
 position = Vector2(5791, 92)
 texture = ExtResource("3_fbe1l")
 
-[node name="Cloud30" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud30" type="Sprite2D" parent="Clouds"]
 position = Vector2(6026, 130)
 texture = ExtResource("4_vqr8c")
 
-[node name="Cloud31" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud31" type="Sprite2D" parent="Clouds"]
 position = Vector2(6661, 100)
 texture = ExtResource("3_fbe1l")
 
-[node name="Cloud32" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud32" type="Sprite2D" parent="Clouds"]
 position = Vector2(6721, 122)
 texture = ExtResource("4_vqr8c")
 
-[node name="Cloud33" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud33" type="Sprite2D" parent="Clouds"]
 position = Vector2(6987, 79)
 texture = ExtResource("3_fbe1l")
 
-[node name="Cloud34" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud34" type="Sprite2D" parent="Clouds"]
 position = Vector2(8037, 152)
 texture = ExtResource("4_vqr8c")
 
-[node name="Cloud35" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud35" type="Sprite2D" parent="Clouds"]
 position = Vector2(9109, 113)
 texture = ExtResource("5_nb3oj")
 
-[node name="Cloud36" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud36" type="Sprite2D" parent="Clouds"]
 position = Vector2(9220, 126)
 texture = ExtResource("4_vqr8c")
 
-[node name="Cloud37" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud37" type="Sprite2D" parent="Clouds"]
 position = Vector2(10764, 160)
 texture = ExtResource("3_fbe1l")
 
-[node name="Cloud38" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud38" type="Sprite2D" parent="Clouds"]
 position = Vector2(11553, 122)
 texture = ExtResource("4_vqr8c")
 
-[node name="Cloud39" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud39" type="Sprite2D" parent="Clouds"]
 position = Vector2(12024, 152)
 texture = ExtResource("3_fbe1l")
 
-[node name="Cloud40" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud40" type="Sprite2D" parent="Clouds"]
 position = Vector2(12993, 130)
 texture = ExtResource("4_vqr8c")
 
-[node name="Cloud41" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud41" type="Sprite2D" parent="Clouds"]
 position = Vector2(13722, 173)
 texture = ExtResource("3_fbe1l")
 
-[node name="Cloud42" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud42" type="Sprite2D" parent="Clouds"]
 position = Vector2(13645, 186)
 texture = ExtResource("4_vqr8c")
 
-[node name="Cloud43" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud43" type="Sprite2D" parent="Clouds"]
 position = Vector2(13795, 177)
 texture = ExtResource("5_nb3oj")
 
-[node name="Cloud44" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud44" type="Sprite2D" parent="Clouds"]
 position = Vector2(14759, 122)
 texture = ExtResource("4_vqr8c")
 
-[node name="Cloud45" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud45" type="Sprite2D" parent="Clouds"]
 position = Vector2(14965, 160)
 texture = ExtResource("3_fbe1l")
 
-[node name="Cloud46" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud46" type="Sprite2D" parent="Clouds"]
 position = Vector2(15295, 122)
 texture = ExtResource("5_nb3oj")
 
-[node name="Cloud47" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud47" type="Sprite2D" parent="Clouds"]
 position = Vector2(16028, 139)
 texture = ExtResource("3_fbe1l")
 
-[node name="Cloud48" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud48" type="Sprite2D" parent="Clouds"]
 position = Vector2(16093, 139)
 texture = ExtResource("4_vqr8c")
 
-[node name="Cloud49" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud49" type="Sprite2D" parent="Clouds"]
 position = Vector2(16054, 127)
 texture = ExtResource("3_fbe1l")
 
-[node name="Cloud50" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud50" type="Sprite2D" parent="Clouds"]
 position = Vector2(46198, 99)
 texture = ExtResource("3_fbe1l")
 
-[node name="Cloud51" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud51" type="Sprite2D" parent="Clouds"]
 position = Vector2(46333, 145)
 texture = ExtResource("4_vqr8c")
 
-[node name="Cloud52" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud52" type="Sprite2D" parent="Clouds"]
 position = Vector2(47484, 140)
 texture = ExtResource("5_nb3oj")
 
-[node name="Cloud53" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud53" type="Sprite2D" parent="Clouds"]
 position = Vector2(48672, 177)
 texture = ExtResource("3_fbe1l")
 
-[node name="Cloud54" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud54" type="Sprite2D" parent="Clouds"]
 position = Vector2(49284, 99)
 texture = ExtResource("3_fbe1l")
 
-[node name="Cloud55" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud55" type="Sprite2D" parent="Clouds"]
 position = Vector2(50192, 156)
 texture = ExtResource("3_fbe1l")
 
-[node name="Cloud56" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud56" type="Sprite2D" parent="Clouds"]
 position = Vector2(50145, 156)
 texture = ExtResource("5_nb3oj")
 
-[node name="Cloud57" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud57" type="Sprite2D" parent="Clouds"]
 position = Vector2(51380, 130)
 texture = ExtResource("3_fbe1l")
 
-[node name="Cloud58" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud58" type="Sprite2D" parent="Clouds"]
 position = Vector2(52900, 109)
 texture = ExtResource("4_vqr8c")
 
-[node name="Cloud59" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud59" type="Sprite2D" parent="Clouds"]
 position = Vector2(53730, 161)
 texture = ExtResource("5_nb3oj")
 
-[node name="Cloud60" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud60" type="Sprite2D" parent="Clouds"]
 position = Vector2(53657, 171)
 texture = ExtResource("3_fbe1l")
 
-[node name="Cloud61" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud61" type="Sprite2D" parent="Clouds"]
 position = Vector2(55099, 145)
 texture = ExtResource("4_vqr8c")
 
-[node name="Cloud62" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud62" type="Sprite2D" parent="Clouds"]
 position = Vector2(55103, 160)
 texture = ExtResource("5_nb3oj")
 
-[node name="Cloud63" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud63" type="Sprite2D" parent="Clouds"]
 position = Vector2(55913, 151)
 texture = ExtResource("4_vqr8c")
 
-[node name="Cloud64" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud64" type="Sprite2D" parent="Clouds"]
 position = Vector2(56287, 151)
 texture = ExtResource("3_fbe1l")
 
-[node name="Cloud65" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud65" type="Sprite2D" parent="Clouds"]
 position = Vector2(56681, 155)
 texture = ExtResource("4_vqr8c")
 
-[node name="Cloud66" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud66" type="Sprite2D" parent="Clouds"]
 position = Vector2(57191, 158)
 texture = ExtResource("3_fbe1l")
 
-[node name="Cloud67" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud67" type="Sprite2D" parent="Clouds"]
 position = Vector2(57484, 143)
 texture = ExtResource("4_vqr8c")
 
-[node name="Cloud68" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud68" type="Sprite2D" parent="Clouds"]
 position = Vector2(58053, 123)
 texture = ExtResource("5_nb3oj")
 
-[node name="Cloud69" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud69" type="Sprite2D" parent="Clouds"]
 position = Vector2(59518, 123)
 texture = ExtResource("3_fbe1l")
 
-[node name="Cloud70" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud70" type="Sprite2D" parent="Clouds"]
 position = Vector2(29783, 146)
 texture = ExtResource("3_fbe1l")
 
-[node name="Cloud71" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud71" type="Sprite2D" parent="Clouds"]
 position = Vector2(30037, 202)
 texture = ExtResource("4_vqr8c")
 
-[node name="Cloud72" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud72" type="Sprite2D" parent="Clouds"]
 position = Vector2(30664, 96)
 texture = ExtResource("5_nb3oj")
 
-[node name="Cloud73" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud73" type="Sprite2D" parent="Clouds"]
 position = Vector2(31707, 96)
 texture = ExtResource("3_fbe1l")
 
-[node name="Cloud74" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud74" type="Sprite2D" parent="Clouds"]
 position = Vector2(32385, 229)
 texture = ExtResource("4_vqr8c")
 
-[node name="Cloud75" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud75" type="Sprite2D" parent="Clouds"]
 position = Vector2(32998, 96)
 texture = ExtResource("3_fbe1l")
 
-[node name="Cloud76" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud76" type="Sprite2D" parent="Clouds"]
 position = Vector2(33898, 143)
 texture = ExtResource("5_nb3oj")
 
-[node name="Cloud77" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud77" type="Sprite2D" parent="Clouds"]
 position = Vector2(34803, 143)
 texture = ExtResource("4_vqr8c")
 
-[node name="Cloud78" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud78" type="Sprite2D" parent="Clouds"]
 position = Vector2(35219, 92)
 texture = ExtResource("3_fbe1l")
 
-[node name="Cloud79" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud79" type="Sprite2D" parent="Clouds"]
 position = Vector2(35454, 130)
 texture = ExtResource("4_vqr8c")
 
-[node name="Cloud80" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud80" type="Sprite2D" parent="Clouds"]
 position = Vector2(36089, 100)
 texture = ExtResource("3_fbe1l")
 
-[node name="Cloud81" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud81" type="Sprite2D" parent="Clouds"]
 position = Vector2(36149, 122)
 texture = ExtResource("4_vqr8c")
 
-[node name="Cloud82" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud82" type="Sprite2D" parent="Clouds"]
 position = Vector2(36415, 79)
 texture = ExtResource("3_fbe1l")
 
-[node name="Cloud83" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud83" type="Sprite2D" parent="Clouds"]
 position = Vector2(37465, 152)
 texture = ExtResource("4_vqr8c")
 
-[node name="Cloud84" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud84" type="Sprite2D" parent="Clouds"]
 position = Vector2(38537, 113)
 texture = ExtResource("5_nb3oj")
 
-[node name="Cloud85" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud85" type="Sprite2D" parent="Clouds"]
 position = Vector2(38648, 126)
 texture = ExtResource("4_vqr8c")
 
-[node name="Cloud86" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud86" type="Sprite2D" parent="Clouds"]
 position = Vector2(40192, 160)
 texture = ExtResource("3_fbe1l")
 
-[node name="Cloud87" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud87" type="Sprite2D" parent="Clouds"]
 position = Vector2(40981, 122)
 texture = ExtResource("4_vqr8c")
 
-[node name="Cloud88" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud88" type="Sprite2D" parent="Clouds"]
 position = Vector2(41452, 152)
 texture = ExtResource("3_fbe1l")
 
-[node name="Cloud89" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud89" type="Sprite2D" parent="Clouds"]
 position = Vector2(42421, 130)
 texture = ExtResource("4_vqr8c")
 
-[node name="Cloud90" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud90" type="Sprite2D" parent="Clouds"]
 position = Vector2(43150, 173)
 texture = ExtResource("3_fbe1l")
 
-[node name="Cloud91" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud91" type="Sprite2D" parent="Clouds"]
 position = Vector2(43073, 186)
 texture = ExtResource("4_vqr8c")
 
-[node name="Cloud92" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud92" type="Sprite2D" parent="Clouds"]
 position = Vector2(43223, 177)
 texture = ExtResource("5_nb3oj")
 
-[node name="Cloud93" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud93" type="Sprite2D" parent="Clouds"]
 position = Vector2(44187, 122)
 texture = ExtResource("4_vqr8c")
 
-[node name="Cloud94" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud94" type="Sprite2D" parent="Clouds"]
 position = Vector2(44393, 160)
 texture = ExtResource("3_fbe1l")
 
-[node name="Cloud95" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud95" type="Sprite2D" parent="Clouds"]
 position = Vector2(44723, 122)
 texture = ExtResource("5_nb3oj")
 
-[node name="Cloud96" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud96" type="Sprite2D" parent="Clouds"]
 position = Vector2(45456, 139)
 texture = ExtResource("3_fbe1l")
 
-[node name="Cloud97" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud97" type="Sprite2D" parent="Clouds"]
 position = Vector2(45521, 139)
 texture = ExtResource("4_vqr8c")
 
-[node name="Cloud98" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud98" type="Sprite2D" parent="Clouds"]
 position = Vector2(45482, 127)
 texture = ExtResource("3_fbe1l")
 
-[node name="Cloud99" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud99" type="Sprite2D" parent="Clouds"]
 position = Vector2(74121, 99)
 texture = ExtResource("3_fbe1l")
 
-[node name="Cloud100" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud100" type="Sprite2D" parent="Clouds"]
 position = Vector2(74256, 145)
 texture = ExtResource("4_vqr8c")
 
-[node name="Cloud101" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud101" type="Sprite2D" parent="Clouds"]
 position = Vector2(75407, 140)
 texture = ExtResource("5_nb3oj")
 
-[node name="Cloud102" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud102" type="Sprite2D" parent="Clouds"]
 position = Vector2(76595, 177)
 texture = ExtResource("3_fbe1l")
 
-[node name="Cloud103" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud103" type="Sprite2D" parent="Clouds"]
 position = Vector2(77207, 99)
 texture = ExtResource("3_fbe1l")
 
-[node name="Cloud104" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud104" type="Sprite2D" parent="Clouds"]
 position = Vector2(78115, 156)
 texture = ExtResource("3_fbe1l")
 
-[node name="Cloud105" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud105" type="Sprite2D" parent="Clouds"]
 position = Vector2(78068, 156)
 texture = ExtResource("5_nb3oj")
 
-[node name="Cloud106" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud106" type="Sprite2D" parent="Clouds"]
 position = Vector2(79303, 130)
 texture = ExtResource("3_fbe1l")
 
-[node name="Cloud107" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud107" type="Sprite2D" parent="Clouds"]
 position = Vector2(80823, 109)
 texture = ExtResource("4_vqr8c")
 
-[node name="Cloud108" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud108" type="Sprite2D" parent="Clouds"]
 position = Vector2(81653, 161)
 texture = ExtResource("5_nb3oj")
 
-[node name="Cloud109" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud109" type="Sprite2D" parent="Clouds"]
 position = Vector2(81580, 171)
 texture = ExtResource("3_fbe1l")
 
-[node name="Cloud110" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud110" type="Sprite2D" parent="Clouds"]
 position = Vector2(83022, 145)
 texture = ExtResource("4_vqr8c")
 
-[node name="Cloud111" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud111" type="Sprite2D" parent="Clouds"]
 position = Vector2(83026, 160)
 texture = ExtResource("5_nb3oj")
 
-[node name="Cloud112" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud112" type="Sprite2D" parent="Clouds"]
 position = Vector2(83836, 151)
 texture = ExtResource("4_vqr8c")
 
-[node name="Cloud113" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud113" type="Sprite2D" parent="Clouds"]
 position = Vector2(84210, 151)
 texture = ExtResource("3_fbe1l")
 
-[node name="Cloud114" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud114" type="Sprite2D" parent="Clouds"]
 position = Vector2(84604, 155)
 texture = ExtResource("4_vqr8c")
 
-[node name="Cloud115" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud115" type="Sprite2D" parent="Clouds"]
 position = Vector2(85114, 158)
 texture = ExtResource("3_fbe1l")
 
-[node name="Cloud116" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud116" type="Sprite2D" parent="Clouds"]
 position = Vector2(85407, 143)
 texture = ExtResource("4_vqr8c")
 
-[node name="Cloud117" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud117" type="Sprite2D" parent="Clouds"]
 position = Vector2(85976, 123)
 texture = ExtResource("5_nb3oj")
 
-[node name="Cloud118" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud118" type="Sprite2D" parent="Clouds"]
 position = Vector2(87441, 123)
 texture = ExtResource("3_fbe1l")
 
-[node name="Cloud119" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud119" type="Sprite2D" parent="Clouds"]
 position = Vector2(57706, 146)
 texture = ExtResource("3_fbe1l")
 
-[node name="Cloud120" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud120" type="Sprite2D" parent="Clouds"]
 position = Vector2(57960, 202)
 texture = ExtResource("4_vqr8c")
 
-[node name="Cloud121" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud121" type="Sprite2D" parent="Clouds"]
 position = Vector2(58587, 96)
 texture = ExtResource("5_nb3oj")
 
-[node name="Cloud122" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud122" type="Sprite2D" parent="Clouds"]
 position = Vector2(59630, 96)
 texture = ExtResource("3_fbe1l")
 
-[node name="Cloud123" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud123" type="Sprite2D" parent="Clouds"]
 position = Vector2(60308, 229)
 texture = ExtResource("4_vqr8c")
 
-[node name="Cloud124" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud124" type="Sprite2D" parent="Clouds"]
 position = Vector2(60921, 96)
 texture = ExtResource("3_fbe1l")
 
-[node name="Cloud125" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud125" type="Sprite2D" parent="Clouds"]
 position = Vector2(61821, 143)
 texture = ExtResource("5_nb3oj")
 
-[node name="Cloud126" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud126" type="Sprite2D" parent="Clouds"]
 position = Vector2(62726, 143)
 texture = ExtResource("4_vqr8c")
 
-[node name="Cloud127" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud127" type="Sprite2D" parent="Clouds"]
 position = Vector2(63142, 92)
 texture = ExtResource("3_fbe1l")
 
-[node name="Cloud128" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud128" type="Sprite2D" parent="Clouds"]
 position = Vector2(63377, 130)
 texture = ExtResource("4_vqr8c")
 
-[node name="Cloud129" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud129" type="Sprite2D" parent="Clouds"]
 position = Vector2(64012, 100)
 texture = ExtResource("3_fbe1l")
 
-[node name="Cloud130" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud130" type="Sprite2D" parent="Clouds"]
 position = Vector2(64072, 122)
 texture = ExtResource("4_vqr8c")
 
-[node name="Cloud131" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud131" type="Sprite2D" parent="Clouds"]
 position = Vector2(64338, 79)
 texture = ExtResource("3_fbe1l")
 
-[node name="Cloud132" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud132" type="Sprite2D" parent="Clouds"]
 position = Vector2(65388, 152)
 texture = ExtResource("4_vqr8c")
 
-[node name="Cloud133" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud133" type="Sprite2D" parent="Clouds"]
 position = Vector2(66460, 113)
 texture = ExtResource("5_nb3oj")
 
-[node name="Cloud134" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud134" type="Sprite2D" parent="Clouds"]
 position = Vector2(66571, 126)
 texture = ExtResource("4_vqr8c")
 
-[node name="Cloud135" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud135" type="Sprite2D" parent="Clouds"]
 position = Vector2(68115, 160)
 texture = ExtResource("3_fbe1l")
 
-[node name="Cloud136" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud136" type="Sprite2D" parent="Clouds"]
 position = Vector2(68904, 122)
 texture = ExtResource("4_vqr8c")
 
-[node name="Cloud137" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud137" type="Sprite2D" parent="Clouds"]
 position = Vector2(69375, 152)
 texture = ExtResource("3_fbe1l")
 
-[node name="Cloud138" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud138" type="Sprite2D" parent="Clouds"]
 position = Vector2(70344, 130)
 texture = ExtResource("4_vqr8c")
 
-[node name="Cloud139" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud139" type="Sprite2D" parent="Clouds"]
 position = Vector2(71073, 173)
 texture = ExtResource("3_fbe1l")
 
-[node name="Cloud140" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud140" type="Sprite2D" parent="Clouds"]
 position = Vector2(70996, 186)
 texture = ExtResource("4_vqr8c")
 
-[node name="Cloud141" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud141" type="Sprite2D" parent="Clouds"]
 position = Vector2(71146, 177)
 texture = ExtResource("5_nb3oj")
 
-[node name="Cloud142" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud142" type="Sprite2D" parent="Clouds"]
 position = Vector2(72110, 122)
 texture = ExtResource("4_vqr8c")
 
-[node name="Cloud143" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud143" type="Sprite2D" parent="Clouds"]
 position = Vector2(72316, 160)
 texture = ExtResource("3_fbe1l")
 
-[node name="Cloud144" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud144" type="Sprite2D" parent="Clouds"]
 position = Vector2(72646, 122)
 texture = ExtResource("5_nb3oj")
 
-[node name="Cloud145" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud145" type="Sprite2D" parent="Clouds"]
 position = Vector2(73379, 139)
 texture = ExtResource("3_fbe1l")
 
-[node name="Cloud146" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud146" type="Sprite2D" parent="Clouds"]
 position = Vector2(73444, 139)
 texture = ExtResource("4_vqr8c")
 
-[node name="Cloud147" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud147" type="Sprite2D" parent="Clouds"]
 position = Vector2(73405, 127)
 texture = ExtResource("3_fbe1l")
 
-[node name="Cloud148" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud148" type="Sprite2D" parent="Clouds"]
 position = Vector2(88464, 109)
 texture = ExtResource("5_nb3oj")
 
-[node name="Cloud149" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud149" type="Sprite2D" parent="Clouds"]
 position = Vector2(88920, 142)
 texture = ExtResource("3_fbe1l")
 
-[node name="Cloud150" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud150" type="Sprite2D" parent="Clouds"]
 position = Vector2(88997, 126)
 texture = ExtResource("3_fbe1l")
 
-[node name="Cloud151" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud151" type="Sprite2D" parent="Clouds"]
 position = Vector2(88950, 120)
 texture = ExtResource("4_vqr8c")
 
-[node name="Cloud152" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud152" type="Sprite2D" parent="Clouds"]
 position = Vector2(89957, 96)
 texture = ExtResource("5_nb3oj")
 
-[node name="Cloud153" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud153" type="Sprite2D" parent="Clouds"]
 position = Vector2(89878, 126)
 texture = ExtResource("4_vqr8c")
 
-[node name="Cloud154" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud154" type="Sprite2D" parent="Clouds"]
 position = Vector2(90625, 99)
 texture = ExtResource("3_fbe1l")
 
-[node name="Cloud155" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud155" type="Sprite2D" parent="Clouds"]
 position = Vector2(92128, 139)
 texture = ExtResource("3_fbe1l")
 
-[node name="Cloud156" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud156" type="Sprite2D" parent="Clouds"]
 position = Vector2(92401, 129)
 texture = ExtResource("4_vqr8c")
 
-[node name="Cloud157" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud157" type="Sprite2D" parent="Clouds"]
 position = Vector2(92189, 150)
 texture = ExtResource("4_vqr8c")
 
-[node name="Cloud158" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud158" type="Sprite2D" parent="Clouds"]
 position = Vector2(93157, 94)
 texture = ExtResource("5_nb3oj")
 
-[node name="Cloud159" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud159" type="Sprite2D" parent="Clouds"]
 position = Vector2(94053, 111)
 texture = ExtResource("3_fbe1l")
 
-[node name="Cloud160" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud160" type="Sprite2D" parent="Clouds"]
 position = Vector2(94236, 105)
 texture = ExtResource("4_vqr8c")
 
-[node name="Cloud161" type="Sprite2D" parent="Path2D/Camera/Camera2D/Clouds"]
+[node name="Cloud161" type="Sprite2D" parent="Clouds"]
 position = Vector2(95103, 88)
 texture = ExtResource("3_fbe1l")
 
-[node name="Path A" type="Line2D" parent="Path2D" node_paths=PackedStringArray("path_2d")]
-visible = false
-position = Vector2(-67, -691.963)
-points = PackedVector2Array(343, 431, 842.594, 407.051, 1342.44, 389.093, 1842.45, 376.374, 2342.57, 369.055, 2842.74, 367.635, 3342.88, 372.916, 3842.87, 386.079, 4342.51, 408.857, 4841.44, 443.905, 5338.91, 495.553, 5833.17, 571.689, 6320.57, 683.58, 6804.23, 811.029, 7285.84, 946.046, 7767.27, 1081.66, 8251.85, 1205.43, 8742.11, 1304.17, 9237.57, 1372.05, 9736.11, 1411.73, 10235.9, 1429.31, 10733.6, 1389.81, 11218.1, 1266.9, 11687.3, 1094.02, 12144.4, 891.095, 12593.1, 670.174, 13036.8, 439.224, 13478.2, 204.067, 13919.9, -30.5518, 14364.2, -260.316, 14813.1, -480.864, 15268.6, -687.39, 15732.5, -874.216, 16206.3, -1034.32, 16690.6, -1158.86, 17184.4, -1236.79, 17683.8, -1254.92, 18181.6, -1208.22, 18675, -1126.23, 19164.9, -1025.69, 19652.6, -914.541, 20138.8, -797.298, 20624.3, -676.883, 21109.5, -555.379, 21594.8, -434.39, 22080.6, -315.245, 22567.1, -199.118, 23054.6, -87.0971, 23543.2, 19.7514, 24033.1, 120.345, 24524.5, 213.544, 25017.5, 298.112, 25512.1, 372.681, 26008.3, 435.705, 26505.9, 485.401, 27004.9, 519.699, 27504.8, 536.168, 28004.9, 531.924, 28504.2, 503.556, 29001.1, 447.032, 29493.1, 357.686, 29976.6, 230.296, 30446.5, 59.4249, 30895.8, -159.853, 31315.8, -430.752, 31699.6, -751.174, 32093.3, -1059.36, 32515.6, -1326.96, 32961.4, -1553.42, 33425.5, -1739.58, 33903.2, -1887.31, 34390.6, -1999.1, 34884.4, -2077.68, 35382.2, -2125.79, 35881.9, -2146.04, 36382, -2140.77, 36881.4, -2112.11, 37379, -2061.87, 37874.1, -1991.63, 38366.3, -1902.73, 38855, -1796.29, 39339.8, -1673.2, 39820.2, -1534.2, 40295.9, -1379.82, 40766.5, -1210.41, 41231.5, -1026.17, 41690.3, -827.088, 42142.3, -612.934, 42586.6, -383.246, 43022.1, -137.239, 43447.1, 126.25, 43859.7, 408.944, 44256.5, 713.321, 44639.9, 1034.48, 45054.1, 1314.07, 45504.7, 1530.06, 45983.3, 1673.71, 46478.1, 1743.53, 46978, 1745.61, 47474.9, 1690.52, 47964.7, 1589.79, 48445.9, 1453.78, 48918.8, 1291.07, 49384.5, 1108.55, 49844.3, 911.771, 50299.9, 705.318, 50752.8, 493.087, 51204.6, 278.595, 51656.9, 65.1354, 52111.3, -143.978, 52569.2, -345.244, 53032, -534.801, 53501.1, -708.206, 53977.9, -859.125, 54470.6, -940.899, 54970.1, -932.316, 55462.2, -845.333, 55939.9, -697.943, 56402.2, -507.276, 56851.2, -287.029, 57290.3, -47.5567, 57723, 203.215, 58152.9, 458.891, 58583.1, 713.98, 59016.7, 963.349, 59456.3, 1201.85, 59904.4, 1423.98, 60362.9, 1623.65, 60833.1, 1794.09, 61314.8, 1927.92, 61806.7, 2017.63, 62305.1, 2056.63, 62804.7, 2040.42, 63299.3, 1967.76, 63782.9, 1840.85, 64250.7, 1664.66, 64700.2, 1445.56, 65133.2, 1195.33, 65570.6, 952.807, 66015.4, 724.201, 66466.9, 508.818, 66924, 305.978, 67386.3, 115.048, 67853.1, -64.565, 68323.9, -233.429, 68798.3, -392.031, 69275.8, -540.843, 69756.1, -680.297, 70239, -810.771, 70724.1, -932.608, 71211.2, -1046.11, 71700.1, -1151.53, 72190.7, -1249.1, 72682.7, -1338.97, 73176.1, -1421.27, 73670.6, -1496.03, 74166.3, -1563.2, 74662.9, -1622.57, 75160.5, -1673.67, 75658.9, -1715.3, 76158.1, -1744.05, 76657.8, -1766.8, 77157.7, -1787.19, 77657.6, -1805.61, 78157.6, -1822.23, 78657.5, -1837.14, 79157.5, -1850.39, 79657.5, -1862.01, 80157.6, -1872, 80657.7, -1880.35, 81157.9, -1887.06, 81658, -1892.08, 82158.2, -1895.4, 82658.4, -1896.96, 83158.6, -1896.74, 83658.7, -1894.66, 84158.9, -1890.68, 84659.1, -1884.72, 85159.2, -1876.71, 85659.2, -1866.57, 86159.3, -1854.2, 86659.2, -1839.5, 87159.1, -1822.36, 87658.9, -1802.64, 88158.6, -1780.21, 88658.1, -1754.91, 89157.5, -1726.57, 89656.6, -1694.97, 90155.6, -1659.9, 90654.3, -1621.12, 91152.6, -1578.32, 91650.5, -1531.18, 92148, -1479.32, 92644.9, -1422.29, 93141.1, -1359.59, 93636.5, -1290.58, 94130.9, -1214.55, 94624, -1130.61, 95115.4, -1037.67, 95604.8, -934.359, 96091.4, -818.962, 96574.5, -689.229, 97052.5, -542.167, 97523.4, -373.674, 97983.6, -177.93, 98426.7, 53.5813, 98840.8, 333.443, 99238.9, 636.184, 99645.3, 927.855, 100061, 1205.62, 100488, 1465.59, 100929, 1702.3, 101385, 1907.91, 101857, 2071.35, 102346, 2177.69, 102844, 2209.92, 103341, 2155.43, 103820, 2015.06, 104273, 1804.05, 104700, 1543, 105105, 1249.94, 105496, 937.9, 105879, 616.014, 106258, 290.641, 106653, -16.7935, 107074, -285.4, 107516, -519.814, 107973, -724.376, 108440, -902.793, 108915, -1058.1, 109397, -1192.76, 109883, -1308.69, 110374, -1407.35, 110867, -1489.8, 111363, -1556.7, 111860, -1608.25, 112359, -1644.13, 112859, -1663.11, 113359, -1662.4, 113858, -1635.24, 114352, -1558.69, 114818, -1377.7, 115265, -1154.78, 115704, -913.588, 116135, -661.23, 116563, -400.877, 116986, -134.256, 117405, 138.107, 117783, 463.981, 118176, 772.511, 118602, 1034.08, 119063, 1226.06, 119552, 1331.58, 120047, 1400.77, 120545, 1450.42, 121044, 1484.13, 121543, 1502.51, 122044, 1504.65, 122544, 1488.29, 123042, 1449.51, 123538, 1381.66, 124026, 1273.01, 124495, 1100.87, 124923, 843.698, 125345, 574.174, 125769, 309.304, 126199, 53.7812, 126636, -188.831, 127082, -415.672, 127536, -624.35, 128000, -812.889, 128471, -979.744, 128950, -1123.78, 129436, -1244.19, 129926, -1340.62, 130420, -1419.85, 130914, -1496.18, 131409, -1569.72, 131904, -1640.01, 132400, -1706.78, 132896, -1769.52, 133393, -1827.89, 133890, -1881.36, 134388, -1929.38, 134886, -1971.32, 135385, -2006.36, 135885, -2033.54, 136385, -2051.66, 136885, -2059.16, 137385, -2054, 137885, -2033.47, 138383, -1993.72, 138879, -1929.19, 139370, -1830.81, 139851, -1694.4, 140323, -1530.6, 140788, -1346.95, 141247, -1148.34, 141701, -938.152, 142151, -718.827, 142597, -492.217, 143040, -259.838, 143480, -22.9664, 143919, 217.241, 144356, 459.664, 144793, 703.049, 145231, 945.929, 145669, 1186.3, 146111, 1420.93, 146559, 1643.37, 147023, 1827, 147516, 1913.08, 148014, 1952.36, 148514, 1967.41, 149014, 1967.06, 149515, 1955.81, 150014, 1936.34, 150514, 1910.33, 151013, 1879, 151512, 1843.17, 152010, 1803.5, 152509, 1760.49, 153007, 1714.49, 153505, 1665.89, 154002, 1614.88, 154499, 1561.7, 154997, 1506.55, 155493, 1449.65, 155990, 1391.25, 156487, 1332.19, 156978, 1243.62, 157443, 1060.44, 157884, 825.492, 158309, 562.068, 158724, 282.214, 159132, -6.50844, 159538, -298.511, 159946, -588.061, 160389, -816.617, 160875, -930.911, 161374, -960.596, 161873, -929.272, 162367, -851.854, 162854, -735.999, 163309, -537.648, 163758, -316.81, 164225, -138.045, 164711, -21.9538, 165210, 1.30883, 165710, 2.98399, 166210, 3.8979, 166711, 4.48466, 167211, 4.87663, 167711, 5.13537, 168211, 5.2954, 168711, 5.37852, 169211, 5.39946, 169712, 5.36873, 170212, 5.29414, 170712, 5.18172, 171212, 5.03621, 171712, 4.86137, 172212, 4.66033, 172713, 4.4357, 173213, 4.18962, 173713, 3.92394, 174213, 3.64027, 174713, 3.33995, 175213, 3.0242, 175714, 2.69405, 176214, 2.35045, 176714, 1.99421, 177214, 1.62607, 177714, 1.24669, 178215, 0.856661, 178715, 0.456515, 179215, 0.0467261, 179715, -0.372254, 180215, -0.800046, 180715, -1.23628, 181216, -1.68063, 181716, -2.13279, 182216, -2.59251, 182716, -3.05954, 183216, -3.53362, 183716, -4.0146, 184217, -4.50228, 184717, -4.99651, 185217, -5.49715, 185717, -6.00408, 186217, -6.51722, 186717, -7.03649, 187218, -7.56186, 187718, -8.09332, 188218, -8.63086, 188718, -9.17463, 189218, -9.72472, 189718, -10.2815, 190219, -10.8453, 190719, -11.4172, 191219, -12)
-width = 100.0
-default_color = Color(0.176178, 0.623953, 0.975688, 1)
-joint_mode = 2
-begin_cap_mode = 2
-end_cap_mode = 2
-antialiased = true
-script = ExtResource("2_qydo8")
-path_2d = NodePath("..")
-point_precision = 500
-
-[node name="Waves A" type="Line2D" parent="Path2D" node_paths=PackedStringArray("path_2d")]
-visible = false
-texture_repeat = 2
-position = Vector2(-19, -511.963)
-points = PackedVector2Array(343, 431, 842.594, 407.051, 1342.44, 389.093, 1842.45, 376.374, 2342.57, 369.055, 2842.74, 367.635, 3342.88, 372.916, 3842.87, 386.079, 4342.51, 408.857, 4841.44, 443.905, 5338.91, 495.553, 5833.17, 571.689, 6320.57, 683.58, 6804.23, 811.029, 7285.84, 946.046, 7767.27, 1081.66, 8251.85, 1205.43, 8742.11, 1304.17, 9237.57, 1372.05, 9736.11, 1411.73, 10235.9, 1429.31, 10733.6, 1389.81, 11218.1, 1266.9, 11687.3, 1094.02, 12144.4, 891.095, 12593.1, 670.174, 13036.8, 439.224, 13478.2, 204.067, 13919.9, -30.5518, 14364.2, -260.316, 14813.1, -480.864, 15268.6, -687.39, 15732.5, -874.216, 16206.3, -1034.32, 16690.6, -1158.86, 17184.4, -1236.79, 17683.8, -1254.92, 18181.6, -1208.22, 18675, -1126.23, 19164.9, -1025.69, 19652.6, -914.541, 20138.8, -797.298, 20624.3, -676.883, 21109.5, -555.379, 21594.8, -434.39, 22080.6, -315.245, 22567.1, -199.118, 23054.6, -87.0971, 23543.2, 19.7514, 24033.1, 120.345, 24524.5, 213.544, 25017.5, 298.112, 25512.1, 372.681, 26008.3, 435.705, 26505.9, 485.401, 27004.9, 519.699, 27504.8, 536.168, 28004.9, 531.924, 28504.2, 503.556, 29001.1, 447.032, 29493.1, 357.686, 29976.6, 230.296, 30446.5, 59.4249, 30895.8, -159.853, 31315.8, -430.752, 31699.6, -751.174, 32093.3, -1059.36, 32515.6, -1326.96, 32961.4, -1553.42, 33425.5, -1739.58, 33903.2, -1887.31, 34390.6, -1999.1, 34884.4, -2077.68, 35382.2, -2125.79, 35881.9, -2146.04, 36382, -2140.77, 36881.4, -2112.11, 37379, -2061.87, 37874.1, -1991.63, 38366.3, -1902.73, 38855, -1796.29, 39339.8, -1673.2, 39820.2, -1534.2, 40295.9, -1379.82, 40766.5, -1210.41, 41231.5, -1026.17, 41690.3, -827.088, 42142.3, -612.934, 42586.6, -383.246, 43022.1, -137.239, 43447.1, 126.25, 43859.7, 408.944, 44256.5, 713.321, 44639.9, 1034.48, 45054.1, 1314.07, 45504.7, 1530.06, 45983.3, 1673.71, 46478.1, 1743.53, 46978, 1745.61, 47474.9, 1690.52, 47964.7, 1589.79, 48445.9, 1453.78, 48918.8, 1291.07, 49384.5, 1108.55, 49844.3, 911.771, 50299.9, 705.318, 50752.8, 493.087, 51204.6, 278.595, 51656.9, 65.1354, 52111.3, -143.978, 52569.2, -345.244, 53032, -534.801, 53501.1, -708.206, 53977.9, -859.125, 54470.6, -940.899, 54970.1, -932.316, 55462.2, -845.333, 55939.9, -697.943, 56402.2, -507.276, 56851.2, -287.029, 57290.3, -47.5567, 57723, 203.215, 58152.9, 458.891, 58583.1, 713.98, 59016.7, 963.349, 59456.3, 1201.85, 59904.4, 1423.98, 60362.9, 1623.65, 60833.1, 1794.09, 61314.8, 1927.92, 61806.7, 2017.63, 62305.1, 2056.63, 62804.7, 2040.42, 63299.3, 1967.76, 63782.9, 1840.85, 64250.7, 1664.66, 64700.2, 1445.56, 65133.2, 1195.33, 65570.6, 952.807, 66015.4, 724.201, 66466.9, 508.818, 66924, 305.978, 67386.3, 115.048, 67853.1, -64.565, 68323.9, -233.429, 68798.3, -392.031, 69275.8, -540.843, 69756.1, -680.297, 70239, -810.771, 70724.1, -932.608, 71211.2, -1046.11, 71700.1, -1151.53, 72190.7, -1249.1, 72682.7, -1338.97, 73176.1, -1421.27, 73670.6, -1496.03, 74166.3, -1563.2, 74662.9, -1622.57, 75160.5, -1673.67, 75658.9, -1715.3, 76158.1, -1744.05, 76657.8, -1766.8, 77157.7, -1787.19, 77657.6, -1805.61, 78157.6, -1822.23, 78657.5, -1837.14, 79157.5, -1850.39, 79657.5, -1862.01, 80157.6, -1872, 80657.7, -1880.35, 81157.9, -1887.06, 81658, -1892.08, 82158.2, -1895.4, 82658.4, -1896.96, 83158.6, -1896.74, 83658.7, -1894.66, 84158.9, -1890.68, 84659.1, -1884.72, 85159.2, -1876.71, 85659.2, -1866.57, 86159.3, -1854.2, 86659.2, -1839.5, 87159.1, -1822.36, 87658.9, -1802.64, 88158.6, -1780.21, 88658.1, -1754.91, 89157.5, -1726.57, 89656.6, -1694.97, 90155.6, -1659.9, 90654.3, -1621.12, 91152.6, -1578.32, 91650.5, -1531.18, 92148, -1479.32, 92644.9, -1422.29, 93141.1, -1359.59, 93636.5, -1290.58, 94130.9, -1214.55, 94624, -1130.61, 95115.4, -1037.67, 95604.8, -934.359, 96091.4, -818.962, 96574.5, -689.229, 97052.5, -542.167, 97523.4, -373.674, 97983.6, -177.93, 98426.7, 53.5813, 98840.8, 333.443, 99238.9, 636.184, 99645.3, 927.855, 100061, 1205.62, 100488, 1465.59, 100929, 1702.3, 101385, 1907.91, 101857, 2071.35, 102346, 2177.69, 102844, 2209.92, 103341, 2155.43, 103820, 2015.06, 104273, 1804.05, 104700, 1543, 105105, 1249.94, 105496, 937.9, 105879, 616.014, 106258, 290.641, 106653, -16.7935, 107074, -285.4, 107516, -519.814, 107973, -724.376, 108440, -902.793, 108915, -1058.1, 109397, -1192.76, 109883, -1308.69, 110374, -1407.35, 110867, -1489.8, 111363, -1556.7, 111860, -1608.25, 112359, -1644.13, 112859, -1663.11, 113359, -1662.4, 113858, -1635.24, 114352, -1558.69, 114818, -1377.7, 115265, -1154.78, 115704, -913.588, 116135, -661.23, 116563, -400.877, 116986, -134.256, 117405, 138.107, 117783, 463.981, 118176, 772.511, 118602, 1034.08, 119063, 1226.06, 119552, 1331.58, 120047, 1400.77, 120545, 1450.42, 121044, 1484.13, 121543, 1502.51, 122044, 1504.65, 122544, 1488.29, 123042, 1449.51, 123538, 1381.66, 124026, 1273.01, 124495, 1100.87, 124923, 843.698, 125345, 574.174, 125769, 309.304, 126199, 53.7812, 126636, -188.831, 127082, -415.672, 127536, -624.35, 128000, -812.889, 128471, -979.744, 128950, -1123.78, 129436, -1244.19, 129926, -1340.62, 130420, -1419.85, 130914, -1496.18, 131409, -1569.72, 131904, -1640.01, 132400, -1706.78, 132896, -1769.52, 133393, -1827.89, 133890, -1881.36, 134388, -1929.38, 134886, -1971.32, 135385, -2006.36, 135885, -2033.54, 136385, -2051.66, 136885, -2059.16, 137385, -2054, 137885, -2033.47, 138383, -1993.72, 138879, -1929.19, 139370, -1830.81, 139851, -1694.4, 140323, -1530.6, 140788, -1346.95, 141247, -1148.34, 141701, -938.152, 142151, -718.827, 142597, -492.217, 143040, -259.838, 143480, -22.9664, 143919, 217.241, 144356, 459.664, 144793, 703.049, 145231, 945.929, 145669, 1186.3, 146111, 1420.93, 146559, 1643.37, 147023, 1827, 147516, 1913.08, 148014, 1952.36, 148514, 1967.41, 149014, 1967.06, 149515, 1955.81, 150014, 1936.34, 150514, 1910.33, 151013, 1879, 151512, 1843.17, 152010, 1803.5, 152509, 1760.49, 153007, 1714.49, 153505, 1665.89, 154002, 1614.88, 154499, 1561.7, 154997, 1506.55, 155493, 1449.65, 155990, 1391.25, 156487, 1332.19, 156978, 1243.62, 157443, 1060.44, 157884, 825.492, 158309, 562.068, 158724, 282.214, 159132, -6.50844, 159538, -298.511, 159946, -588.061, 160389, -816.617, 160875, -930.911, 161374, -960.596, 161873, -929.272, 162367, -851.854, 162854, -735.999, 163309, -537.648, 163758, -316.81, 164225, -138.045, 164711, -21.9538, 165210, 1.30883, 165710, 2.98399, 166210, 3.8979, 166711, 4.48466, 167211, 4.87663, 167711, 5.13537, 168211, 5.2954, 168711, 5.37852, 169211, 5.39946, 169712, 5.36873, 170212, 5.29414, 170712, 5.18172, 171212, 5.03621, 171712, 4.86137, 172212, 4.66033, 172713, 4.4357, 173213, 4.18962, 173713, 3.92394, 174213, 3.64027, 174713, 3.33995, 175213, 3.0242, 175714, 2.69405, 176214, 2.35045, 176714, 1.99421, 177214, 1.62607, 177714, 1.24669, 178215, 0.856661, 178715, 0.456515, 179215, 0.0467261, 179715, -0.372254, 180215, -0.800046, 180715, -1.23628, 181216, -1.68063, 181716, -2.13279, 182216, -2.59251, 182716, -3.05954, 183216, -3.53362, 183716, -4.0146, 184217, -4.50228, 184717, -4.99651, 185217, -5.49715, 185717, -6.00408, 186217, -6.51722, 186717, -7.03649, 187218, -7.56186, 187718, -8.09332, 188218, -8.63086, 188718, -9.17463, 189218, -9.72472, 189718, -10.2815, 190219, -10.8453, 190719, -11.4172, 191219, -12)
-width = 150.0
-default_color = Color(0, 0.436348, 0.813932, 1)
-texture = ExtResource("2_vs16y")
-texture_mode = 1
-joint_mode = 2
-begin_cap_mode = 2
-end_cap_mode = 2
-antialiased = true
-script = ExtResource("2_qydo8")
-path_2d = NodePath("..")
-point_precision = 500
-
-[node name="Path B" type="Line2D" parent="Path2D" node_paths=PackedStringArray("path_2d")]
-visible = false
-position = Vector2(-66, -346)
-points = PackedVector2Array(343, 431, 842.594, 407.051, 1342.44, 389.093, 1842.45, 376.374, 2342.57, 369.055, 2842.74, 367.635, 3342.88, 372.916, 3842.87, 386.079, 4342.51, 408.857, 4841.44, 443.905, 5338.91, 495.553, 5833.17, 571.689, 6320.57, 683.58, 6804.23, 811.029, 7285.84, 946.046, 7767.27, 1081.66, 8251.85, 1205.43, 8742.11, 1304.17, 9237.57, 1372.05, 9736.11, 1411.73, 10235.9, 1429.31, 10733.6, 1389.81, 11218.1, 1266.9, 11687.3, 1094.02, 12144.4, 891.095, 12593.1, 670.174, 13036.8, 439.224, 13478.2, 204.067, 13919.9, -30.5518, 14364.2, -260.316, 14813.1, -480.864, 15268.6, -687.39, 15732.5, -874.216, 16206.3, -1034.32, 16690.6, -1158.86, 17184.4, -1236.79, 17683.8, -1254.92, 18181.6, -1208.22, 18675, -1126.23, 19164.9, -1025.69, 19652.6, -914.541, 20138.8, -797.298, 20624.3, -676.883, 21109.5, -555.379, 21594.8, -434.39, 22080.6, -315.245, 22567.1, -199.118, 23054.6, -87.0971, 23543.2, 19.7514, 24033.1, 120.345, 24524.5, 213.544, 25017.5, 298.112, 25512.1, 372.681, 26008.3, 435.705, 26505.9, 485.401, 27004.9, 519.699, 27504.8, 536.168, 28004.9, 531.924, 28504.2, 503.556, 29001.1, 447.032, 29493.1, 357.686, 29976.6, 230.296, 30446.5, 59.4249, 30895.8, -159.853, 31315.8, -430.752, 31699.6, -751.174, 32093.3, -1059.36, 32515.6, -1326.96, 32961.4, -1553.42, 33425.5, -1739.58, 33903.2, -1887.31, 34390.6, -1999.1, 34884.4, -2077.68, 35382.2, -2125.79, 35881.9, -2146.04, 36382, -2140.77, 36881.4, -2112.11, 37379, -2061.87, 37874.1, -1991.63, 38366.3, -1902.73, 38855, -1796.29, 39339.8, -1673.2, 39820.2, -1534.2, 40295.9, -1379.82, 40766.5, -1210.41, 41231.5, -1026.17, 41690.3, -827.088, 42142.3, -612.934, 42586.6, -383.246, 43022.1, -137.239, 43447.1, 126.25, 43859.7, 408.944, 44256.5, 713.321, 44639.9, 1034.48, 45054.1, 1314.07, 45504.7, 1530.06, 45983.3, 1673.71, 46478.1, 1743.53, 46978, 1745.61, 47474.9, 1690.52, 47964.7, 1589.79, 48445.9, 1453.78, 48918.8, 1291.07, 49384.5, 1108.55, 49844.3, 911.771, 50299.9, 705.318, 50752.8, 493.087, 51204.6, 278.595, 51656.9, 65.1354, 52111.3, -143.978, 52569.2, -345.244, 53032, -534.801, 53501.1, -708.206, 53977.9, -859.125, 54470.6, -940.899, 54970.1, -932.316, 55462.2, -845.333, 55939.9, -697.943, 56402.2, -507.276, 56851.2, -287.029, 57290.3, -47.5567, 57723, 203.215, 58152.9, 458.891, 58583.1, 713.98, 59016.7, 963.349, 59456.3, 1201.85, 59904.4, 1423.98, 60362.9, 1623.65, 60833.1, 1794.09, 61314.8, 1927.92, 61806.7, 2017.63, 62305.1, 2056.63, 62804.7, 2040.42, 63299.3, 1967.76, 63782.9, 1840.85, 64250.7, 1664.66, 64700.2, 1445.56, 65133.2, 1195.33, 65570.6, 952.807, 66015.4, 724.201, 66466.9, 508.818, 66924, 305.978, 67386.3, 115.048, 67853.1, -64.565, 68323.9, -233.429, 68798.3, -392.031, 69275.8, -540.843, 69756.1, -680.297, 70239, -810.771, 70724.1, -932.608, 71211.2, -1046.11, 71700.1, -1151.53, 72190.7, -1249.1, 72682.7, -1338.97, 73176.1, -1421.27, 73670.6, -1496.03, 74166.3, -1563.2, 74662.9, -1622.57, 75160.5, -1673.67, 75658.9, -1715.3, 76158.1, -1744.05, 76657.8, -1766.8, 77157.7, -1787.19, 77657.6, -1805.61, 78157.6, -1822.23, 78657.5, -1837.14, 79157.5, -1850.39, 79657.5, -1862.01, 80157.6, -1872, 80657.7, -1880.35, 81157.9, -1887.06, 81658, -1892.08, 82158.2, -1895.4, 82658.4, -1896.96, 83158.6, -1896.74, 83658.7, -1894.66, 84158.9, -1890.68, 84659.1, -1884.72, 85159.2, -1876.71, 85659.2, -1866.57, 86159.3, -1854.2, 86659.2, -1839.5, 87159.1, -1822.36, 87658.9, -1802.64, 88158.6, -1780.21, 88658.1, -1754.91, 89157.5, -1726.57, 89656.6, -1694.97, 90155.6, -1659.9, 90654.3, -1621.12, 91152.6, -1578.32, 91650.5, -1531.18, 92148, -1479.32, 92644.9, -1422.29, 93141.1, -1359.59, 93636.5, -1290.58, 94130.9, -1214.55, 94624, -1130.61, 95115.4, -1037.67, 95604.8, -934.359, 96091.4, -818.962, 96574.5, -689.229, 97052.5, -542.167, 97523.4, -373.674, 97983.6, -177.93, 98426.7, 53.5813, 98840.8, 333.443, 99238.9, 636.184, 99645.3, 927.855, 100061, 1205.62, 100488, 1465.59, 100929, 1702.3, 101385, 1907.91, 101857, 2071.35, 102346, 2177.69, 102844, 2209.92, 103341, 2155.43, 103820, 2015.06, 104273, 1804.05, 104700, 1543, 105105, 1249.94, 105496, 937.9, 105879, 616.014, 106258, 290.641, 106653, -16.7935, 107074, -285.4, 107516, -519.814, 107973, -724.376, 108440, -902.793, 108915, -1058.1, 109397, -1192.76, 109883, -1308.69, 110374, -1407.35, 110867, -1489.8, 111363, -1556.7, 111860, -1608.25, 112359, -1644.13, 112859, -1663.11, 113359, -1662.4, 113858, -1635.24, 114352, -1558.69, 114818, -1377.7, 115265, -1154.78, 115704, -913.588, 116135, -661.23, 116563, -400.877, 116986, -134.256, 117405, 138.107, 117783, 463.981, 118176, 772.511, 118602, 1034.08, 119063, 1226.06, 119552, 1331.58, 120047, 1400.77, 120545, 1450.42, 121044, 1484.13, 121543, 1502.51, 122044, 1504.65, 122544, 1488.29, 123042, 1449.51, 123538, 1381.66, 124026, 1273.01, 124495, 1100.87, 124923, 843.698, 125345, 574.174, 125769, 309.304, 126199, 53.7812, 126636, -188.831, 127082, -415.672, 127536, -624.35, 128000, -812.889, 128471, -979.744, 128950, -1123.78, 129436, -1244.19, 129926, -1340.62, 130420, -1419.85, 130914, -1496.18, 131409, -1569.72, 131904, -1640.01, 132400, -1706.78, 132896, -1769.52, 133393, -1827.89, 133890, -1881.36, 134388, -1929.38, 134886, -1971.32, 135385, -2006.36, 135885, -2033.54, 136385, -2051.66, 136885, -2059.16, 137385, -2054, 137885, -2033.47, 138383, -1993.72, 138879, -1929.19, 139370, -1830.81, 139851, -1694.4, 140323, -1530.6, 140788, -1346.95, 141247, -1148.34, 141701, -938.152, 142151, -718.827, 142597, -492.217, 143040, -259.838, 143480, -22.9664, 143919, 217.241, 144356, 459.664, 144793, 703.049, 145231, 945.929, 145669, 1186.3, 146111, 1420.93, 146559, 1643.37, 147023, 1827, 147516, 1913.08, 148014, 1952.36, 148514, 1967.41, 149014, 1967.06, 149515, 1955.81, 150014, 1936.34, 150514, 1910.33, 151013, 1879, 151512, 1843.17, 152010, 1803.5, 152509, 1760.49, 153007, 1714.49, 153505, 1665.89, 154002, 1614.88, 154499, 1561.7, 154997, 1506.55, 155493, 1449.65, 155990, 1391.25, 156487, 1332.19, 156978, 1243.62, 157443, 1060.44, 157884, 825.492, 158309, 562.068, 158724, 282.214, 159132, -6.50844, 159538, -298.511, 159946, -588.061, 160389, -816.617, 160875, -930.911, 161374, -960.596, 161873, -929.272, 162367, -851.854, 162854, -735.999, 163309, -537.648, 163758, -316.81, 164225, -138.045, 164711, -21.9538, 165210, 1.30883, 165710, 2.98399, 166210, 3.8979, 166711, 4.48466, 167211, 4.87663, 167711, 5.13537, 168211, 5.2954, 168711, 5.37852, 169211, 5.39946, 169712, 5.36873, 170212, 5.29414, 170712, 5.18172, 171212, 5.03621, 171712, 4.86137, 172212, 4.66033, 172713, 4.4357, 173213, 4.18962, 173713, 3.92394, 174213, 3.64027, 174713, 3.33995, 175213, 3.0242, 175714, 2.69405, 176214, 2.35045, 176714, 1.99421, 177214, 1.62607, 177714, 1.24669, 178215, 0.856661, 178715, 0.456515, 179215, 0.0467261, 179715, -0.372254, 180215, -0.800046, 180715, -1.23628, 181216, -1.68063, 181716, -2.13279, 182216, -2.59251, 182716, -3.05954, 183216, -3.53362, 183716, -4.0146, 184217, -4.50228, 184717, -4.99651, 185217, -5.49715, 185717, -6.00408, 186217, -6.51722, 186717, -7.03649, 187218, -7.56186, 187718, -8.09332, 188218, -8.63086, 188718, -9.17463, 189218, -9.72472, 189718, -10.2815, 190219, -10.8453, 190719, -11.4172, 191219, -12)
-width = 100.0
-default_color = Color(0.176178, 0.623953, 0.975688, 1)
-joint_mode = 2
-begin_cap_mode = 2
-end_cap_mode = 2
-antialiased = true
-script = ExtResource("2_qydo8")
-path_2d = NodePath("..")
-point_precision = 500
-
-[node name="Waves B" type="Line2D" parent="Path2D" node_paths=PackedStringArray("path_2d")]
-visible = false
-texture_repeat = 2
-position = Vector2(-41, -147.033)
-points = PackedVector2Array(343, 431, 842.594, 407.051, 1342.44, 389.093, 1842.45, 376.374, 2342.57, 369.055, 2842.74, 367.635, 3342.88, 372.916, 3842.87, 386.079, 4342.51, 408.857, 4841.44, 443.905, 5338.91, 495.553, 5833.17, 571.689, 6320.57, 683.58, 6804.23, 811.029, 7285.84, 946.046, 7767.27, 1081.66, 8251.85, 1205.43, 8742.11, 1304.17, 9237.57, 1372.05, 9736.11, 1411.73, 10235.9, 1429.31, 10733.6, 1389.81, 11218.1, 1266.9, 11687.3, 1094.02, 12144.4, 891.095, 12593.1, 670.174, 13036.8, 439.224, 13478.2, 204.067, 13919.9, -30.5518, 14364.2, -260.316, 14813.1, -480.864, 15268.6, -687.39, 15732.5, -874.216, 16206.3, -1034.32, 16690.6, -1158.86, 17184.4, -1236.79, 17683.8, -1254.92, 18181.6, -1208.22, 18675, -1126.23, 19164.9, -1025.69, 19652.6, -914.541, 20138.8, -797.298, 20624.3, -676.883, 21109.5, -555.379, 21594.8, -434.39, 22080.6, -315.245, 22567.1, -199.118, 23054.6, -87.0971, 23543.2, 19.7514, 24033.1, 120.345, 24524.5, 213.544, 25017.5, 298.112, 25512.1, 372.681, 26008.3, 435.705, 26505.9, 485.401, 27004.9, 519.699, 27504.8, 536.168, 28004.9, 531.924, 28504.2, 503.556, 29001.1, 447.032, 29493.1, 357.686, 29976.6, 230.296, 30446.5, 59.4249, 30895.8, -159.853, 31315.8, -430.752, 31699.6, -751.174, 32093.3, -1059.36, 32515.6, -1326.96, 32961.4, -1553.42, 33425.5, -1739.58, 33903.2, -1887.31, 34390.6, -1999.1, 34884.4, -2077.68, 35382.2, -2125.79, 35881.9, -2146.04, 36382, -2140.77, 36881.4, -2112.11, 37379, -2061.87, 37874.1, -1991.63, 38366.3, -1902.73, 38855, -1796.29, 39339.8, -1673.2, 39820.2, -1534.2, 40295.9, -1379.82, 40766.5, -1210.41, 41231.5, -1026.17, 41690.3, -827.088, 42142.3, -612.934, 42586.6, -383.246, 43022.1, -137.239, 43447.1, 126.25, 43859.7, 408.944, 44256.5, 713.321, 44639.9, 1034.48, 45054.1, 1314.07, 45504.7, 1530.06, 45983.3, 1673.71, 46478.1, 1743.53, 46978, 1745.61, 47474.9, 1690.52, 47964.7, 1589.79, 48445.9, 1453.78, 48918.8, 1291.07, 49384.5, 1108.55, 49844.3, 911.771, 50299.9, 705.318, 50752.8, 493.087, 51204.6, 278.595, 51656.9, 65.1354, 52111.3, -143.978, 52569.2, -345.244, 53032, -534.801, 53501.1, -708.206, 53977.9, -859.125, 54470.6, -940.899, 54970.1, -932.316, 55462.2, -845.333, 55939.9, -697.943, 56402.2, -507.276, 56851.2, -287.029, 57290.3, -47.5567, 57723, 203.215, 58152.9, 458.891, 58583.1, 713.98, 59016.7, 963.349, 59456.3, 1201.85, 59904.4, 1423.98, 60362.9, 1623.65, 60833.1, 1794.09, 61314.8, 1927.92, 61806.7, 2017.63, 62305.1, 2056.63, 62804.7, 2040.42, 63299.3, 1967.76, 63782.9, 1840.85, 64250.7, 1664.66, 64700.2, 1445.56, 65133.2, 1195.33, 65570.6, 952.807, 66015.4, 724.201, 66466.9, 508.818, 66924, 305.978, 67386.3, 115.048, 67853.1, -64.565, 68323.9, -233.429, 68798.3, -392.031, 69275.8, -540.843, 69756.1, -680.297, 70239, -810.771, 70724.1, -932.608, 71211.2, -1046.11, 71700.1, -1151.53, 72190.7, -1249.1, 72682.7, -1338.97, 73176.1, -1421.27, 73670.6, -1496.03, 74166.3, -1563.2, 74662.9, -1622.57, 75160.5, -1673.67, 75658.9, -1715.3, 76158.1, -1744.05, 76657.8, -1766.8, 77157.7, -1787.19, 77657.6, -1805.61, 78157.6, -1822.23, 78657.5, -1837.14, 79157.5, -1850.39, 79657.5, -1862.01, 80157.6, -1872, 80657.7, -1880.35, 81157.9, -1887.06, 81658, -1892.08, 82158.2, -1895.4, 82658.4, -1896.96, 83158.6, -1896.74, 83658.7, -1894.66, 84158.9, -1890.68, 84659.1, -1884.72, 85159.2, -1876.71, 85659.2, -1866.57, 86159.3, -1854.2, 86659.2, -1839.5, 87159.1, -1822.36, 87658.9, -1802.64, 88158.6, -1780.21, 88658.1, -1754.91, 89157.5, -1726.57, 89656.6, -1694.97, 90155.6, -1659.9, 90654.3, -1621.12, 91152.6, -1578.32, 91650.5, -1531.18, 92148, -1479.32, 92644.9, -1422.29, 93141.1, -1359.59, 93636.5, -1290.58, 94130.9, -1214.55, 94624, -1130.61, 95115.4, -1037.67, 95604.8, -934.359, 96091.4, -818.962, 96574.5, -689.229, 97052.5, -542.167, 97523.4, -373.674, 97983.6, -177.93, 98426.7, 53.5813, 98840.8, 333.443, 99238.9, 636.184, 99645.3, 927.855, 100061, 1205.62, 100488, 1465.59, 100929, 1702.3, 101385, 1907.91, 101857, 2071.35, 102346, 2177.69, 102844, 2209.92, 103341, 2155.43, 103820, 2015.06, 104273, 1804.05, 104700, 1543, 105105, 1249.94, 105496, 937.9, 105879, 616.014, 106258, 290.641, 106653, -16.7935, 107074, -285.4, 107516, -519.814, 107973, -724.376, 108440, -902.793, 108915, -1058.1, 109397, -1192.76, 109883, -1308.69, 110374, -1407.35, 110867, -1489.8, 111363, -1556.7, 111860, -1608.25, 112359, -1644.13, 112859, -1663.11, 113359, -1662.4, 113858, -1635.24, 114352, -1558.69, 114818, -1377.7, 115265, -1154.78, 115704, -913.588, 116135, -661.23, 116563, -400.877, 116986, -134.256, 117405, 138.107, 117783, 463.981, 118176, 772.511, 118602, 1034.08, 119063, 1226.06, 119552, 1331.58, 120047, 1400.77, 120545, 1450.42, 121044, 1484.13, 121543, 1502.51, 122044, 1504.65, 122544, 1488.29, 123042, 1449.51, 123538, 1381.66, 124026, 1273.01, 124495, 1100.87, 124923, 843.698, 125345, 574.174, 125769, 309.304, 126199, 53.7812, 126636, -188.831, 127082, -415.672, 127536, -624.35, 128000, -812.889, 128471, -979.744, 128950, -1123.78, 129436, -1244.19, 129926, -1340.62, 130420, -1419.85, 130914, -1496.18, 131409, -1569.72, 131904, -1640.01, 132400, -1706.78, 132896, -1769.52, 133393, -1827.89, 133890, -1881.36, 134388, -1929.38, 134886, -1971.32, 135385, -2006.36, 135885, -2033.54, 136385, -2051.66, 136885, -2059.16, 137385, -2054, 137885, -2033.47, 138383, -1993.72, 138879, -1929.19, 139370, -1830.81, 139851, -1694.4, 140323, -1530.6, 140788, -1346.95, 141247, -1148.34, 141701, -938.152, 142151, -718.827, 142597, -492.217, 143040, -259.838, 143480, -22.9664, 143919, 217.241, 144356, 459.664, 144793, 703.049, 145231, 945.929, 145669, 1186.3, 146111, 1420.93, 146559, 1643.37, 147023, 1827, 147516, 1913.08, 148014, 1952.36, 148514, 1967.41, 149014, 1967.06, 149515, 1955.81, 150014, 1936.34, 150514, 1910.33, 151013, 1879, 151512, 1843.17, 152010, 1803.5, 152509, 1760.49, 153007, 1714.49, 153505, 1665.89, 154002, 1614.88, 154499, 1561.7, 154997, 1506.55, 155493, 1449.65, 155990, 1391.25, 156487, 1332.19, 156978, 1243.62, 157443, 1060.44, 157884, 825.492, 158309, 562.068, 158724, 282.214, 159132, -6.50844, 159538, -298.511, 159946, -588.061, 160389, -816.617, 160875, -930.911, 161374, -960.596, 161873, -929.272, 162367, -851.854, 162854, -735.999, 163309, -537.648, 163758, -316.81, 164225, -138.045, 164711, -21.9538, 165210, 1.30883, 165710, 2.98399, 166210, 3.8979, 166711, 4.48466, 167211, 4.87663, 167711, 5.13537, 168211, 5.2954, 168711, 5.37852, 169211, 5.39946, 169712, 5.36873, 170212, 5.29414, 170712, 5.18172, 171212, 5.03621, 171712, 4.86137, 172212, 4.66033, 172713, 4.4357, 173213, 4.18962, 173713, 3.92394, 174213, 3.64027, 174713, 3.33995, 175213, 3.0242, 175714, 2.69405, 176214, 2.35045, 176714, 1.99421, 177214, 1.62607, 177714, 1.24669, 178215, 0.856661, 178715, 0.456515, 179215, 0.0467261, 179715, -0.372254, 180215, -0.800046, 180715, -1.23628, 181216, -1.68063, 181716, -2.13279, 182216, -2.59251, 182716, -3.05954, 183216, -3.53362, 183716, -4.0146, 184217, -4.50228, 184717, -4.99651, 185217, -5.49715, 185717, -6.00408, 186217, -6.51722, 186717, -7.03649, 187218, -7.56186, 187718, -8.09332, 188218, -8.63086, 188718, -9.17463, 189218, -9.72472, 189718, -10.2815, 190219, -10.8453, 190719, -11.4172, 191219, -12)
-width = 150.0
-default_color = Color(0, 0.436348, 0.813932, 1)
-texture = ExtResource("2_vs16y")
-texture_mode = 1
-joint_mode = 2
-begin_cap_mode = 2
-end_cap_mode = 2
-antialiased = true
-script = ExtResource("2_qydo8")
-path_2d = NodePath("..")
-point_precision = 500
-
-[node name="Path C" type="Line2D" parent="Path2D" node_paths=PackedStringArray("path_2d")]
-visible = false
-position = Vector2(-79, 10.0366)
-points = PackedVector2Array(343, 431, 842.594, 407.051, 1342.44, 389.093, 1842.45, 376.374, 2342.57, 369.055, 2842.74, 367.635, 3342.88, 372.916, 3842.87, 386.079, 4342.51, 408.857, 4841.44, 443.905, 5338.91, 495.553, 5833.17, 571.689, 6320.57, 683.58, 6804.23, 811.029, 7285.84, 946.046, 7767.27, 1081.66, 8251.85, 1205.43, 8742.11, 1304.17, 9237.57, 1372.05, 9736.11, 1411.73, 10235.9, 1429.31, 10733.6, 1389.81, 11218.1, 1266.9, 11687.3, 1094.02, 12144.4, 891.095, 12593.1, 670.174, 13036.8, 439.224, 13478.2, 204.067, 13919.9, -30.5518, 14364.2, -260.316, 14813.1, -480.864, 15268.6, -687.39, 15732.5, -874.216, 16206.3, -1034.32, 16690.6, -1158.86, 17184.4, -1236.79, 17683.8, -1254.92, 18181.6, -1208.22, 18675, -1126.23, 19164.9, -1025.69, 19652.6, -914.541, 20138.8, -797.298, 20624.3, -676.883, 21109.5, -555.379, 21594.8, -434.39, 22080.6, -315.245, 22567.1, -199.118, 23054.6, -87.0971, 23543.2, 19.7514, 24033.1, 120.345, 24524.5, 213.544, 25017.5, 298.112, 25512.1, 372.681, 26008.3, 435.705, 26505.9, 485.401, 27004.9, 519.699, 27504.8, 536.168, 28004.9, 531.924, 28504.2, 503.556, 29001.1, 447.032, 29493.1, 357.686, 29976.6, 230.296, 30446.5, 59.4249, 30895.8, -159.853, 31315.8, -430.752, 31699.6, -751.174, 32093.3, -1059.36, 32515.6, -1326.96, 32961.4, -1553.42, 33425.5, -1739.58, 33903.2, -1887.31, 34390.6, -1999.1, 34884.4, -2077.68, 35382.2, -2125.79, 35881.9, -2146.04, 36382, -2140.77, 36881.4, -2112.11, 37379, -2061.87, 37874.1, -1991.63, 38366.3, -1902.73, 38855, -1796.29, 39339.8, -1673.2, 39820.2, -1534.2, 40295.9, -1379.82, 40766.5, -1210.41, 41231.5, -1026.17, 41690.3, -827.088, 42142.3, -612.934, 42586.6, -383.246, 43022.1, -137.239, 43447.1, 126.25, 43859.7, 408.944, 44256.5, 713.321, 44639.9, 1034.48, 45054.1, 1314.07, 45504.7, 1530.06, 45983.3, 1673.71, 46478.1, 1743.53, 46978, 1745.61, 47474.9, 1690.52, 47964.7, 1589.79, 48445.9, 1453.78, 48918.8, 1291.07, 49384.5, 1108.55, 49844.3, 911.771, 50299.9, 705.318, 50752.8, 493.087, 51204.6, 278.595, 51656.9, 65.1354, 52111.3, -143.978, 52569.2, -345.244, 53032, -534.801, 53501.1, -708.206, 53977.9, -859.125, 54470.6, -940.899, 54970.1, -932.316, 55462.2, -845.333, 55939.9, -697.943, 56402.2, -507.276, 56851.2, -287.029, 57290.3, -47.5567, 57723, 203.215, 58152.9, 458.891, 58583.1, 713.98, 59016.7, 963.349, 59456.3, 1201.85, 59904.4, 1423.98, 60362.9, 1623.65, 60833.1, 1794.09, 61314.8, 1927.92, 61806.7, 2017.63, 62305.1, 2056.63, 62804.7, 2040.42, 63299.3, 1967.76, 63782.9, 1840.85, 64250.7, 1664.66, 64700.2, 1445.56, 65133.2, 1195.33, 65570.6, 952.807, 66015.4, 724.201, 66466.9, 508.818, 66924, 305.978, 67386.3, 115.048, 67853.1, -64.565, 68323.9, -233.429, 68798.3, -392.031, 69275.8, -540.843, 69756.1, -680.297, 70239, -810.771, 70724.1, -932.608, 71211.2, -1046.11, 71700.1, -1151.53, 72190.7, -1249.1, 72682.7, -1338.97, 73176.1, -1421.27, 73670.6, -1496.03, 74166.3, -1563.2, 74662.9, -1622.57, 75160.5, -1673.67, 75658.9, -1715.3, 76158.1, -1744.05, 76657.8, -1766.8, 77157.7, -1787.19, 77657.6, -1805.61, 78157.6, -1822.23, 78657.5, -1837.14, 79157.5, -1850.39, 79657.5, -1862.01, 80157.6, -1872, 80657.7, -1880.35, 81157.9, -1887.06, 81658, -1892.08, 82158.2, -1895.4, 82658.4, -1896.96, 83158.6, -1896.74, 83658.7, -1894.66, 84158.9, -1890.68, 84659.1, -1884.72, 85159.2, -1876.71, 85659.2, -1866.57, 86159.3, -1854.2, 86659.2, -1839.5, 87159.1, -1822.36, 87658.9, -1802.64, 88158.6, -1780.21, 88658.1, -1754.91, 89157.5, -1726.57, 89656.6, -1694.97, 90155.6, -1659.9, 90654.3, -1621.12, 91152.6, -1578.32, 91650.5, -1531.18, 92148, -1479.32, 92644.9, -1422.29, 93141.1, -1359.59, 93636.5, -1290.58, 94130.9, -1214.55, 94624, -1130.61, 95115.4, -1037.67, 95604.8, -934.359, 96091.4, -818.962, 96574.5, -689.229, 97052.5, -542.167, 97523.4, -373.674, 97983.6, -177.93, 98426.7, 53.5813, 98840.8, 333.443, 99238.9, 636.184, 99645.3, 927.855, 100061, 1205.62, 100488, 1465.59, 100929, 1702.3, 101385, 1907.91, 101857, 2071.35, 102346, 2177.69, 102844, 2209.92, 103341, 2155.43, 103820, 2015.06, 104273, 1804.05, 104700, 1543, 105105, 1249.94, 105496, 937.9, 105879, 616.014, 106258, 290.641, 106653, -16.7935, 107074, -285.4, 107516, -519.814, 107973, -724.376, 108440, -902.793, 108915, -1058.1, 109397, -1192.76, 109883, -1308.69, 110374, -1407.35, 110867, -1489.8, 111363, -1556.7, 111860, -1608.25, 112359, -1644.13, 112859, -1663.11, 113359, -1662.4, 113858, -1635.24, 114352, -1558.69, 114818, -1377.7, 115265, -1154.78, 115704, -913.588, 116135, -661.23, 116563, -400.877, 116986, -134.256, 117405, 138.107, 117783, 463.981, 118176, 772.511, 118602, 1034.08, 119063, 1226.06, 119552, 1331.58, 120047, 1400.77, 120545, 1450.42, 121044, 1484.13, 121543, 1502.51, 122044, 1504.65, 122544, 1488.29, 123042, 1449.51, 123538, 1381.66, 124026, 1273.01, 124495, 1100.87, 124923, 843.698, 125345, 574.174, 125769, 309.304, 126199, 53.7812, 126636, -188.831, 127082, -415.672, 127536, -624.35, 128000, -812.889, 128471, -979.744, 128950, -1123.78, 129436, -1244.19, 129926, -1340.62, 130420, -1419.85, 130914, -1496.18, 131409, -1569.72, 131904, -1640.01, 132400, -1706.78, 132896, -1769.52, 133393, -1827.89, 133890, -1881.36, 134388, -1929.38, 134886, -1971.32, 135385, -2006.36, 135885, -2033.54, 136385, -2051.66, 136885, -2059.16, 137385, -2054, 137885, -2033.47, 138383, -1993.72, 138879, -1929.19, 139370, -1830.81, 139851, -1694.4, 140323, -1530.6, 140788, -1346.95, 141247, -1148.34, 141701, -938.152, 142151, -718.827, 142597, -492.217, 143040, -259.838, 143480, -22.9664, 143919, 217.241, 144356, 459.664, 144793, 703.049, 145231, 945.929, 145669, 1186.3, 146111, 1420.93, 146559, 1643.37, 147023, 1827, 147516, 1913.08, 148014, 1952.36, 148514, 1967.41, 149014, 1967.06, 149515, 1955.81, 150014, 1936.34, 150514, 1910.33, 151013, 1879, 151512, 1843.17, 152010, 1803.5, 152509, 1760.49, 153007, 1714.49, 153505, 1665.89, 154002, 1614.88, 154499, 1561.7, 154997, 1506.55, 155493, 1449.65, 155990, 1391.25, 156487, 1332.19, 156978, 1243.62, 157443, 1060.44, 157884, 825.492, 158309, 562.068, 158724, 282.214, 159132, -6.50844, 159538, -298.511, 159946, -588.061, 160389, -816.617, 160875, -930.911, 161374, -960.596, 161873, -929.272, 162367, -851.854, 162854, -735.999, 163309, -537.648, 163758, -316.81, 164225, -138.045, 164711, -21.9538, 165210, 1.30883, 165710, 2.98399, 166210, 3.8979, 166711, 4.48466, 167211, 4.87663, 167711, 5.13537, 168211, 5.2954, 168711, 5.37852, 169211, 5.39946, 169712, 5.36873, 170212, 5.29414, 170712, 5.18172, 171212, 5.03621, 171712, 4.86137, 172212, 4.66033, 172713, 4.4357, 173213, 4.18962, 173713, 3.92394, 174213, 3.64027, 174713, 3.33995, 175213, 3.0242, 175714, 2.69405, 176214, 2.35045, 176714, 1.99421, 177214, 1.62607, 177714, 1.24669, 178215, 0.856661, 178715, 0.456515, 179215, 0.0467261, 179715, -0.372254, 180215, -0.800046, 180715, -1.23628, 181216, -1.68063, 181716, -2.13279, 182216, -2.59251, 182716, -3.05954, 183216, -3.53362, 183716, -4.0146, 184217, -4.50228, 184717, -4.99651, 185217, -5.49715, 185717, -6.00408, 186217, -6.51722, 186717, -7.03649, 187218, -7.56186, 187718, -8.09332, 188218, -8.63086, 188718, -9.17463, 189218, -9.72472, 189718, -10.2815, 190219, -10.8453, 190719, -11.4172, 191219, -12)
-width = 100.0
-default_color = Color(0.176178, 0.623953, 0.975688, 1)
-joint_mode = 2
-begin_cap_mode = 2
-end_cap_mode = 2
-antialiased = true
-script = ExtResource("2_qydo8")
-path_2d = NodePath("..")
-point_precision = 500
-
-[node name="Player" type="PathFollow2D" parent="Path2D" node_paths=PackedStringArray("path_a", "path_b", "path_c")]
-position = Vector2(1696.02, 379.554)
-rotation = -0.0232704
-progress = 1354.05
-cubic_interp = false
-script = ExtResource("4_0ltkx")
-path_a = NodePath("../Path A")
-path_b = NodePath("../Path B")
-path_c = NodePath("../Path C")
-current_path = 2
-
-[node name="CharacterBody2D" type="CharacterBody2D" parent="Path2D/Player"]
-position = Vector2(0, 144.16)
-rotation = 3.14159
+[node name="Player" type="CharacterBody2D" parent="." node_paths=PackedStringArray("path_a", "path_b", "path_c")]
+position = Vector2(0, 617)
+rotation = 3.11832
+scale = Vector2(0.5, 0.5)
 motion_mode = 1
 up_direction = Vector2(0, 1)
 wall_min_slide_angle = 0.0
+script = ExtResource("7_jxq38")
+path_a = NodePath("../Camera/editor only/lane 1")
+path_b = NodePath("../Camera/editor only/lane 2")
+path_c = NodePath("../Camera/editor only/lane 3")
 
-[node name="BoatDraft" type="Sprite2D" parent="Path2D/Player/CharacterBody2D"]
+[node name="sprite" type="Sprite2D" parent="Player"]
 texture_filter = 1
 texture_repeat = 1
-position = Vector2(-0.212056, -5.3857)
+position = Vector2(-1046.6, -28.6368)
 rotation = -3.1193
-scale = Vector2(3, 3)
+scale = Vector2(5, 5)
 texture = ExtResource("7_i525v")
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Path2D/Player/CharacterBody2D"]
-position = Vector2(-0.212036, -5.38562)
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Player"]
+position = Vector2(-1046.6, -28.6366)
 rotation = -3.1193
 scale = Vector2(3.04, 3.04)
 polygon = PackedVector2Array(-4.48468, -25.3513, -40.6792, -14.8606, -35.4361, 5.53934, -20.9806, 23.9746, 13.8878, 24.0089, 39.5794, -10.1764, 37.616, -20.7046)
 
 [node name="objects" type="Node2D" parent="."]
-
-[node name="Rock" type="StaticBody2D" parent="objects"]
-position = Vector2(1598, 488)
-scale = Vector2(1.828, 1.828)
-script = ExtResource("7_yynfw")
-mode = 1
-ship_damage = 45.0
-morale_damage = 30.0
-
-[node name="Rock1" type="Sprite2D" parent="objects/Rock"]
-scale = Vector2(0.930795, 0.930795)
-texture = ExtResource("9_i525v")
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="objects/Rock"]
-scale = Vector2(0.930795, 0.930795)
-polygon = PackedVector2Array(37.5, 33.5, 37.5, 11.1, 6, -33.5, -16.1, -33.5, -37.5, 0.599998, -37.5, 33.5)
-
-[node name="pier" type="Polygon2D" parent="objects"]
-visible = false
-color = Color(0.862698, 0.649388, 0.375497, 1)
-antialiased = true
-polygon = PackedVector2Array(99, 393, 381, 393, 381, 381, 99, 381)
-
-[node name="Polygon2D" type="Polygon2D" parent="objects/pier"]
-color = Color(0.862698, 0.649388, 0.375497, 1)
-antialiased = true
-polygon = PackedVector2Array(344, 414, 352, 414, 352, 386, 344, 386)
