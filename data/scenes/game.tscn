@@ -1,13 +1,14 @@
-[gd_scene load_steps=10 format=3 uid="uid://3rjxq0102uu2"]
+[gd_scene load_steps=11 format=3 uid="uid://3rjxq0102uu2"]
 
 [ext_resource type="Script" uid="uid://dnmxwgvrqx1ny" path="res://data/scripts/game.gd" id="1_00ru4"]
-[ext_resource type="Script" uid="uid://polvuhomcgmr" path="res://data/scripts/camera.gd" id="1_03a6x"]
+[ext_resource type="Script" path="res://data/scripts/camera.gd" id="1_03a6x"]
 [ext_resource type="Texture2D" uid="uid://dxh8bjtv8l7s1" path="res://data/textures/ship-temp-asset.png" id="2_6yv14"]
 [ext_resource type="Script" uid="uid://cckbhaw8tp6vk" path="res://data/scripts/line2d_by_path2d.gd" id="2_qydo8"]
 [ext_resource type="Texture2D" uid="uid://db4oigsmy8g2b" path="res://data/textures/waves.png" id="2_vs16y"]
 [ext_resource type="Script" uid="uid://dxf6jd5qm0fd1" path="res://data/scripts/player.gd" id="4_0ltkx"]
 [ext_resource type="Texture2D" uid="uid://dfp2xnlpgsb2f" path="res://data/textures/rock.png" id="4_vs16y"]
-[ext_resource type="Script" uid="uid://0d6yda6fyli7" path="res://data/scripts/collidable.gd" id="7_yynfw"]
+[ext_resource type="Script" path="res://data/scripts/collidable.gd" id="7_yynfw"]
+[ext_resource type="PackedScene" uid="uid://bug7nsohlajhg" path="res://data/scenes/ui.tscn" id="9_wyj50"]
 
 [sub_resource type="Curve2D" id="Curve2D_6yv14"]
 _data = {
@@ -21,6 +22,14 @@ player = NodePath("Path2D/Player")
 camera_follow = NodePath("Path2D/Camera")
 camera = NodePath("Path2D/Camera/Camera2D")
 state = 3
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="UI" parent="CanvasLayer" instance=ExtResource("9_wyj50")]
+anchors_preset = -1
+offset_right = 0.000244141
+grow_horizontal = 1
+grow_vertical = 1
 
 [node name="Path2D" type="Path2D" parent="."]
 curve = SubResource("Curve2D_6yv14")
