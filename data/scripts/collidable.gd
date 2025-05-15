@@ -112,21 +112,21 @@ func invoke():
 			modes.obstacle:
 				if ship_damage > 0 or morale_damage > 0:
 					events.invoke("player_damage", {
-						ship_damage: ship_damage,
-						morale_damage: morale_damage
+						"ship_damage": -ship_damage,
+						"morale_damage": -morale_damage
 					})
 
 				if lose_items_on_impact > 0:
 					events.invoke("player_lose_item", {
-						lose_items_on_impact: lose_items_on_impact
+						"lose_items_on_impact": lose_items_on_impact
 					})
 
 			modes.trigger_dialogue:
 				events.invoke("trigger_dialogue", {
-					dialogue_name: dialogue_name
+					"dialogue_name": dialogue_name
 				})
 
 			modes.trigger_event:
 				events.invoke("trigger_event", {
-					event_name: event_name
+					"event_name": event_name
 				})

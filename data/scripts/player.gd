@@ -18,6 +18,7 @@ var last_y_pos
 var last_x_pos
 
 func _ready() -> void:
+
 	pass
 
 
