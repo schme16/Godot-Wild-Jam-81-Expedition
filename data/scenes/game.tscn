@@ -287,6 +287,7 @@ theme_override_font_sizes/font_size = 25
 text = "Highscores"
 
 [node name="picking_loadout" type="Control" parent="CanvasLayer"]
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -789,6 +790,48 @@ theme_override_fonts/font = ExtResource("5_jxq38")
 theme_override_font_sizes/font_size = 32
 disabled = true
 text = "Begin"
+
+[node name="pause_menu" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="CanvasLayer/pause_menu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -150.0
+offset_top = -54.95
+offset_right = 150.0
+offset_bottom = 54.95
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = ExtResource("3_wyj50")
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="CanvasLayer/pause_menu/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="game title" type="RichTextLabel" parent="CanvasLayer/pause_menu/Panel/VBoxContainer2"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_fonts/normal_font = ExtResource("4_jxq38")
+theme_override_font_sizes/normal_font_size = 20
+text = "Paused"
+scroll_active = false
+shortcut_keys_enabled = false
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Camera" type="Camera2D" parent="."]
 anchor_mode = 0

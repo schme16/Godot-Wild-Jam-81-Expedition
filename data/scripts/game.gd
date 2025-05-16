@@ -87,8 +87,7 @@ var current_journey_time:float
 @onready var ui_playing: Control = $"CanvasLayer/in-game ui"
 @onready var ui_main_menu: Control = $CanvasLayer/main_menu
 @onready var ui_loadout: Control = $CanvasLayer/picking_loadout
-#@onready var ui_game_over: Control = $game_over
-#@onready var ui_pause_menu: Control = $pause_menu
+@onready var ui_pause_menu: Control = $CanvasLayer/pause_menu
 
 
 
@@ -107,21 +106,13 @@ var current_journey_time:float
 
 func _input(event: InputEvent) -> void:
 
-	if event is InputEventKey:
-		print(234, " ", event)
+	if Input.is_action_just_pressed("ui_up"):
+		if player.current_path > 0:
+			player.current_path = player.current_path - 1
 
-
-		if Input.is_action_just_pressed("ui_up"):
-			if player.current_path > 0:
-				player.current_path = player.current_path - 1
-
-		if Input.is_action_just_pressed("ui_down"):
-			if player.current_path < 2:
-				player.current_path = player.current_path + 1
-
-
-
-
+	if Input.is_action_just_pressed("ui_down"):
+		if player.current_path < 2:
+			player.current_path = player.current_path + 1
 
 
 
@@ -145,11 +136,7 @@ func _ready() -> void:
 
 		"loadout": ui_loadout,
 
-		#"game_over": ui_game_over,
-
-		#"pause_menu": ui_pause_menu,
-
-		#"start_menu": ui_start_menu,
+		"pause_menu": ui_pause_menu,
 
 	}
 
@@ -211,6 +198,7 @@ func _physics_process(delta: float) -> void:
 				pass
 
 			states.game_over:
+				game_over()
 				pass
 
 	#runs every frame
@@ -253,6 +241,8 @@ func _physics_process(delta: float) -> void:
 
 			current_journey_time += delta
 
+			if Input.is_action_just_pressed("pause"):
+				state = states.pause_menu
 
 		states.in_dialogue:
 			pass
@@ -261,6 +251,9 @@ func _physics_process(delta: float) -> void:
 			pass
 
 		states.pause_menu:
+			ui_pause_menu.visible = true
+			if Input.is_action_just_pressed("pause"):
+				state = states.sailing
 			pass
 
 		states.highscores:
@@ -288,6 +281,10 @@ func player_damage(data) :
 	print(data)
 	ship_health += data.ship_damage
 	ship_morale += data.morale_damage
+	Input.start_joy_vibration(0, 1, 1, 0.2)
+	if ship_health <= 0 or ship_morale <= 0:
+		player_die()
+
 
 func reset_ui():
 	for i in ui_groups:
@@ -353,14 +350,24 @@ func new_game(game_length:int):
 
 	state = states.picking_loadout
 
+	picked_items.clear()
+	picked_items_ids.clear()
+
+	for c in objects.get_children():
+		c.visible = false
+		objects.remove_child(c)
+		c.queue_free()
+
 func begin_game():
 	player.visible = true;
-
 	state = states.sailing
 
 func game_over():
-	reset_ui()
-	ui_groups.game_over.visible = true
+	state = states.main_menu
+
+func player_die():
+	Input.start_joy_vibration(0, 1, 1, 1)
+	state = states.game_over
 
 func add_item_to_loadout(id, text):
 
