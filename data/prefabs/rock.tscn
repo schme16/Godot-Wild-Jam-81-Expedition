@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://cvknacn6rfd87" path="res://data/textures/Rock1.png" id="2_idrxx"]
 
 [node name="Rock" type="StaticBody2D"]
+y_sort_enabled = true
 scale = Vector2(1.828, 1.828)
 script = ExtResource("1_hvyr3")
 mode = 1
@@ -11,6 +12,7 @@ ship_damage = 25.0
 morale_damage = 10.0
 
 [node name="Rock1" type="Sprite2D" parent="."]
+y_sort_enabled = true
 position = Vector2(0, 8.75274)
 scale = Vector2(0.930795, 0.930795)
 texture = ExtResource("2_idrxx")

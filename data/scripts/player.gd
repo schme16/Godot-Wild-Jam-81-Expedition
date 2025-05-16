@@ -12,11 +12,23 @@ enum paths {
 @export var start_path:paths
 @export var current_path:paths = paths.B
 var path:paths = -1
+@export var y_pos:float
 var last_y_pos
 var last_x_pos
+@onready var sprite: Sprite2D = $sprite
+@onready var collision_polygon_2d: CollisionPolygon2D = $CollisionPolygon2D
 
+var bobbing_up:bool
 func _ready() -> void:
+	match current_path:
+		paths.A:
+			y_pos = path_a.global_position.y
+		paths.B:
+			y_pos = path_b.global_position.y
+		paths.C:
+			y_pos = path_c.global_position.y
 
+	global_position.y = y_pos
 	pass
 
 
@@ -41,11 +53,20 @@ func _physics_process(delta: float) -> void:
 
 		match current_path:
 			paths.A:
-				global_position.y = path_a.global_position.y
+				y_pos = path_a.global_position.y
 			paths.B:
-				global_position.y = path_b.global_position.y
+				y_pos = path_b.global_position.y
 			paths.C:
-				global_position.y = path_c.global_position.y
+				y_pos = path_c.global_position.y
+
+
+	global_position.y = lerpf(global_position.y, y_pos, delta * 5)
+
+	if bobbing_up:
+		#sprite.position.y = lerpf(sprite.position.y, )
+		pass
+	else:
+		bobbing_up
 
 	#backup the y pos
 	last_y_pos = global_position.y

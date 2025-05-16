@@ -10,12 +10,12 @@
 [ext_resource type="PackedScene" uid="uid://bug7nsohlajhg" path="res://data/scenes/ui.tscn" id="9_wyj50"]
 
 [node name="Game" type="Node2D" node_paths=PackedStringArray("player", "camera", "editor_only_items")]
+y_sort_enabled = true
 script = ExtResource("1_00ru4")
 player = NodePath("Player")
 camera = NodePath("Camera")
-start_progress = 0.0
+journey_time = 60.0
 editor_only_items = NodePath("Camera/editor only")
-_player_speed = 250.0
 state = 3
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
@@ -25,6 +25,23 @@ anchors_preset = -1
 offset_right = 0.000244141
 grow_horizontal = 1
 grow_vertical = 1
+
+[node name="main_menu" type="Control" parent="CanvasLayer"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/main_menu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="Camera" type="Camera2D" parent="."]
 anchor_mode = 0
@@ -702,8 +719,9 @@ position = Vector2(95103, 88)
 texture = ExtResource("3_fbe1l")
 
 [node name="Player" type="CharacterBody2D" parent="." node_paths=PackedStringArray("path_a", "path_b", "path_c")]
+y_sort_enabled = true
 position = Vector2(0, 617)
-rotation = 3.11832
+rotation = 3.14159
 scale = Vector2(0.5, 0.5)
 motion_mode = 1
 up_direction = Vector2(0, 1)
@@ -714,17 +732,17 @@ path_b = NodePath("../Camera/editor only/lane 2")
 path_c = NodePath("../Camera/editor only/lane 3")
 
 [node name="sprite" type="Sprite2D" parent="Player"]
+y_sort_enabled = true
 texture_filter = 1
 texture_repeat = 1
-position = Vector2(-1046.6, -28.6368)
-rotation = -3.1193
+rotation = -3.14159
 scale = Vector2(5, 5)
 texture = ExtResource("7_i525v")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Player"]
-position = Vector2(-1046.6, -28.6366)
 rotation = -3.1193
 scale = Vector2(3.04, 3.04)
 polygon = PackedVector2Array(-4.48468, -25.3513, -40.6792, -14.8606, -35.4361, 5.53934, -20.9806, 23.9746, 13.8878, 24.0089, 39.5794, -10.1764, 37.616, -20.7046)
 
 [node name="objects" type="Node2D" parent="."]
+y_sort_enabled = true

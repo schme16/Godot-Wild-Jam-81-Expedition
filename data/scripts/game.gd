@@ -15,14 +15,15 @@ enum states {
 @export var player:Node2D
 @onready var clouds: Node2D = $Clouds
 @export var camera:Camera2D
-@export var start_progress:float = 1280
-@export var end_progress:float = 198790
+@export var start_progress:float = 0
+@export var journey_time:float = 180
+var end_progress:float
 @export var progress:float
 @export var editor_only_items:Node2D
 var start_ratio:float
 var max_progress:float
 
-@export var _player_speed:float = 50
+@export var _player_speed:float = 250
 var player_speed:float
 
 @export var _ship_health:float = 100
@@ -37,7 +38,11 @@ var last_state:states = -1
 @onready var ui: Control = $CanvasLayer/UI
 var gradient_red_orange_green = Gradient.new()
 
+@export var max_roll:int = 7
+
 var last_check_zone:float
+var last_check_failed:int
+var current_journey_time:float
 
 
 @onready var objects_list: Dictionary = {
@@ -67,17 +72,18 @@ func new_game():
 	#reset the players data
 	reset_stats()
 
+
 	#place them back at the start position
 	progress = start_progress
 
-	player.position.x = progress
-
+	#sync the camera and player positions to the progress
+	player.position.x = progress + 500
 	camera.position.x = progress
 
-	player.position.x = start_ratio
+	#clear the failed roll counter
+	last_check_failed = 0
 
-	max_progress = (end_progress - start_progress)
-
+	current_journey_time = 0
 
 func reset_stats():
 	ship_health = _ship_health
@@ -112,9 +118,7 @@ func _physics_process(delta: float) -> void:
 				#TODO: Ramove this after the menu is made
 				new_game()
 
-				ui.groups.voyage_tracker.visible = true
-				ui.groups.ship_health.visible = true
-				ui.groups.crew_morale.visible = true
+				ui.groups.playing.visible = true
 				pass
 
 			states.in_dialogue:
@@ -149,7 +153,7 @@ func _physics_process(delta: float) -> void:
 			progress += delta * player_speed
 
 			camera.position.x = progress
-			player.position.x = progress
+			player.position.x = progress + 500
 
 			#update the morale icons
 			ui.morale_icons.happy.visible = ship_morale >= 66
@@ -158,33 +162,18 @@ func _physics_process(delta: float) -> void:
 
 
 			#update the voyage tracker
-			ui.voyage_bar.bar.position.x = (ui.voyage_bar.max *  player.position.x / max_progress) - 2
+			ui.voyage_bar.bar.position.x = (ui.voyage_bar.max *  current_journey_time / journey_time) - 2
 
 			#update the ship health bar
 			ui.health_bar.bar.size.x = ui.health_bar.max - (ui.health_bar.max * (1 - (ship_health / _ship_health)))
 
-			if player.position.x - last_check_zone > 200:
-				last_check_zone = player.position.x
-				var roll = randi_range(1, 3) == 2
-				if roll:
-					var new_object = objects_list.rock.instantiate()
-					new_object.position.x = player.position.x + 1280
-					var path = randi_range(1, 3)
-					if path == 1:
-						new_object.position.y = player.path_a.position.y
-					elif path == 2:
-						new_object.position.y = player.path_b.position.y
-					else:
-						new_object.position.y = player.path_c.position.y
-
-					new_object.position.x = player.position.x + 1280
-
-					objects.add_child(new_object)
-
-					print("Rock!")
-
-
+			#update the health bar colour
 			ui.health_bar.bar.color = gradient_red_orange_green.sample((ship_health / _ship_health) * 100)
+
+			roll_for_new_object()
+
+			current_journey_time += delta
+
 
 		states.in_dialogue:
 			pass
@@ -210,3 +199,39 @@ func ResetUI():
 	for i in ui.groups:
 		ui.groups[i].visible = false
 		pass
+
+func game_over():
+	ResetUI()
+	ui.groups.game_over.visible = true
+
+
+func roll_for_new_object():
+
+	if player.position.x - last_check_zone > 200:
+		last_check_zone = player.position.x
+
+		var roll = randi_range(1, max_roll - last_check_failed) == 1
+		print("Roll: ", roll)
+
+
+		if roll:
+			last_check_failed = 0
+		else:
+			last_check_failed += 1
+
+
+		if roll:
+			var new_object = objects_list.rock.instantiate()
+			new_object.position.x = player.position.x + 1400
+			var path = randi_range(1, 3)
+			if path == 1:
+				new_object.position.y = player.path_a.position.y
+			elif path == 2:
+				new_object.position.y = player.path_b.position.y
+			else:
+				new_object.position.y = player.path_c.position.y
+
+
+			objects.add_child(new_object)
+
+			print("Rock!")

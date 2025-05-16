@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://0d6yda6fyli7" path="res://data/scripts/collidable.gd" id="2_enbuo"]
 
 [node name="SharkFin" type="Sprite2D"]
+y_sort_enabled = true
 texture = ExtResource("1_ae51f")
 script = ExtResource("2_enbuo")
 mode = 1
