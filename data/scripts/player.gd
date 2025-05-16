@@ -32,16 +32,6 @@ func _ready() -> void:
 	pass
 
 
-func _input(event: InputEvent) -> void:
-	if event is InputEventKey:
-		if Input.is_action_just_pressed("up"):
-			if current_path > 0:
-				current_path = current_path - 1
-
-		if Input.is_action_just_pressed("down"):
-			if current_path < 2:
-				current_path = current_path + 1
-
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta: float) -> void:
