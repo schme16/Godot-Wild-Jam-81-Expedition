@@ -28,7 +28,7 @@ func wait(milliseconds: float) -> void:
 func wait_frame() -> void:
 	await get_tree().process_frame
 
-#Translates a node to a specified end point (Vector2), can be awaited
+##Translates a node to a specified end point (Vector2), can be awaited
 #Returns true if it was cancelled
 func translate(node, end, duration:float, ease:String, cancellable_id:int = -1):
 
@@ -71,7 +71,7 @@ func translate(node, end, duration:float, ease:String, cancellable_id:int = -1):
 		#return false to show itr wasn't cancelled
 		return false
 
-#Rotates a node to a specified Vector2/3, can be awaited
+##Rotates a node to a specified Vector2/3, can be awaited
 #Returns true if it was cancelled
 func rotate(node, end, duration, ease:String, cancellable_id:int = -1):
 
@@ -118,7 +118,7 @@ func rotate(node, end, duration, ease:String, cancellable_id:int = -1):
 		#return false to show itr wasn't cancelled
 		return false
 
-#Scales a node to a specified Vector2/3, can be awaited
+##Scales a node to a specified Vector2/3, can be awaited
 #Returns true if it was cancelled
 func scale(node, end, duration:float, ease:String, cancellable_id:int = -1):
 

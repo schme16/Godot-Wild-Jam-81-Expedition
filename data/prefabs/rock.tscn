@@ -8,8 +8,7 @@ y_sort_enabled = true
 scale = Vector2(1.828, 1.828)
 script = ExtResource("1_hvyr3")
 mode = 1
-ship_damage = 25.0
-morale_damage = 10.0
+ship_damage = 20.0
 
 [node name="Rock1" type="Sprite2D" parent="."]
 y_sort_enabled = true
@@ -19,4 +18,4 @@ texture = ExtResource("2_idrxx")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 scale = Vector2(0.930795, 0.930795)
-polygon = PackedVector2Array(37.5, 33.5, 37.5, 11.1, 6, -33.5, -16.1, -33.5, -37.5, 0.599998, -37.5, 33.5)
+polygon = PackedVector2Array(25.2719, 34.0877, 20.5702, 11.7544, -7.64035, -27.6228, -27.0351, -15.8684, -42.3158, 25.2719, -41.1403, 34.6754)

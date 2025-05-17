@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b82hku2pbg1cd"
-path="res://.godot/imported/texture_10.png-be97fc43883c54b3b2a7b2a521ffcd7e.ctex"
+uid="uid://84767nvhku1s"
+path="res://.godot/imported/minimal-viking-helmet-pack-cursor.png-e1e89389fd2e24948f865c769a25d1b2.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://data/textures/grids/texture_10.png"
-dest_files=["res://.godot/imported/texture_10.png-be97fc43883c54b3b2a7b2a521ffcd7e.ctex"]
+source_file="res://data/textures/minimal-viking-helmet-pack-cursor.png"
+dest_files=["res://.godot/imported/minimal-viking-helmet-pack-cursor.png-e1e89389fd2e24948f865c769a25d1b2.ctex"]
 
 [params]
 

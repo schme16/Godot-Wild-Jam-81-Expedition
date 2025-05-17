@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://3rjxq0102uu2"]
+[gd_scene load_steps=31 format=3 uid="uid://3rjxq0102uu2"]
 
 [ext_resource type="Script" uid="uid://dnmxwgvrqx1ny" path="res://data/scripts/game.gd" id="1_00ru4"]
 [ext_resource type="Script" uid="uid://celv11jruaedo" path="res://data/scripts/ui.gd" id="2_nb3oj"]
@@ -21,6 +21,10 @@
 [ext_resource type="Texture2D" uid="uid://cyn75x6a7k6s6" path="res://data/textures/icons/item-ship.png" id="12_gsdt6"]
 [ext_resource type="Texture2D" uid="uid://bdt2a8434aafa" path="res://data/textures/icons/item-rock.png" id="13_ryjee"]
 [ext_resource type="Texture2D" uid="uid://cvoaa43wqy6t1" path="res://data/textures/icons/item-shark-fin.png" id="14_e0bto"]
+[ext_resource type="Texture2D" uid="uid://bxade7b6nr8d3" path="res://data/textures/Wave1.png" id="20_ryjee"]
+[ext_resource type="Texture2D" uid="uid://dm40j070ouqi0" path="res://data/textures/Wave2.png" id="21_e0bto"]
+[ext_resource type="Shader" uid="uid://dv7vpxcjakb2d" path="res://data/shaders/colour_tint_basic.gdshader" id="23_e0bto"]
+[ext_resource type="PackedScene" uid="uid://bwrf54v66o5kn" path="res://data/prefabs/encounter_sea_doggo.tscn" id="25_oo2gf"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_wsfip"]
 font_size = 24
@@ -28,18 +32,23 @@ font_color = Color(0.117647, 0.117647, 0.117647, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_lqoyg"]
 shader = ExtResource("3_duqd1")
-shader_parameter/colour = Color(0.0232387, 0.920314, 0.26328, 1)
+shader_parameter/colour = Color(1, 1, 1, 1)
 shader_parameter/fade = 1.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_l7oun"]
 shader = ExtResource("3_duqd1")
-shader_parameter/colour = Color(0.974847, 0.540014, 0.192555, 1)
+shader_parameter/colour = Color(1, 1, 1, 1)
 shader_parameter/fade = 1.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_sy17w"]
 shader = ExtResource("3_duqd1")
-shader_parameter/colour = Color(1, 0.160507, 0.21861, 1)
+shader_parameter/colour = Color(1, 1, 1, 1)
 shader_parameter/fade = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_oo2gf"]
+shader = ExtResource("23_e0bto")
+shader_parameter/colour = Color(1, 1, 1, 1)
+shader_parameter/fade = 0.0
 
 [node name="Game" type="Node2D" node_paths=PackedStringArray("player", "camera", "editor_only_items")]
 y_sort_enabled = true
@@ -47,15 +56,19 @@ script = ExtResource("1_00ru4")
 player = NodePath("Player")
 camera = NodePath("Camera")
 editor_only_items = NodePath("Camera/editor only")
+max_roll = 5
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="in-game ui" type="Control" parent="CanvasLayer"]
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_right = 0.000244141
+grow_horizontal = 2
+grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource("2_nb3oj")
@@ -81,6 +94,7 @@ offset_top = -60.0
 offset_bottom = -26.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_fonts/font = ExtResource("4_jxq38")
 text = "Voyage tracker"
 label_settings = SubResource("LabelSettings_wsfip")
 horizontal_alignment = 1
@@ -128,6 +142,7 @@ offset_top = -60.0
 offset_bottom = -26.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_fonts/font = ExtResource("4_jxq38")
 text = "Ship health"
 label_settings = SubResource("LabelSettings_wsfip")
 horizontal_alignment = 1
@@ -160,8 +175,9 @@ grow_vertical = 2
 [node name="crew_morale" type="Control" parent="CanvasLayer/in-game ui"]
 layout_mode = 1
 anchors_preset = 0
+offset_left = 16.0
 offset_top = 50.0
-offset_right = 300.0
+offset_right = 316.0
 offset_bottom = 90.0
 
 [node name="Label" type="Label" parent="CanvasLayer/in-game ui/crew_morale"]
@@ -174,6 +190,7 @@ offset_top = -60.0
 offset_bottom = -26.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_fonts/font = ExtResource("4_jxq38")
 text = "Crew morale"
 label_settings = SubResource("LabelSettings_wsfip")
 horizontal_alignment = 1
@@ -181,22 +198,19 @@ vertical_alignment = 1
 
 [node name="happy" type="Sprite2D" parent="CanvasLayer/in-game ui/crew_morale"]
 material = SubResource("ShaderMaterial_lqoyg")
-position = Vector2(142.616, 17.8944)
-scale = Vector2(0.182596, 0.182596)
+position = Vector2(142.5, 35.5)
 texture = ExtResource("4_mdea8")
 
 [node name="ok" type="Sprite2D" parent="CanvasLayer/in-game ui/crew_morale"]
 visible = false
 material = SubResource("ShaderMaterial_l7oun")
-position = Vector2(142.616, 17.8944)
-scale = Vector2(0.182596, 0.182596)
+position = Vector2(142.5, 35.5)
 texture = ExtResource("5_johen")
 
 [node name="sad" type="Sprite2D" parent="CanvasLayer/in-game ui/crew_morale"]
 visible = false
 material = SubResource("ShaderMaterial_sy17w")
-position = Vector2(142.616, 17.8944)
-scale = Vector2(0.182596, 0.182596)
+position = Vector2(142.5, 35.5)
 texture = ExtResource("6_rdeqd")
 
 [node name="main_menu" type="Control" parent="CanvasLayer"]
@@ -792,6 +806,7 @@ disabled = true
 text = "Begin"
 
 [node name="pause_menu" type="Control" parent="CanvasLayer"]
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -833,6 +848,162 @@ shortcut_keys_enabled = false
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="Main menu" type="Button" parent="CanvasLayer/pause_menu/Panel/VBoxContainer2"]
+custom_minimum_size = Vector2(150, 35.925)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_fonts/font = ExtResource("5_jxq38")
+theme_override_font_sizes/font_size = 25
+text = "Main menu"
+
+[node name="game_over" type="Control" parent="CanvasLayer"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="CanvasLayer/game_over"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -150.0
+offset_top = -150.0
+offset_right = 150.0
+offset_bottom = 150.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = ExtResource("3_wyj50")
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="CanvasLayer/game_over/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="game title" type="RichTextLabel" parent="CanvasLayer/game_over/Panel/VBoxContainer2"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_fonts/normal_font = ExtResource("4_jxq38")
+theme_override_font_sizes/normal_font_size = 20
+text = "Game Over"
+scroll_active = false
+shortcut_keys_enabled = false
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/game_over/Panel/VBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="Easy" type="Button" parent="CanvasLayer/game_over/Panel/VBoxContainer2/VBoxContainer"]
+custom_minimum_size = Vector2(150, 35.925)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_fonts/font = ExtResource("5_jxq38")
+theme_override_font_sizes/font_size = 25
+text = "Easy"
+
+[node name="Normal" type="Button" parent="CanvasLayer/game_over/Panel/VBoxContainer2/VBoxContainer"]
+custom_minimum_size = Vector2(150, 35.925)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_fonts/font = ExtResource("5_jxq38")
+theme_override_font_sizes/font_size = 25
+text = "Normal"
+
+[node name="Hard" type="Button" parent="CanvasLayer/game_over/Panel/VBoxContainer2/VBoxContainer"]
+custom_minimum_size = Vector2(150, 35.925)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_fonts/font = ExtResource("5_jxq38")
+theme_override_font_sizes/font_size = 25
+text = "Hard"
+
+[node name="Highscores" type="Button" parent="CanvasLayer/game_over/Panel/VBoxContainer2/VBoxContainer"]
+visible = false
+custom_minimum_size = Vector2(150, 35.925)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_fonts/font = ExtResource("5_jxq38")
+theme_override_font_sizes/font_size = 25
+text = "Highscores"
+
+[node name="Main menu" type="Button" parent="CanvasLayer/game_over/Panel/VBoxContainer2/VBoxContainer"]
+custom_minimum_size = Vector2(150, 35.925)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_fonts/font = ExtResource("5_jxq38")
+theme_override_font_sizes/font_size = 25
+text = "Main menu"
+
+[node name="dialogue" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="CanvasLayer/dialogue"]
+layout_mode = 2
+offset_left = 38.0
+offset_top = 553.0
+offset_right = 743.0
+offset_bottom = 682.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = ExtResource("3_wyj50")
+
+[node name="dialogue box" type="VBoxContainer" parent="CanvasLayer/dialogue/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 15
+
+[node name="dialogue text" type="RichTextLabel" parent="CanvasLayer/dialogue/Panel/dialogue box"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/line_separation = 14
+theme_override_fonts/normal_font = ExtResource("5_jxq38")
+theme_override_font_sizes/normal_font_size = 22
+scroll_active = false
+
+[node name="Control" type="Control" parent="CanvasLayer/dialogue/Panel/dialogue box"]
+custom_minimum_size = Vector2(80, 32.595)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
+
+[node name="Next dialogue" type="Button" parent="CanvasLayer/dialogue/Panel/dialogue box/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("5_jxq38")
+text = "Next"
+
 [node name="Camera" type="Camera2D" parent="."]
 anchor_mode = 0
 limit_smoothed = true
@@ -846,9 +1017,9 @@ centered = false
 [node name="editor only" type="Node2D" parent="Camera"]
 
 [node name="lane 1" type="ColorRect" parent="Camera/editor only"]
-offset_top = 311.0
+offset_top = 271.0
 offset_right = 200000.0
-offset_bottom = 319.0
+offset_bottom = 279.0
 
 [node name="lane 2" type="ColorRect" parent="Camera/editor only"]
 offset_top = 460.0
@@ -856,659 +1027,766 @@ offset_right = 200000.0
 offset_bottom = 468.0
 
 [node name="lane 3" type="ColorRect" parent="Camera/editor only"]
-offset_top = 614.0
+offset_top = 650.0
 offset_right = 200000.0
-offset_bottom = 622.0
+offset_bottom = 658.0
 
-[node name="Clouds" type="Node2D" parent="."]
+[node name="Clouds 1" type="Node2D" parent="."]
 z_index = 455
-position = Vector2(-24, -53)
+position = Vector2(0, -53)
 
-[node name="Cloud1" type="Sprite2D" parent="Clouds"]
+[node name="Cloud1" type="Sprite2D" parent="Clouds 1"]
 position = Vector2(16770, 99)
 texture = ExtResource("3_fbe1l")
 
-[node name="Cloud2" type="Sprite2D" parent="Clouds"]
+[node name="Cloud2" type="Sprite2D" parent="Clouds 1"]
 position = Vector2(16905, 145)
 texture = ExtResource("4_vqr8c")
 
-[node name="Cloud3" type="Sprite2D" parent="Clouds"]
+[node name="Cloud3" type="Sprite2D" parent="Clouds 1"]
 position = Vector2(18056, 140)
 texture = ExtResource("5_nb3oj")
 
-[node name="Cloud4" type="Sprite2D" parent="Clouds"]
+[node name="Cloud4" type="Sprite2D" parent="Clouds 1"]
 position = Vector2(19244, 177)
 texture = ExtResource("3_fbe1l")
 
-[node name="Cloud5" type="Sprite2D" parent="Clouds"]
+[node name="Cloud5" type="Sprite2D" parent="Clouds 1"]
 position = Vector2(19856, 99)
 texture = ExtResource("3_fbe1l")
 
-[node name="Cloud6" type="Sprite2D" parent="Clouds"]
+[node name="Cloud6" type="Sprite2D" parent="Clouds 1"]
 position = Vector2(20764, 156)
 texture = ExtResource("3_fbe1l")
 
-[node name="Cloud7" type="Sprite2D" parent="Clouds"]
+[node name="Cloud7" type="Sprite2D" parent="Clouds 1"]
 position = Vector2(20717, 156)
 texture = ExtResource("5_nb3oj")
 
-[node name="Cloud8" type="Sprite2D" parent="Clouds"]
+[node name="Cloud8" type="Sprite2D" parent="Clouds 1"]
 position = Vector2(21952, 130)
 texture = ExtResource("3_fbe1l")
 
-[node name="Cloud9" type="Sprite2D" parent="Clouds"]
+[node name="Cloud9" type="Sprite2D" parent="Clouds 1"]
 position = Vector2(23472, 109)
 texture = ExtResource("4_vqr8c")
 
-[node name="Cloud10" type="Sprite2D" parent="Clouds"]
+[node name="Cloud10" type="Sprite2D" parent="Clouds 1"]
 position = Vector2(24302, 161)
 texture = ExtResource("5_nb3oj")
 
-[node name="Cloud11" type="Sprite2D" parent="Clouds"]
+[node name="Cloud11" type="Sprite2D" parent="Clouds 1"]
 position = Vector2(24229, 171)
 texture = ExtResource("3_fbe1l")
 
-[node name="Cloud12" type="Sprite2D" parent="Clouds"]
+[node name="Cloud12" type="Sprite2D" parent="Clouds 1"]
 position = Vector2(25671, 145)
 texture = ExtResource("4_vqr8c")
 
-[node name="Cloud13" type="Sprite2D" parent="Clouds"]
+[node name="Cloud13" type="Sprite2D" parent="Clouds 1"]
 position = Vector2(25675, 160)
 texture = ExtResource("5_nb3oj")
 
-[node name="Cloud14" type="Sprite2D" parent="Clouds"]
+[node name="Cloud14" type="Sprite2D" parent="Clouds 1"]
 position = Vector2(26485, 151)
 texture = ExtResource("4_vqr8c")
 
-[node name="Cloud15" type="Sprite2D" parent="Clouds"]
+[node name="Cloud15" type="Sprite2D" parent="Clouds 1"]
 position = Vector2(26859, 151)
 texture = ExtResource("3_fbe1l")
 
-[node name="Cloud16" type="Sprite2D" parent="Clouds"]
+[node name="Cloud16" type="Sprite2D" parent="Clouds 1"]
 position = Vector2(27253, 155)
 texture = ExtResource("4_vqr8c")
 
-[node name="Cloud17" type="Sprite2D" parent="Clouds"]
+[node name="Cloud17" type="Sprite2D" parent="Clouds 1"]
 position = Vector2(27763, 158)
 texture = ExtResource("3_fbe1l")
 
-[node name="Cloud18" type="Sprite2D" parent="Clouds"]
+[node name="Cloud18" type="Sprite2D" parent="Clouds 1"]
 position = Vector2(28056, 143)
 texture = ExtResource("4_vqr8c")
 
-[node name="Cloud19" type="Sprite2D" parent="Clouds"]
+[node name="Cloud19" type="Sprite2D" parent="Clouds 1"]
 position = Vector2(28625, 123)
 texture = ExtResource("5_nb3oj")
 
-[node name="Cloud20" type="Sprite2D" parent="Clouds"]
+[node name="Cloud20" type="Sprite2D" parent="Clouds 1"]
 position = Vector2(30090, 123)
 texture = ExtResource("3_fbe1l")
 
-[node name="Cloud21" type="Sprite2D" parent="Clouds"]
+[node name="Cloud21" type="Sprite2D" parent="Clouds 1"]
 position = Vector2(355, 146)
 texture = ExtResource("3_fbe1l")
 
-[node name="Cloud22" type="Sprite2D" parent="Clouds"]
+[node name="Cloud22" type="Sprite2D" parent="Clouds 1"]
 position = Vector2(609, 202)
 texture = ExtResource("4_vqr8c")
 
-[node name="Cloud23" type="Sprite2D" parent="Clouds"]
+[node name="Cloud23" type="Sprite2D" parent="Clouds 1"]
 position = Vector2(1236, 96)
 texture = ExtResource("5_nb3oj")
 
-[node name="Cloud24" type="Sprite2D" parent="Clouds"]
+[node name="Cloud24" type="Sprite2D" parent="Clouds 1"]
 position = Vector2(2279, 96)
 texture = ExtResource("3_fbe1l")
 
-[node name="Cloud25" type="Sprite2D" parent="Clouds"]
+[node name="Cloud25" type="Sprite2D" parent="Clouds 1"]
 position = Vector2(2957, 229)
 texture = ExtResource("4_vqr8c")
 
-[node name="Cloud26" type="Sprite2D" parent="Clouds"]
+[node name="Cloud26" type="Sprite2D" parent="Clouds 1"]
 position = Vector2(3570, 96)
 texture = ExtResource("3_fbe1l")
 
-[node name="Cloud27" type="Sprite2D" parent="Clouds"]
+[node name="Cloud27" type="Sprite2D" parent="Clouds 1"]
 position = Vector2(4470, 143)
 texture = ExtResource("5_nb3oj")
 
-[node name="Cloud28" type="Sprite2D" parent="Clouds"]
+[node name="Cloud28" type="Sprite2D" parent="Clouds 1"]
 position = Vector2(5375, 143)
 texture = ExtResource("4_vqr8c")
 
-[node name="Cloud29" type="Sprite2D" parent="Clouds"]
+[node name="Cloud29" type="Sprite2D" parent="Clouds 1"]
 position = Vector2(5791, 92)
 texture = ExtResource("3_fbe1l")
 
-[node name="Cloud30" type="Sprite2D" parent="Clouds"]
+[node name="Cloud30" type="Sprite2D" parent="Clouds 1"]
 position = Vector2(6026, 130)
 texture = ExtResource("4_vqr8c")
 
-[node name="Cloud31" type="Sprite2D" parent="Clouds"]
+[node name="Cloud31" type="Sprite2D" parent="Clouds 1"]
 position = Vector2(6661, 100)
 texture = ExtResource("3_fbe1l")
 
-[node name="Cloud32" type="Sprite2D" parent="Clouds"]
+[node name="Cloud32" type="Sprite2D" parent="Clouds 1"]
 position = Vector2(6721, 122)
 texture = ExtResource("4_vqr8c")
 
-[node name="Cloud33" type="Sprite2D" parent="Clouds"]
+[node name="Cloud33" type="Sprite2D" parent="Clouds 1"]
 position = Vector2(6987, 79)
 texture = ExtResource("3_fbe1l")
 
-[node name="Cloud34" type="Sprite2D" parent="Clouds"]
+[node name="Cloud34" type="Sprite2D" parent="Clouds 1"]
 position = Vector2(8037, 152)
 texture = ExtResource("4_vqr8c")
 
-[node name="Cloud35" type="Sprite2D" parent="Clouds"]
+[node name="Cloud35" type="Sprite2D" parent="Clouds 1"]
 position = Vector2(9109, 113)
 texture = ExtResource("5_nb3oj")
 
-[node name="Cloud36" type="Sprite2D" parent="Clouds"]
+[node name="Cloud36" type="Sprite2D" parent="Clouds 1"]
 position = Vector2(9220, 126)
 texture = ExtResource("4_vqr8c")
 
-[node name="Cloud37" type="Sprite2D" parent="Clouds"]
+[node name="Cloud37" type="Sprite2D" parent="Clouds 1"]
 position = Vector2(10764, 160)
 texture = ExtResource("3_fbe1l")
 
-[node name="Cloud38" type="Sprite2D" parent="Clouds"]
+[node name="Cloud38" type="Sprite2D" parent="Clouds 1"]
 position = Vector2(11553, 122)
 texture = ExtResource("4_vqr8c")
 
-[node name="Cloud39" type="Sprite2D" parent="Clouds"]
+[node name="Cloud39" type="Sprite2D" parent="Clouds 1"]
 position = Vector2(12024, 152)
 texture = ExtResource("3_fbe1l")
 
-[node name="Cloud40" type="Sprite2D" parent="Clouds"]
+[node name="Cloud40" type="Sprite2D" parent="Clouds 1"]
 position = Vector2(12993, 130)
 texture = ExtResource("4_vqr8c")
 
-[node name="Cloud41" type="Sprite2D" parent="Clouds"]
+[node name="Cloud41" type="Sprite2D" parent="Clouds 1"]
 position = Vector2(13722, 173)
 texture = ExtResource("3_fbe1l")
 
-[node name="Cloud42" type="Sprite2D" parent="Clouds"]
+[node name="Cloud42" type="Sprite2D" parent="Clouds 1"]
 position = Vector2(13645, 186)
 texture = ExtResource("4_vqr8c")
 
-[node name="Cloud43" type="Sprite2D" parent="Clouds"]
+[node name="Cloud43" type="Sprite2D" parent="Clouds 1"]
 position = Vector2(13795, 177)
 texture = ExtResource("5_nb3oj")
 
-[node name="Cloud44" type="Sprite2D" parent="Clouds"]
+[node name="Cloud44" type="Sprite2D" parent="Clouds 1"]
 position = Vector2(14759, 122)
 texture = ExtResource("4_vqr8c")
 
-[node name="Cloud45" type="Sprite2D" parent="Clouds"]
+[node name="Cloud45" type="Sprite2D" parent="Clouds 1"]
 position = Vector2(14965, 160)
 texture = ExtResource("3_fbe1l")
 
-[node name="Cloud46" type="Sprite2D" parent="Clouds"]
+[node name="Cloud46" type="Sprite2D" parent="Clouds 1"]
 position = Vector2(15295, 122)
 texture = ExtResource("5_nb3oj")
 
-[node name="Cloud47" type="Sprite2D" parent="Clouds"]
+[node name="Cloud47" type="Sprite2D" parent="Clouds 1"]
 position = Vector2(16028, 139)
 texture = ExtResource("3_fbe1l")
 
-[node name="Cloud48" type="Sprite2D" parent="Clouds"]
+[node name="Cloud48" type="Sprite2D" parent="Clouds 1"]
 position = Vector2(16093, 139)
 texture = ExtResource("4_vqr8c")
 
-[node name="Cloud49" type="Sprite2D" parent="Clouds"]
+[node name="Cloud49" type="Sprite2D" parent="Clouds 1"]
 position = Vector2(16054, 127)
 texture = ExtResource("3_fbe1l")
 
-[node name="Cloud50" type="Sprite2D" parent="Clouds"]
+[node name="Cloud50" type="Sprite2D" parent="Clouds 1"]
 position = Vector2(46198, 99)
 texture = ExtResource("3_fbe1l")
 
-[node name="Cloud51" type="Sprite2D" parent="Clouds"]
+[node name="Cloud51" type="Sprite2D" parent="Clouds 1"]
 position = Vector2(46333, 145)
 texture = ExtResource("4_vqr8c")
 
-[node name="Cloud52" type="Sprite2D" parent="Clouds"]
+[node name="Cloud52" type="Sprite2D" parent="Clouds 1"]
 position = Vector2(47484, 140)
 texture = ExtResource("5_nb3oj")
 
-[node name="Cloud53" type="Sprite2D" parent="Clouds"]
+[node name="Cloud53" type="Sprite2D" parent="Clouds 1"]
 position = Vector2(48672, 177)
 texture = ExtResource("3_fbe1l")
 
-[node name="Cloud54" type="Sprite2D" parent="Clouds"]
+[node name="Cloud54" type="Sprite2D" parent="Clouds 1"]
 position = Vector2(49284, 99)
 texture = ExtResource("3_fbe1l")
 
-[node name="Cloud55" type="Sprite2D" parent="Clouds"]
+[node name="Cloud55" type="Sprite2D" parent="Clouds 1"]
 position = Vector2(50192, 156)
 texture = ExtResource("3_fbe1l")
 
-[node name="Cloud56" type="Sprite2D" parent="Clouds"]
+[node name="Cloud56" type="Sprite2D" parent="Clouds 1"]
 position = Vector2(50145, 156)
 texture = ExtResource("5_nb3oj")
 
-[node name="Cloud57" type="Sprite2D" parent="Clouds"]
-position = Vector2(51380, 130)
-texture = ExtResource("3_fbe1l")
-
-[node name="Cloud58" type="Sprite2D" parent="Clouds"]
-position = Vector2(52900, 109)
-texture = ExtResource("4_vqr8c")
-
-[node name="Cloud59" type="Sprite2D" parent="Clouds"]
-position = Vector2(53730, 161)
-texture = ExtResource("5_nb3oj")
-
-[node name="Cloud60" type="Sprite2D" parent="Clouds"]
-position = Vector2(53657, 171)
-texture = ExtResource("3_fbe1l")
-
-[node name="Cloud61" type="Sprite2D" parent="Clouds"]
-position = Vector2(55099, 145)
-texture = ExtResource("4_vqr8c")
-
-[node name="Cloud62" type="Sprite2D" parent="Clouds"]
-position = Vector2(55103, 160)
-texture = ExtResource("5_nb3oj")
-
-[node name="Cloud63" type="Sprite2D" parent="Clouds"]
-position = Vector2(55913, 151)
-texture = ExtResource("4_vqr8c")
-
-[node name="Cloud64" type="Sprite2D" parent="Clouds"]
-position = Vector2(56287, 151)
-texture = ExtResource("3_fbe1l")
-
-[node name="Cloud65" type="Sprite2D" parent="Clouds"]
-position = Vector2(56681, 155)
-texture = ExtResource("4_vqr8c")
-
-[node name="Cloud66" type="Sprite2D" parent="Clouds"]
-position = Vector2(57191, 158)
-texture = ExtResource("3_fbe1l")
-
-[node name="Cloud67" type="Sprite2D" parent="Clouds"]
-position = Vector2(57484, 143)
-texture = ExtResource("4_vqr8c")
-
-[node name="Cloud68" type="Sprite2D" parent="Clouds"]
-position = Vector2(58053, 123)
-texture = ExtResource("5_nb3oj")
-
-[node name="Cloud69" type="Sprite2D" parent="Clouds"]
-position = Vector2(59518, 123)
-texture = ExtResource("3_fbe1l")
-
-[node name="Cloud70" type="Sprite2D" parent="Clouds"]
+[node name="Cloud70" type="Sprite2D" parent="Clouds 1"]
 position = Vector2(29783, 146)
 texture = ExtResource("3_fbe1l")
 
-[node name="Cloud71" type="Sprite2D" parent="Clouds"]
+[node name="Cloud71" type="Sprite2D" parent="Clouds 1"]
 position = Vector2(30037, 202)
 texture = ExtResource("4_vqr8c")
 
-[node name="Cloud72" type="Sprite2D" parent="Clouds"]
+[node name="Cloud72" type="Sprite2D" parent="Clouds 1"]
 position = Vector2(30664, 96)
 texture = ExtResource("5_nb3oj")
 
-[node name="Cloud73" type="Sprite2D" parent="Clouds"]
+[node name="Cloud73" type="Sprite2D" parent="Clouds 1"]
 position = Vector2(31707, 96)
 texture = ExtResource("3_fbe1l")
 
-[node name="Cloud74" type="Sprite2D" parent="Clouds"]
+[node name="Cloud74" type="Sprite2D" parent="Clouds 1"]
 position = Vector2(32385, 229)
 texture = ExtResource("4_vqr8c")
 
-[node name="Cloud75" type="Sprite2D" parent="Clouds"]
+[node name="Cloud75" type="Sprite2D" parent="Clouds 1"]
 position = Vector2(32998, 96)
 texture = ExtResource("3_fbe1l")
 
-[node name="Cloud76" type="Sprite2D" parent="Clouds"]
+[node name="Cloud76" type="Sprite2D" parent="Clouds 1"]
 position = Vector2(33898, 143)
 texture = ExtResource("5_nb3oj")
 
-[node name="Cloud77" type="Sprite2D" parent="Clouds"]
+[node name="Cloud77" type="Sprite2D" parent="Clouds 1"]
 position = Vector2(34803, 143)
 texture = ExtResource("4_vqr8c")
 
-[node name="Cloud78" type="Sprite2D" parent="Clouds"]
+[node name="Cloud78" type="Sprite2D" parent="Clouds 1"]
 position = Vector2(35219, 92)
 texture = ExtResource("3_fbe1l")
 
-[node name="Cloud79" type="Sprite2D" parent="Clouds"]
+[node name="Cloud79" type="Sprite2D" parent="Clouds 1"]
 position = Vector2(35454, 130)
 texture = ExtResource("4_vqr8c")
 
-[node name="Cloud80" type="Sprite2D" parent="Clouds"]
+[node name="Cloud80" type="Sprite2D" parent="Clouds 1"]
 position = Vector2(36089, 100)
 texture = ExtResource("3_fbe1l")
 
-[node name="Cloud81" type="Sprite2D" parent="Clouds"]
+[node name="Cloud81" type="Sprite2D" parent="Clouds 1"]
 position = Vector2(36149, 122)
 texture = ExtResource("4_vqr8c")
 
-[node name="Cloud82" type="Sprite2D" parent="Clouds"]
+[node name="Cloud82" type="Sprite2D" parent="Clouds 1"]
 position = Vector2(36415, 79)
 texture = ExtResource("3_fbe1l")
 
-[node name="Cloud83" type="Sprite2D" parent="Clouds"]
+[node name="Cloud83" type="Sprite2D" parent="Clouds 1"]
 position = Vector2(37465, 152)
 texture = ExtResource("4_vqr8c")
 
-[node name="Cloud84" type="Sprite2D" parent="Clouds"]
+[node name="Cloud84" type="Sprite2D" parent="Clouds 1"]
 position = Vector2(38537, 113)
 texture = ExtResource("5_nb3oj")
 
-[node name="Cloud85" type="Sprite2D" parent="Clouds"]
+[node name="Cloud85" type="Sprite2D" parent="Clouds 1"]
 position = Vector2(38648, 126)
 texture = ExtResource("4_vqr8c")
 
-[node name="Cloud86" type="Sprite2D" parent="Clouds"]
+[node name="Cloud86" type="Sprite2D" parent="Clouds 1"]
 position = Vector2(40192, 160)
 texture = ExtResource("3_fbe1l")
 
-[node name="Cloud87" type="Sprite2D" parent="Clouds"]
+[node name="Cloud87" type="Sprite2D" parent="Clouds 1"]
 position = Vector2(40981, 122)
 texture = ExtResource("4_vqr8c")
 
-[node name="Cloud88" type="Sprite2D" parent="Clouds"]
+[node name="Cloud88" type="Sprite2D" parent="Clouds 1"]
 position = Vector2(41452, 152)
 texture = ExtResource("3_fbe1l")
 
-[node name="Cloud89" type="Sprite2D" parent="Clouds"]
+[node name="Cloud89" type="Sprite2D" parent="Clouds 1"]
 position = Vector2(42421, 130)
 texture = ExtResource("4_vqr8c")
 
-[node name="Cloud90" type="Sprite2D" parent="Clouds"]
+[node name="Cloud90" type="Sprite2D" parent="Clouds 1"]
 position = Vector2(43150, 173)
 texture = ExtResource("3_fbe1l")
 
-[node name="Cloud91" type="Sprite2D" parent="Clouds"]
+[node name="Cloud91" type="Sprite2D" parent="Clouds 1"]
 position = Vector2(43073, 186)
 texture = ExtResource("4_vqr8c")
 
-[node name="Cloud92" type="Sprite2D" parent="Clouds"]
+[node name="Cloud92" type="Sprite2D" parent="Clouds 1"]
 position = Vector2(43223, 177)
 texture = ExtResource("5_nb3oj")
 
-[node name="Cloud93" type="Sprite2D" parent="Clouds"]
+[node name="Cloud93" type="Sprite2D" parent="Clouds 1"]
 position = Vector2(44187, 122)
 texture = ExtResource("4_vqr8c")
 
-[node name="Cloud94" type="Sprite2D" parent="Clouds"]
+[node name="Cloud94" type="Sprite2D" parent="Clouds 1"]
 position = Vector2(44393, 160)
 texture = ExtResource("3_fbe1l")
 
-[node name="Cloud95" type="Sprite2D" parent="Clouds"]
+[node name="Cloud95" type="Sprite2D" parent="Clouds 1"]
 position = Vector2(44723, 122)
 texture = ExtResource("5_nb3oj")
 
-[node name="Cloud96" type="Sprite2D" parent="Clouds"]
+[node name="Cloud96" type="Sprite2D" parent="Clouds 1"]
 position = Vector2(45456, 139)
 texture = ExtResource("3_fbe1l")
 
-[node name="Cloud97" type="Sprite2D" parent="Clouds"]
+[node name="Cloud97" type="Sprite2D" parent="Clouds 1"]
 position = Vector2(45521, 139)
 texture = ExtResource("4_vqr8c")
 
-[node name="Cloud98" type="Sprite2D" parent="Clouds"]
+[node name="Cloud98" type="Sprite2D" parent="Clouds 1"]
 position = Vector2(45482, 127)
 texture = ExtResource("3_fbe1l")
 
-[node name="Cloud99" type="Sprite2D" parent="Clouds"]
-position = Vector2(74121, 99)
+[node name="Clouds 2" type="Node2D" parent="."]
+z_index = 455
+position = Vector2(51200, -53)
+
+[node name="Cloud1" type="Sprite2D" parent="Clouds 2"]
+position = Vector2(16770, 99)
 texture = ExtResource("3_fbe1l")
 
-[node name="Cloud100" type="Sprite2D" parent="Clouds"]
-position = Vector2(74256, 145)
+[node name="Cloud2" type="Sprite2D" parent="Clouds 2"]
+position = Vector2(16905, 145)
 texture = ExtResource("4_vqr8c")
 
-[node name="Cloud101" type="Sprite2D" parent="Clouds"]
-position = Vector2(75407, 140)
+[node name="Cloud3" type="Sprite2D" parent="Clouds 2"]
+position = Vector2(18056, 140)
 texture = ExtResource("5_nb3oj")
 
-[node name="Cloud102" type="Sprite2D" parent="Clouds"]
-position = Vector2(76595, 177)
+[node name="Cloud4" type="Sprite2D" parent="Clouds 2"]
+position = Vector2(19244, 177)
 texture = ExtResource("3_fbe1l")
 
-[node name="Cloud103" type="Sprite2D" parent="Clouds"]
-position = Vector2(77207, 99)
+[node name="Cloud5" type="Sprite2D" parent="Clouds 2"]
+position = Vector2(19856, 99)
 texture = ExtResource("3_fbe1l")
 
-[node name="Cloud104" type="Sprite2D" parent="Clouds"]
-position = Vector2(78115, 156)
+[node name="Cloud6" type="Sprite2D" parent="Clouds 2"]
+position = Vector2(20764, 156)
 texture = ExtResource("3_fbe1l")
 
-[node name="Cloud105" type="Sprite2D" parent="Clouds"]
-position = Vector2(78068, 156)
+[node name="Cloud7" type="Sprite2D" parent="Clouds 2"]
+position = Vector2(20717, 156)
 texture = ExtResource("5_nb3oj")
 
-[node name="Cloud106" type="Sprite2D" parent="Clouds"]
-position = Vector2(79303, 130)
+[node name="Cloud8" type="Sprite2D" parent="Clouds 2"]
+position = Vector2(21952, 130)
 texture = ExtResource("3_fbe1l")
 
-[node name="Cloud107" type="Sprite2D" parent="Clouds"]
-position = Vector2(80823, 109)
+[node name="Cloud9" type="Sprite2D" parent="Clouds 2"]
+position = Vector2(23472, 109)
 texture = ExtResource("4_vqr8c")
 
-[node name="Cloud108" type="Sprite2D" parent="Clouds"]
-position = Vector2(81653, 161)
+[node name="Cloud10" type="Sprite2D" parent="Clouds 2"]
+position = Vector2(24302, 161)
 texture = ExtResource("5_nb3oj")
 
-[node name="Cloud109" type="Sprite2D" parent="Clouds"]
-position = Vector2(81580, 171)
+[node name="Cloud11" type="Sprite2D" parent="Clouds 2"]
+position = Vector2(24229, 171)
 texture = ExtResource("3_fbe1l")
 
-[node name="Cloud110" type="Sprite2D" parent="Clouds"]
-position = Vector2(83022, 145)
+[node name="Cloud12" type="Sprite2D" parent="Clouds 2"]
+position = Vector2(25671, 145)
 texture = ExtResource("4_vqr8c")
 
-[node name="Cloud111" type="Sprite2D" parent="Clouds"]
-position = Vector2(83026, 160)
+[node name="Cloud13" type="Sprite2D" parent="Clouds 2"]
+position = Vector2(25675, 160)
 texture = ExtResource("5_nb3oj")
 
-[node name="Cloud112" type="Sprite2D" parent="Clouds"]
-position = Vector2(83836, 151)
+[node name="Cloud14" type="Sprite2D" parent="Clouds 2"]
+position = Vector2(26485, 151)
 texture = ExtResource("4_vqr8c")
 
-[node name="Cloud113" type="Sprite2D" parent="Clouds"]
-position = Vector2(84210, 151)
+[node name="Cloud15" type="Sprite2D" parent="Clouds 2"]
+position = Vector2(26859, 151)
 texture = ExtResource("3_fbe1l")
 
-[node name="Cloud114" type="Sprite2D" parent="Clouds"]
-position = Vector2(84604, 155)
+[node name="Cloud16" type="Sprite2D" parent="Clouds 2"]
+position = Vector2(27253, 155)
 texture = ExtResource("4_vqr8c")
 
-[node name="Cloud115" type="Sprite2D" parent="Clouds"]
-position = Vector2(85114, 158)
+[node name="Cloud17" type="Sprite2D" parent="Clouds 2"]
+position = Vector2(27763, 158)
 texture = ExtResource("3_fbe1l")
 
-[node name="Cloud116" type="Sprite2D" parent="Clouds"]
-position = Vector2(85407, 143)
+[node name="Cloud18" type="Sprite2D" parent="Clouds 2"]
+position = Vector2(28056, 143)
 texture = ExtResource("4_vqr8c")
 
-[node name="Cloud117" type="Sprite2D" parent="Clouds"]
-position = Vector2(85976, 123)
+[node name="Cloud19" type="Sprite2D" parent="Clouds 2"]
+position = Vector2(28625, 123)
 texture = ExtResource("5_nb3oj")
 
-[node name="Cloud118" type="Sprite2D" parent="Clouds"]
-position = Vector2(87441, 123)
+[node name="Cloud20" type="Sprite2D" parent="Clouds 2"]
+position = Vector2(30090, 123)
 texture = ExtResource("3_fbe1l")
 
-[node name="Cloud119" type="Sprite2D" parent="Clouds"]
-position = Vector2(57706, 146)
+[node name="Cloud21" type="Sprite2D" parent="Clouds 2"]
+position = Vector2(355, 146)
 texture = ExtResource("3_fbe1l")
 
-[node name="Cloud120" type="Sprite2D" parent="Clouds"]
-position = Vector2(57960, 202)
+[node name="Cloud22" type="Sprite2D" parent="Clouds 2"]
+position = Vector2(609, 202)
 texture = ExtResource("4_vqr8c")
 
-[node name="Cloud121" type="Sprite2D" parent="Clouds"]
-position = Vector2(58587, 96)
+[node name="Cloud23" type="Sprite2D" parent="Clouds 2"]
+position = Vector2(1236, 96)
 texture = ExtResource("5_nb3oj")
 
-[node name="Cloud122" type="Sprite2D" parent="Clouds"]
-position = Vector2(59630, 96)
+[node name="Cloud24" type="Sprite2D" parent="Clouds 2"]
+position = Vector2(2279, 96)
 texture = ExtResource("3_fbe1l")
 
-[node name="Cloud123" type="Sprite2D" parent="Clouds"]
-position = Vector2(60308, 229)
+[node name="Cloud25" type="Sprite2D" parent="Clouds 2"]
+position = Vector2(2957, 229)
 texture = ExtResource("4_vqr8c")
 
-[node name="Cloud124" type="Sprite2D" parent="Clouds"]
-position = Vector2(60921, 96)
+[node name="Cloud26" type="Sprite2D" parent="Clouds 2"]
+position = Vector2(3570, 96)
 texture = ExtResource("3_fbe1l")
 
-[node name="Cloud125" type="Sprite2D" parent="Clouds"]
-position = Vector2(61821, 143)
+[node name="Cloud27" type="Sprite2D" parent="Clouds 2"]
+position = Vector2(4470, 143)
 texture = ExtResource("5_nb3oj")
 
-[node name="Cloud126" type="Sprite2D" parent="Clouds"]
-position = Vector2(62726, 143)
+[node name="Cloud28" type="Sprite2D" parent="Clouds 2"]
+position = Vector2(5375, 143)
 texture = ExtResource("4_vqr8c")
 
-[node name="Cloud127" type="Sprite2D" parent="Clouds"]
-position = Vector2(63142, 92)
+[node name="Cloud29" type="Sprite2D" parent="Clouds 2"]
+position = Vector2(5791, 92)
 texture = ExtResource("3_fbe1l")
 
-[node name="Cloud128" type="Sprite2D" parent="Clouds"]
-position = Vector2(63377, 130)
+[node name="Cloud30" type="Sprite2D" parent="Clouds 2"]
+position = Vector2(6026, 130)
 texture = ExtResource("4_vqr8c")
 
-[node name="Cloud129" type="Sprite2D" parent="Clouds"]
-position = Vector2(64012, 100)
+[node name="Cloud31" type="Sprite2D" parent="Clouds 2"]
+position = Vector2(6661, 100)
 texture = ExtResource("3_fbe1l")
 
-[node name="Cloud130" type="Sprite2D" parent="Clouds"]
-position = Vector2(64072, 122)
+[node name="Cloud32" type="Sprite2D" parent="Clouds 2"]
+position = Vector2(6721, 122)
 texture = ExtResource("4_vqr8c")
 
-[node name="Cloud131" type="Sprite2D" parent="Clouds"]
-position = Vector2(64338, 79)
+[node name="Cloud33" type="Sprite2D" parent="Clouds 2"]
+position = Vector2(6987, 79)
 texture = ExtResource("3_fbe1l")
 
-[node name="Cloud132" type="Sprite2D" parent="Clouds"]
-position = Vector2(65388, 152)
+[node name="Cloud34" type="Sprite2D" parent="Clouds 2"]
+position = Vector2(8037, 152)
 texture = ExtResource("4_vqr8c")
 
-[node name="Cloud133" type="Sprite2D" parent="Clouds"]
-position = Vector2(66460, 113)
+[node name="Cloud35" type="Sprite2D" parent="Clouds 2"]
+position = Vector2(9109, 113)
 texture = ExtResource("5_nb3oj")
 
-[node name="Cloud134" type="Sprite2D" parent="Clouds"]
-position = Vector2(66571, 126)
+[node name="Cloud36" type="Sprite2D" parent="Clouds 2"]
+position = Vector2(9220, 126)
 texture = ExtResource("4_vqr8c")
 
-[node name="Cloud135" type="Sprite2D" parent="Clouds"]
-position = Vector2(68115, 160)
+[node name="Cloud37" type="Sprite2D" parent="Clouds 2"]
+position = Vector2(10764, 160)
 texture = ExtResource("3_fbe1l")
 
-[node name="Cloud136" type="Sprite2D" parent="Clouds"]
-position = Vector2(68904, 122)
+[node name="Cloud38" type="Sprite2D" parent="Clouds 2"]
+position = Vector2(11553, 122)
 texture = ExtResource("4_vqr8c")
 
-[node name="Cloud137" type="Sprite2D" parent="Clouds"]
-position = Vector2(69375, 152)
+[node name="Cloud39" type="Sprite2D" parent="Clouds 2"]
+position = Vector2(12024, 152)
 texture = ExtResource("3_fbe1l")
 
-[node name="Cloud138" type="Sprite2D" parent="Clouds"]
-position = Vector2(70344, 130)
+[node name="Cloud40" type="Sprite2D" parent="Clouds 2"]
+position = Vector2(12993, 130)
 texture = ExtResource("4_vqr8c")
 
-[node name="Cloud139" type="Sprite2D" parent="Clouds"]
-position = Vector2(71073, 173)
+[node name="Cloud41" type="Sprite2D" parent="Clouds 2"]
+position = Vector2(13722, 173)
 texture = ExtResource("3_fbe1l")
 
-[node name="Cloud140" type="Sprite2D" parent="Clouds"]
-position = Vector2(70996, 186)
+[node name="Cloud42" type="Sprite2D" parent="Clouds 2"]
+position = Vector2(13645, 186)
 texture = ExtResource("4_vqr8c")
 
-[node name="Cloud141" type="Sprite2D" parent="Clouds"]
-position = Vector2(71146, 177)
+[node name="Cloud43" type="Sprite2D" parent="Clouds 2"]
+position = Vector2(13795, 177)
 texture = ExtResource("5_nb3oj")
 
-[node name="Cloud142" type="Sprite2D" parent="Clouds"]
-position = Vector2(72110, 122)
+[node name="Cloud44" type="Sprite2D" parent="Clouds 2"]
+position = Vector2(14759, 122)
 texture = ExtResource("4_vqr8c")
 
-[node name="Cloud143" type="Sprite2D" parent="Clouds"]
-position = Vector2(72316, 160)
+[node name="Cloud45" type="Sprite2D" parent="Clouds 2"]
+position = Vector2(14965, 160)
 texture = ExtResource("3_fbe1l")
 
-[node name="Cloud144" type="Sprite2D" parent="Clouds"]
-position = Vector2(72646, 122)
+[node name="Cloud46" type="Sprite2D" parent="Clouds 2"]
+position = Vector2(15295, 122)
 texture = ExtResource("5_nb3oj")
 
-[node name="Cloud145" type="Sprite2D" parent="Clouds"]
-position = Vector2(73379, 139)
+[node name="Cloud47" type="Sprite2D" parent="Clouds 2"]
+position = Vector2(16028, 139)
 texture = ExtResource("3_fbe1l")
 
-[node name="Cloud146" type="Sprite2D" parent="Clouds"]
-position = Vector2(73444, 139)
+[node name="Cloud48" type="Sprite2D" parent="Clouds 2"]
+position = Vector2(16093, 139)
 texture = ExtResource("4_vqr8c")
 
-[node name="Cloud147" type="Sprite2D" parent="Clouds"]
-position = Vector2(73405, 127)
+[node name="Cloud49" type="Sprite2D" parent="Clouds 2"]
+position = Vector2(16054, 127)
 texture = ExtResource("3_fbe1l")
 
-[node name="Cloud148" type="Sprite2D" parent="Clouds"]
-position = Vector2(88464, 109)
+[node name="Cloud50" type="Sprite2D" parent="Clouds 2"]
+position = Vector2(46198, 99)
+texture = ExtResource("3_fbe1l")
+
+[node name="Cloud51" type="Sprite2D" parent="Clouds 2"]
+position = Vector2(46333, 145)
+texture = ExtResource("4_vqr8c")
+
+[node name="Cloud52" type="Sprite2D" parent="Clouds 2"]
+position = Vector2(47484, 140)
 texture = ExtResource("5_nb3oj")
 
-[node name="Cloud149" type="Sprite2D" parent="Clouds"]
-position = Vector2(88920, 142)
+[node name="Cloud53" type="Sprite2D" parent="Clouds 2"]
+position = Vector2(48672, 177)
 texture = ExtResource("3_fbe1l")
 
-[node name="Cloud150" type="Sprite2D" parent="Clouds"]
-position = Vector2(88997, 126)
+[node name="Cloud54" type="Sprite2D" parent="Clouds 2"]
+position = Vector2(49284, 99)
 texture = ExtResource("3_fbe1l")
 
-[node name="Cloud151" type="Sprite2D" parent="Clouds"]
-position = Vector2(88950, 120)
-texture = ExtResource("4_vqr8c")
+[node name="Cloud55" type="Sprite2D" parent="Clouds 2"]
+position = Vector2(50192, 156)
+texture = ExtResource("3_fbe1l")
 
-[node name="Cloud152" type="Sprite2D" parent="Clouds"]
-position = Vector2(89957, 96)
+[node name="Cloud56" type="Sprite2D" parent="Clouds 2"]
+position = Vector2(50145, 156)
 texture = ExtResource("5_nb3oj")
 
-[node name="Cloud153" type="Sprite2D" parent="Clouds"]
-position = Vector2(89878, 126)
-texture = ExtResource("4_vqr8c")
-
-[node name="Cloud154" type="Sprite2D" parent="Clouds"]
-position = Vector2(90625, 99)
+[node name="Cloud70" type="Sprite2D" parent="Clouds 2"]
+position = Vector2(29783, 146)
 texture = ExtResource("3_fbe1l")
 
-[node name="Cloud155" type="Sprite2D" parent="Clouds"]
-position = Vector2(92128, 139)
-texture = ExtResource("3_fbe1l")
-
-[node name="Cloud156" type="Sprite2D" parent="Clouds"]
-position = Vector2(92401, 129)
+[node name="Cloud71" type="Sprite2D" parent="Clouds 2"]
+position = Vector2(30037, 202)
 texture = ExtResource("4_vqr8c")
 
-[node name="Cloud157" type="Sprite2D" parent="Clouds"]
-position = Vector2(92189, 150)
-texture = ExtResource("4_vqr8c")
-
-[node name="Cloud158" type="Sprite2D" parent="Clouds"]
-position = Vector2(93157, 94)
+[node name="Cloud72" type="Sprite2D" parent="Clouds 2"]
+position = Vector2(30664, 96)
 texture = ExtResource("5_nb3oj")
 
-[node name="Cloud159" type="Sprite2D" parent="Clouds"]
-position = Vector2(94053, 111)
+[node name="Cloud73" type="Sprite2D" parent="Clouds 2"]
+position = Vector2(31707, 96)
 texture = ExtResource("3_fbe1l")
 
-[node name="Cloud160" type="Sprite2D" parent="Clouds"]
-position = Vector2(94236, 105)
+[node name="Cloud74" type="Sprite2D" parent="Clouds 2"]
+position = Vector2(32385, 229)
 texture = ExtResource("4_vqr8c")
 
-[node name="Cloud161" type="Sprite2D" parent="Clouds"]
-position = Vector2(95103, 88)
+[node name="Cloud75" type="Sprite2D" parent="Clouds 2"]
+position = Vector2(32998, 96)
 texture = ExtResource("3_fbe1l")
+
+[node name="Cloud76" type="Sprite2D" parent="Clouds 2"]
+position = Vector2(33898, 143)
+texture = ExtResource("5_nb3oj")
+
+[node name="Cloud77" type="Sprite2D" parent="Clouds 2"]
+position = Vector2(34803, 143)
+texture = ExtResource("4_vqr8c")
+
+[node name="Cloud78" type="Sprite2D" parent="Clouds 2"]
+position = Vector2(35219, 92)
+texture = ExtResource("3_fbe1l")
+
+[node name="Cloud79" type="Sprite2D" parent="Clouds 2"]
+position = Vector2(35454, 130)
+texture = ExtResource("4_vqr8c")
+
+[node name="Cloud80" type="Sprite2D" parent="Clouds 2"]
+position = Vector2(36089, 100)
+texture = ExtResource("3_fbe1l")
+
+[node name="Cloud81" type="Sprite2D" parent="Clouds 2"]
+position = Vector2(36149, 122)
+texture = ExtResource("4_vqr8c")
+
+[node name="Cloud82" type="Sprite2D" parent="Clouds 2"]
+position = Vector2(36415, 79)
+texture = ExtResource("3_fbe1l")
+
+[node name="Cloud83" type="Sprite2D" parent="Clouds 2"]
+position = Vector2(37465, 152)
+texture = ExtResource("4_vqr8c")
+
+[node name="Cloud84" type="Sprite2D" parent="Clouds 2"]
+position = Vector2(38537, 113)
+texture = ExtResource("5_nb3oj")
+
+[node name="Cloud85" type="Sprite2D" parent="Clouds 2"]
+position = Vector2(38648, 126)
+texture = ExtResource("4_vqr8c")
+
+[node name="Cloud86" type="Sprite2D" parent="Clouds 2"]
+position = Vector2(40192, 160)
+texture = ExtResource("3_fbe1l")
+
+[node name="Cloud87" type="Sprite2D" parent="Clouds 2"]
+position = Vector2(40981, 122)
+texture = ExtResource("4_vqr8c")
+
+[node name="Cloud88" type="Sprite2D" parent="Clouds 2"]
+position = Vector2(41452, 152)
+texture = ExtResource("3_fbe1l")
+
+[node name="Cloud89" type="Sprite2D" parent="Clouds 2"]
+position = Vector2(42421, 130)
+texture = ExtResource("4_vqr8c")
+
+[node name="Cloud90" type="Sprite2D" parent="Clouds 2"]
+position = Vector2(43150, 173)
+texture = ExtResource("3_fbe1l")
+
+[node name="Cloud91" type="Sprite2D" parent="Clouds 2"]
+position = Vector2(43073, 186)
+texture = ExtResource("4_vqr8c")
+
+[node name="Cloud92" type="Sprite2D" parent="Clouds 2"]
+position = Vector2(43223, 177)
+texture = ExtResource("5_nb3oj")
+
+[node name="Cloud93" type="Sprite2D" parent="Clouds 2"]
+position = Vector2(44187, 122)
+texture = ExtResource("4_vqr8c")
+
+[node name="Cloud94" type="Sprite2D" parent="Clouds 2"]
+position = Vector2(44393, 160)
+texture = ExtResource("3_fbe1l")
+
+[node name="Cloud95" type="Sprite2D" parent="Clouds 2"]
+position = Vector2(44723, 122)
+texture = ExtResource("5_nb3oj")
+
+[node name="Cloud96" type="Sprite2D" parent="Clouds 2"]
+position = Vector2(45456, 139)
+texture = ExtResource("3_fbe1l")
+
+[node name="Cloud97" type="Sprite2D" parent="Clouds 2"]
+position = Vector2(45521, 139)
+texture = ExtResource("4_vqr8c")
+
+[node name="Cloud98" type="Sprite2D" parent="Clouds 2"]
+position = Vector2(45482, 127)
+texture = ExtResource("3_fbe1l")
+
+[node name="Waves A" type="Sprite2D" parent="."]
+z_as_relative = false
+texture_filter = 1
+texture_repeat = 3
+position = Vector2(0, 354)
+texture = ExtResource("20_ryjee")
+centered = false
+
+[node name="Wave2" type="Sprite2D" parent="Waves A"]
+position = Vector2(1280, 0)
+scale = Vector2(-1, 1)
+texture = ExtResource("20_ryjee")
+centered = false
+
+[node name="Wave3" type="Sprite2D" parent="Waves A"]
+position = Vector2(1280, 0)
+texture = ExtResource("20_ryjee")
+centered = false
+
+[node name="Wave4" type="Sprite2D" parent="Waves A"]
+position = Vector2(2560, 0)
+scale = Vector2(-1, 1)
+texture = ExtResource("20_ryjee")
+centered = false
+
+[node name="Wave5" type="Sprite2D" parent="Waves A"]
+position = Vector2(2560, 0)
+texture = ExtResource("20_ryjee")
+centered = false
+
+[node name="Waves B" type="Sprite2D" parent="."]
+z_as_relative = false
+texture_filter = 1
+texture_repeat = 2
+position = Vector2(0, 527)
+texture = ExtResource("21_e0bto")
+centered = false
+
+[node name="Wave2" type="Sprite2D" parent="Waves B"]
+texture_filter = 1
+texture_repeat = 2
+position = Vector2(640, 0)
+texture = ExtResource("21_e0bto")
+centered = false
+
+[node name="Wave3" type="Sprite2D" parent="Waves B"]
+texture_filter = 1
+texture_repeat = 2
+position = Vector2(1280, 0)
+texture = ExtResource("21_e0bto")
+centered = false
+
+[node name="Wave4" type="Sprite2D" parent="Waves B"]
+texture_filter = 1
+texture_repeat = 2
+position = Vector2(1920, 0)
+texture = ExtResource("21_e0bto")
+centered = false
+
+[node name="Wave5" type="Sprite2D" parent="Waves B"]
+texture_filter = 1
+texture_repeat = 2
+position = Vector2(2560, 0)
+texture = ExtResource("21_e0bto")
+centered = false
 
 [node name="Player" type="CharacterBody2D" parent="." node_paths=PackedStringArray("path_a", "path_b", "path_c")]
+z_index = 1
 y_sort_enabled = true
 position = Vector2(0, 617)
 rotation = 3.14159
@@ -1525,6 +1803,7 @@ path_c = NodePath("../Camera/editor only/lane 3")
 y_sort_enabled = true
 texture_filter = 1
 texture_repeat = 1
+material = SubResource("ShaderMaterial_oo2gf")
 rotation = -3.14159
 scale = Vector2(5, 5)
 texture = ExtResource("7_i525v")
@@ -1532,13 +1811,23 @@ texture = ExtResource("7_i525v")
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Player"]
 rotation = -3.1193
 scale = Vector2(3.04, 3.04)
-polygon = PackedVector2Array(-4.48468, -25.3513, -40.6792, -14.8606, -35.4361, 5.53934, -20.9806, 23.9746, 13.8878, 24.0089, 39.5794, -10.1764, 37.616, -20.7046)
+polygon = PackedVector2Array(-7.48644, -40.6327, -59.1393, -25.662, -64.2252, -17.6519, -58.714, -6.58774, -52.9536, 15.6578, -35.4714, 32.3776, 28.3139, 30.2975, 44.799, 2.29153, 46.3617, -16.1689, 63.3894, -19.8388, 59.2523, -28.3014, 47.2812, -33.957)
 
 [node name="objects" type="Node2D" parent="."]
+z_index = 2
 y_sort_enabled = true
+
+[node name="Seal" parent="." instance=ExtResource("25_oo2gf")]
+position = Vector2(1574, 425)
 
 [connection signal="pressed" from="CanvasLayer/main_menu/Panel/VBoxContainer2/VBoxContainer/Easy" to="." method="_on_easy_pressed"]
 [connection signal="pressed" from="CanvasLayer/main_menu/Panel/VBoxContainer2/VBoxContainer/Normal" to="." method="_on_normal_pressed"]
 [connection signal="pressed" from="CanvasLayer/main_menu/Panel/VBoxContainer2/VBoxContainer/Hard" to="." method="_on_hard_pressed"]
 [connection signal="pressed" from="CanvasLayer/main_menu/Panel/VBoxContainer2/VBoxContainer/Highscores" to="." method="_on_highscores_pressed"]
 [connection signal="pressed" from="CanvasLayer/picking_loadout/Panel/MarginContainer/VBoxContainer/MarginContainer/Begin button" to="." method="begin_game"]
+[connection signal="pressed" from="CanvasLayer/pause_menu/Panel/VBoxContainer2/Main menu" to="." method="_on_return_to_main_menu_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/game_over/Panel/VBoxContainer2/VBoxContainer/Easy" to="." method="_on_easy_pressed"]
+[connection signal="pressed" from="CanvasLayer/game_over/Panel/VBoxContainer2/VBoxContainer/Normal" to="." method="_on_normal_pressed"]
+[connection signal="pressed" from="CanvasLayer/game_over/Panel/VBoxContainer2/VBoxContainer/Hard" to="." method="_on_hard_pressed"]
+[connection signal="pressed" from="CanvasLayer/game_over/Panel/VBoxContainer2/VBoxContainer/Highscores" to="." method="_on_highscores_pressed"]
+[connection signal="pressed" from="CanvasLayer/game_over/Panel/VBoxContainer2/VBoxContainer/Main menu" to="." method="_on_return_to_main_menu_button_pressed"]

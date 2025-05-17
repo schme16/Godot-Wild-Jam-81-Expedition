@@ -3,10 +3,14 @@
 [ext_resource type="Texture2D" uid="uid://b2d7yg2m6246r" path="res://data/textures/SharkFin.png" id="1_ae51f"]
 [ext_resource type="Script" uid="uid://0d6yda6fyli7" path="res://data/scripts/collidable.gd" id="2_enbuo"]
 
-[node name="SharkFin" type="Sprite2D"]
+[node name="SharkFin" type="StaticBody2D"]
 y_sort_enabled = true
-texture = ExtResource("1_ae51f")
 script = ExtResource("2_enbuo")
 mode = 1
 ship_damage = 5.0
-morale_damage = 15.0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(12, -33, -6, -31, -23, -17, -35, 4, -34, 28, 10, 28, 8, 19, 1, 1, 6, -25)
+
+[node name="SharkFin" type="Sprite2D" parent="."]
+texture = ExtResource("1_ae51f")

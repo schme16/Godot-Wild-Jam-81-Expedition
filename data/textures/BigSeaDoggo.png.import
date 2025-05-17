@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cggn50rw5kmck"
-path="res://.godot/imported/texture_02.png-9f363af04f8c7105c0739451d2f2c1b8.ctex"
+uid="uid://d4c5hygiigmy1"
+path="res://.godot/imported/BigSeaDoggo.png-e12677d4525ecee265d3fc0396dea03c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://data/textures/grids/texture_02.png"
-dest_files=["res://.godot/imported/texture_02.png-9f363af04f8c7105c0739451d2f2c1b8.ctex"]
+source_file="res://data/textures/BigSeaDoggo.png"
+dest_files=["res://.godot/imported/BigSeaDoggo.png-e12677d4525ecee265d3fc0396dea03c.ctex"]
 
 [params]
 

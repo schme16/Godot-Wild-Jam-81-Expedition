@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c0al6gjbv8qa3"
-path="res://.godot/imported/texture_08.png-79cc1f30a6c6ad75269bab0697e3267a.ctex"
+uid="uid://bri6ldyfprk05"
+path="res://.godot/imported/SunkMast.png-9cece0926a3ad7e8a3a41620f0baec41.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://data/textures/grids/texture_08.png"
-dest_files=["res://.godot/imported/texture_08.png-79cc1f30a6c6ad75269bab0697e3267a.ctex"]
+source_file="res://data/textures/SunkMast.png"
+dest_files=["res://.godot/imported/SunkMast.png-9cece0926a3ad7e8a3a41620f0baec41.ctex"]
 
 [params]
 

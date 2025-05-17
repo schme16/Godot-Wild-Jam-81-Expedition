@@ -13,18 +13,17 @@ enum states {
 }
 
 @export var player:Node2D
-@onready var clouds: Node2D = $Clouds
+@onready var clouds_1: Node2D = $"Clouds 1"
+@onready var clouds_2: Node2D = $"Clouds 2"
+
 @export var camera:Camera2D
 @export var start_progress:float = 0
 @export var journey_time_easy:float = 180
 @export var journey_time_normal:float = 360
 @export var journey_time_hard:float = 720
 var journey_time:float
-var end_progress:float
 @export var progress:float
 @export var editor_only_items:Node2D
-var start_ratio:float
-var max_progress:float
 
 @export var _player_speed:float = 250
 var player_speed:float
@@ -50,10 +49,13 @@ var last_check_failed:int
 var current_journey_time:float
 
 
+
 @onready var objects_list: Dictionary = {
 	"rock": preload("res://data/prefabs/rock.tscn"),
-	"shark": preload("res://data/prefabs/shark_fin.tscn")
+	"shark": preload("res://data/prefabs/shark_fin.tscn"),
+	"sunken_ship": preload("res://data/prefabs/sunken_ship.tscn"),
 }
+var objects_list_array:Array
 
 @onready var objects: Node2D = $"objects"
 
@@ -83,11 +85,53 @@ var current_journey_time:float
 
 
 
+
+
+#dialogue stuff
+var current_dialogue:Dictionary
+var current_dialogue_section:String
+var current_dialogue_index:int
+@onready var ui_dialogue_text: RichTextLabel = $"CanvasLayer/dialogue/Panel/dialogue box/dialogue text"
+@onready var ui_next_dialogue: Button = $"CanvasLayer/dialogue/Panel/dialogue box/Control/Next dialogue"
+
+@export var picked_dialogue_item_name:String = ""
+var dialogue:Dictionary = {
+
+
+	"seal_a": {
+		"required_item": "bucket_of_fish",
+
+		"intro_text": [
+			"A huge seal leaps onto the boat and makes a beeline for one of the crew members. \nThe crew member terrified, attempts to get out of the way, to no avail. \nThe sea doggo rubs up against him, unfortunately beginning to crush him.",
+			"Quick, pick an item!",
+		],
+
+		"success_text": [
+			"You toss over the <picked_item_name> over the side and the seal leaps after the free snack. \nThe crew member shakily gets to his feet, relieved.",
+			"Now let's get out of here!",
+		],
+
+		"failure_text": [
+			"You attempt to use the <picked_item_name> on the seal. The seal seem unbothered by your actions and continues roll on the crew member. \nIt eventually loses interest and galomphs away and off the boat, but not before the breaking the poor man's legs. He is not happy."
+		],
+	}
+
+
+
+
+}
+
+
+
+
+
 #Groups
 @onready var ui_playing: Control = $"CanvasLayer/in-game ui"
 @onready var ui_main_menu: Control = $CanvasLayer/main_menu
 @onready var ui_loadout: Control = $CanvasLayer/picking_loadout
 @onready var ui_pause_menu: Control = $CanvasLayer/pause_menu
+@onready var ui_game_over: Control = $CanvasLayer/game_over
+@onready var ui_dialogue: Control = $CanvasLayer/dialogue
 
 
 
@@ -99,36 +143,33 @@ var current_journey_time:float
 @export var ui_voyage_bar:Dictionary
 
 
-
-
-
+@onready var waves_a: Sprite2D = $"Waves A"
+@onready var waves_b: Sprite2D = $"Waves B"
 
 
 func _input(event: InputEvent) -> void:
 
-	if Input.is_action_just_pressed("ui_up"):
-		if player.current_path > 0:
-			player.current_path = player.current_path - 1
+	if state == states.sailing:
+		if Input.is_action_just_pressed("ui_up"):
+			if player.current_path > 0:
+				player.current_path = player.current_path - 1
 
-	if Input.is_action_just_pressed("ui_down"):
-		if player.current_path < 2:
-			player.current_path = player.current_path + 1
+		if Input.is_action_just_pressed("ui_down"):
+			if player.current_path < 2:
+				player.current_path = player.current_path + 1
 
-
-
-# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	gradient_red_orange_green.add_point(1, Color.RED)
 	gradient_red_orange_green.add_point(50, Color.ORANGE)
 	gradient_red_orange_green.add_point(100, Color.GREEN)
 
 	events.listen("player_damage", player_damage)
+
+	events.listen("trigger_dialogue", start_dialogue)
+
 	editor_only_items.visible = false
 
 	ui_groups = {
-		#"voyage_tracker": voyage_tracker,
-		#"ship_health": ship_health,
-		#"crew_morale": crew_morale,
 
 		"playing": ui_playing,
 
@@ -138,6 +179,9 @@ func _ready() -> void:
 
 		"pause_menu": ui_pause_menu,
 
+		"game_over": ui_game_over,
+
+		"dialogue": ui_dialogue,
 	}
 
 	ui_morale_icons = {
@@ -155,6 +199,12 @@ func _ready() -> void:
 		"max": ui_voyage_tracker.size.x - ui_voyage_tracker_current.size.x,
 		"bar": ui_voyage_tracker_current
 	}
+
+	objects_list_array = []
+	for i in objects_list:
+		objects_list_array.append(objects_list[i])
+
+	reset_stats()
 
 func _physics_process(delta: float) -> void:
 
@@ -181,12 +231,10 @@ func _physics_process(delta: float) -> void:
 				pass
 
 			states.sailing:
-
 				ui_groups.playing.visible = true
-				pass
 
 			states.in_dialogue:
-				pass
+				ui_groups.dialogue.visible = true
 
 			states.in_event:
 				pass
@@ -204,12 +252,13 @@ func _physics_process(delta: float) -> void:
 	#runs every frame
 	match state:
 		states.main_menu:
-			pass
+			progress += delta * player_speed/3
 
 		states.new_game:
-			pass
+			progress += delta * player_speed/3
 
 		states.picking_loadout:
+			progress += delta * player_speed/3
 			ui_begin_button.focus_mode = Control.FOCUS_NONE if picked_items.size() < 5 else Control.FOCUS_ALL
 			ui_begin_button.disabled = picked_items.size() < 5
 			pass
@@ -219,8 +268,7 @@ func _physics_process(delta: float) -> void:
 			#move the player along
 			progress += delta * player_speed
 
-			camera.position.x = progress
-			player.position.x = progress + 500
+
 
 			#update the morale icons
 			ui_morale_icons.happy.visible = ship_morale >= 66
@@ -257,10 +305,22 @@ func _physics_process(delta: float) -> void:
 			pass
 
 		states.highscores:
+			progress += delta * player_speed/3
+
 			pass
 
 		states.game_over:
+			progress += delta * player_speed/3
+
 			pass
+
+	player.position.x = progress + 500
+	camera.position.x = progress
+
+
+
+	update_waves()
+	update_clouds()
 
 func _on_easy_pressed() -> void:
 
@@ -277,14 +337,21 @@ func _on_hard_pressed() -> void:
 func _on_highscores_pressed() -> void:
 	pass
 
+func _on_return_to_main_menu_button_pressed() -> void:
+	state = states.main_menu
+	clear_objects()
+
 func player_damage(data) :
-	print(data)
 	ship_health += data.ship_damage
 	ship_morale += data.morale_damage
 	Input.start_joy_vibration(0, 1, 1, 0.2)
+	JavaScriptBridge.eval('ShortRumble()')
+	player.flashing_time = 0.35
+	player.flashing_speed = (player.flashing_time * 10) * 3
+	player.flashing_direction = true
+
 	if ship_health <= 0 or ship_morale <= 0:
 		player_die()
-
 
 func reset_ui():
 	for i in ui_groups:
@@ -296,14 +363,14 @@ func reset_stats():
 	ship_morale = _ship_morale
 	player_speed = _player_speed
 
+	player.is_bobbing = true
+
 func roll_for_new_object():
 
 	if player.position.x - last_check_zone > 200:
 		last_check_zone = player.position.x
 
 		var roll = randi_range(1, max_roll - last_check_failed) == 1
-		print("Roll: ", roll)
-
 
 		if roll:
 			last_check_failed = 0
@@ -312,8 +379,9 @@ func roll_for_new_object():
 
 
 		if roll:
-			var new_object = objects_list.rock.instantiate()
+			var new_object = objects_list_array.pick_random().instantiate()
 			new_object.position.x = player.position.x + 1400
+
 			var path = randi_range(1, 3)
 			if path == 1:
 				new_object.position.y = player.path_a.position.y
@@ -325,8 +393,6 @@ func roll_for_new_object():
 
 			objects.add_child(new_object)
 
-			print("Rock!")
-
 func new_game(game_length:int):
 
 	last_check_zone = 0
@@ -334,8 +400,11 @@ func new_game(game_length:int):
 	#reset the players data
 	reset_stats()
 
+
+	player.current_path = player.paths.B
+
 	#place them back at the start position
-	progress = start_progress
+	#progress = start_progress
 
 	#sync the camera and player positions to the progress
 	player.position.x = progress + 500
@@ -352,22 +421,31 @@ func new_game(game_length:int):
 
 	picked_items.clear()
 	picked_items_ids.clear()
+	clear_objects()
 
+func clear_objects():
 	for c in objects.get_children():
 		c.visible = false
 		objects.remove_child(c)
 		c.queue_free()
 
 func begin_game():
+	player.current_path = player.paths.B
+	player.instant_path = true;
 	player.visible = true;
 	state = states.sailing
 
 func game_over():
-	state = states.main_menu
+	ui_groups.game_over.visible = true
+	player.visible = false
+	clear_objects()
 
 func player_die():
 	Input.start_joy_vibration(0, 1, 1, 1)
+	JavaScriptBridge.eval('LongRumble()')
+
 	state = states.game_over
+	player.is_bobbing = false
 
 func add_item_to_loadout(id, text):
 
@@ -378,3 +456,24 @@ func add_item_to_loadout(id, text):
 	elif picked_items.size() < 5:
 		picked_items_ids.append(id)
 		picked_items.append(text)
+
+func update_waves():
+	var pos = floori(progress / 1280) * 1280
+	waves_a.position.x = pos
+	waves_b.position.x = pos
+
+func update_clouds():
+	var pos = floori(progress / 51200) * 51200
+	clouds_1.position.x = pos
+	clouds_2.position.x = pos + 51200
+
+func start_dialogue(data):
+	state = states.in_dialogue
+	current_dialogue = dialogue[data.dialogue_name]
+	ui_next_dialogue.grab_focus()
+	current_dialogue_section = "intro_text"
+	current_dialogue_index = 0
+	set_dialogue_text(current_dialogue[current_dialogue_section][current_dialogue_index])
+
+func set_dialogue_text(text:String):
+	ui_dialogue_text.text = text.replacen("<picked_item_name>", picked_dialogue_item_name)
