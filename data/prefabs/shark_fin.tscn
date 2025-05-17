@@ -7,10 +7,12 @@
 y_sort_enabled = true
 script = ExtResource("2_enbuo")
 mode = 1
-ship_damage = 5.0
+ship_damage = 15.0
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+position = Vector2(12.1, -0.699997)
 polygon = PackedVector2Array(12, -33, -6, -31, -23, -17, -35, 4, -34, 28, 10, 28, 8, 19, 1, 1, 6, -25)
 
 [node name="SharkFin" type="Sprite2D" parent="."]
+position = Vector2(12.1, -0.699997)
 texture = ExtResource("1_ae51f")

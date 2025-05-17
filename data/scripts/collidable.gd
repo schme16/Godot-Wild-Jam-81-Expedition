@@ -32,6 +32,9 @@ enum modes {
 ##Will a random item be lost on collision?
 @export var lose_items_on_impact:int
 
+##What Dialogues are compatible with this encounter/event
+@export var dialogues:Array = []
+
 var has_triggered:bool = false
 
 #Show/hides export variables based on the selected mode
@@ -52,7 +55,8 @@ func _validate_property(property: Dictionary) -> void:
 	].find(property.name) > -1
 
 	var trigger_dialogue_test = [
-		"dialogue_name"
+		#"dialogue_name",
+		"dialogues"
 	].find(property.name) > -1
 
 	var trigger_event_test = [
@@ -99,6 +103,10 @@ func _validate_property(property: Dictionary) -> void:
 	else:
 		property.usage = property.usage
 
+func _ready() -> void:
+	if dialogues.size() > 0:
+		dialogue_name = dialogues.pick_random()
+
 #The function to run when colliding
 func invoke():
 	if !has_triggered or !trigger_once:
@@ -122,8 +130,10 @@ func invoke():
 					})
 
 			modes.trigger_dialogue:
+
 				events.invoke("trigger_dialogue", {
-					"dialogue_name": dialogue_name
+					"dialogue_name": dialogue_name,
+					"encounter": self
 				})
 
 			modes.trigger_event:

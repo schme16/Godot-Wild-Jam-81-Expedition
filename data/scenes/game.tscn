@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://3rjxq0102uu2"]
+[gd_scene load_steps=31 format=3 uid="uid://3rjxq0102uu2"]
 
 [ext_resource type="Script" uid="uid://dnmxwgvrqx1ny" path="res://data/scripts/game.gd" id="1_00ru4"]
 [ext_resource type="Script" uid="uid://celv11jruaedo" path="res://data/scripts/ui.gd" id="2_nb3oj"]
@@ -25,7 +25,6 @@
 [ext_resource type="Texture2D" uid="uid://bxade7b6nr8d3" path="res://data/textures/Wave1.png" id="20_ryjee"]
 [ext_resource type="Texture2D" uid="uid://dm40j070ouqi0" path="res://data/textures/Wave2.png" id="21_e0bto"]
 [ext_resource type="Shader" uid="uid://dv7vpxcjakb2d" path="res://data/shaders/colour_tint_basic.gdshader" id="23_e0bto"]
-[ext_resource type="PackedScene" uid="uid://bwrf54v66o5kn" path="res://data/prefabs/encounter_sea_doggo.tscn" id="25_oo2gf"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_wsfip"]
 font_size = 24
@@ -249,9 +248,10 @@ grow_vertical = 2
 [node name="game title" type="RichTextLabel" parent="CanvasLayer/main_menu/Panel/VBoxContainer2"]
 layout_mode = 2
 size_flags_vertical = 3
+theme_override_constants/line_separation = 23
 theme_override_fonts/normal_font = ExtResource("4_jxq38")
-theme_override_font_sizes/normal_font_size = 20
-text = "<GAME TITLE HERE>"
+theme_override_font_sizes/normal_font_size = 39
+text = "Ocean Trail"
 scroll_active = false
 shortcut_keys_enabled = false
 horizontal_alignment = 1
@@ -302,6 +302,7 @@ theme_override_font_sizes/font_size = 25
 text = "Highscores"
 
 [node name="picking_loadout" type="Control" parent="CanvasLayer"]
+visible = false
 layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5
@@ -347,7 +348,7 @@ custom_minimum_size = Vector2(0, 54)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("4_jxq38")
 theme_override_font_sizes/font_size = 20
-text = "Time to pack for your voyage!"
+text = "Davo Jone's Locker"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -379,13 +380,13 @@ size_flags_vertical = 0
 theme_override_constants/icon_max_width = 50
 theme_override_fonts/font = ExtResource("5_jxq38")
 theme_override_font_sizes/font_size = 12
-text = "Crate of food
- "
+text = "Bucket O' Fish "
 icon = ExtResource("10_iaat3")
 autowrap_mode = 2
 icon_alignment = 1
 vertical_icon_alignment = 0
 script = ExtResource("11_gsdt6")
+item_name = "bucket_of_fish"
 
 [node name="item2" type="Button" parent="CanvasLayer/picking_loadout/Panel/MarginContainer/VBoxContainer/HBoxContainer/items list"]
 custom_minimum_size = Vector2(100, 100)
@@ -395,9 +396,7 @@ size_flags_vertical = 0
 theme_override_constants/icon_max_width = 50
 theme_override_fonts/font = ExtResource("5_jxq38")
 theme_override_font_sizes/font_size = 12
-text = "Crate of food
- 
-"
+text = "Crate of food"
 icon = ExtResource("11_prsfa")
 autowrap_mode = 2
 icon_alignment = 1
@@ -412,9 +411,7 @@ size_flags_vertical = 0
 theme_override_constants/icon_max_width = 50
 theme_override_fonts/font = ExtResource("5_jxq38")
 theme_override_font_sizes/font_size = 12
-text = "Crate of food
- 
-"
+text = "Crate of food"
 icon = ExtResource("12_gsdt6")
 autowrap_mode = 2
 icon_alignment = 1
@@ -433,9 +430,7 @@ size_flags_vertical = 0
 theme_override_constants/icon_max_width = 50
 theme_override_fonts/font = ExtResource("5_jxq38")
 theme_override_font_sizes/font_size = 12
-text = "Crate of food
- 
-"
+text = "Crate of food"
 icon = ExtResource("13_ryjee")
 autowrap_mode = 2
 icon_alignment = 1
@@ -450,9 +445,7 @@ size_flags_vertical = 0
 theme_override_constants/icon_max_width = 50
 theme_override_fonts/font = ExtResource("5_jxq38")
 theme_override_font_sizes/font_size = 12
-text = "Crate of food
- 
-"
+text = "Crate of food"
 icon = ExtResource("12_gsdt6")
 autowrap_mode = 2
 icon_alignment = 1
@@ -467,9 +460,7 @@ size_flags_vertical = 0
 theme_override_constants/icon_max_width = 50
 theme_override_fonts/font = ExtResource("5_jxq38")
 theme_override_font_sizes/font_size = 12
-text = "Crate of food
- 
-"
+text = "Crate of food"
 icon = ExtResource("14_e0bto")
 autowrap_mode = 2
 icon_alignment = 1
@@ -488,9 +479,7 @@ size_flags_vertical = 0
 theme_override_constants/icon_max_width = 50
 theme_override_fonts/font = ExtResource("5_jxq38")
 theme_override_font_sizes/font_size = 12
-text = "Crate of food
- 
-"
+text = "Crate of food"
 icon = ExtResource("11_prsfa")
 autowrap_mode = 2
 icon_alignment = 1
@@ -505,9 +494,7 @@ size_flags_vertical = 0
 theme_override_constants/icon_max_width = 50
 theme_override_fonts/font = ExtResource("5_jxq38")
 theme_override_font_sizes/font_size = 12
-text = "Crate of food
- 
-"
+text = "Crate of food"
 icon = ExtResource("10_iaat3")
 autowrap_mode = 2
 icon_alignment = 1
@@ -522,9 +509,7 @@ size_flags_vertical = 0
 theme_override_constants/icon_max_width = 50
 theme_override_fonts/font = ExtResource("5_jxq38")
 theme_override_font_sizes/font_size = 12
-text = "Crate of food
- 
-"
+text = "Crate of food"
 icon = ExtResource("14_e0bto")
 autowrap_mode = 2
 icon_alignment = 1
@@ -562,9 +547,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -150.0
-offset_top = -54.95
+offset_top = -70.0
 offset_right = 150.0
-offset_bottom = 54.95
+offset_bottom = 55.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = ExtResource("3_wyj50")
@@ -576,6 +561,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/separation = 15
 
 [node name="game title" type="RichTextLabel" parent="CanvasLayer/pause_menu/Panel/VBoxContainer2"]
 layout_mode = 2
@@ -588,7 +574,16 @@ shortcut_keys_enabled = false
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Main menu" type="Button" parent="CanvasLayer/pause_menu/Panel/VBoxContainer2"]
+[node name="Unpause button" type="Button" parent="CanvasLayer/pause_menu/Panel/VBoxContainer2"]
+custom_minimum_size = Vector2(150, 35.925)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_fonts/font = ExtResource("5_jxq38")
+theme_override_font_sizes/font_size = 25
+text = "Resume"
+
+[node name="Main menu2" type="Button" parent="CanvasLayer/pause_menu/Panel/VBoxContainer2"]
 custom_minimum_size = Vector2(150, 35.925)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -647,42 +642,14 @@ size_flags_vertical = 4
 theme_override_constants/separation = 20
 alignment = 1
 
-[node name="Easy" type="Button" parent="CanvasLayer/game_over/Panel/VBoxContainer2/VBoxContainer"]
+[node name="Retry" type="Button" parent="CanvasLayer/game_over/Panel/VBoxContainer2/VBoxContainer"]
 custom_minimum_size = Vector2(150, 35.925)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_fonts/font = ExtResource("5_jxq38")
 theme_override_font_sizes/font_size = 25
-text = "Easy"
-
-[node name="Normal" type="Button" parent="CanvasLayer/game_over/Panel/VBoxContainer2/VBoxContainer"]
-custom_minimum_size = Vector2(150, 35.925)
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-theme_override_fonts/font = ExtResource("5_jxq38")
-theme_override_font_sizes/font_size = 25
-text = "Normal"
-
-[node name="Hard" type="Button" parent="CanvasLayer/game_over/Panel/VBoxContainer2/VBoxContainer"]
-custom_minimum_size = Vector2(150, 35.925)
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-theme_override_fonts/font = ExtResource("5_jxq38")
-theme_override_font_sizes/font_size = 25
-text = "Hard"
-
-[node name="Highscores" type="Button" parent="CanvasLayer/game_over/Panel/VBoxContainer2/VBoxContainer"]
-visible = false
-custom_minimum_size = Vector2(150, 35.925)
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-theme_override_fonts/font = ExtResource("5_jxq38")
-theme_override_font_sizes/font_size = 25
-text = "Highscores"
+text = "Retry"
 
 [node name="Main menu" type="Button" parent="CanvasLayer/game_over/Panel/VBoxContainer2/VBoxContainer"]
 custom_minimum_size = Vector2(150, 35.925)
@@ -717,19 +684,19 @@ grow_vertical = 2
 theme_override_styles/panel = ExtResource("3_wyj50")
 
 [node name="dialogue box" type="VBoxContainer" parent="CanvasLayer/dialogue/Panel"]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/separation = 15
+theme_override_constants/separation = 10
 
 [node name="dialogue text" type="RichTextLabel" parent="CanvasLayer/dialogue/Panel/dialogue box"]
+custom_minimum_size = Vector2(0, 125.425)
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_constants/line_separation = 14
+theme_override_constants/line_separation = 9
 theme_override_fonts/normal_font = ExtResource("5_jxq38")
 theme_override_fonts/italics_font = ExtResource("5_jxq38")
 theme_override_fonts/bold_italics_font = ExtResource("5_jxq38")
@@ -768,6 +735,7 @@ offset_bottom = 50.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 42
+alignment = 1
 
 [node name="item" type="Button" parent="CanvasLayer/dialogue/Panel/dialogue item picker"]
 custom_minimum_size = Vector2(100, 100)
@@ -819,6 +787,73 @@ autowrap_mode = 2
 icon_alignment = 1
 vertical_icon_alignment = 0
 script = ExtResource("16_dky5v")
+
+[node name="win" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="CanvasLayer/win"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -150.0
+offset_top = -150.0
+offset_right = 150.0
+offset_bottom = 150.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = ExtResource("3_wyj50")
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="CanvasLayer/win/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="game title" type="RichTextLabel" parent="CanvasLayer/win/Panel/VBoxContainer2"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_fonts/normal_font = ExtResource("4_jxq38")
+theme_override_font_sizes/normal_font_size = 20
+text = "Game Over"
+scroll_active = false
+shortcut_keys_enabled = false
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/win/Panel/VBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="Play again" type="Button" parent="CanvasLayer/win/Panel/VBoxContainer2/VBoxContainer"]
+custom_minimum_size = Vector2(150, 35.925)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_fonts/font = ExtResource("5_jxq38")
+theme_override_font_sizes/font_size = 25
+text = "Play again?"
+
+[node name="Main menu" type="Button" parent="CanvasLayer/win/Panel/VBoxContainer2/VBoxContainer"]
+custom_minimum_size = Vector2(150, 35.925)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_fonts/font = ExtResource("5_jxq38")
+theme_override_font_sizes/font_size = 25
+text = "Main menu"
 
 [node name="Camera" type="Camera2D" parent="."]
 anchor_mode = 0
@@ -1620,12 +1655,15 @@ y_sort_enabled = true
 texture_filter = 1
 texture_repeat = 1
 material = SubResource("ShaderMaterial_oo2gf")
+position = Vector2(-3.23, 0)
 rotation = -3.14159
 scale = Vector2(5, 5)
 texture = ExtResource("7_i525v")
+offset = Vector2(0, -15)
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Player"]
-rotation = -3.1193
+position = Vector2(-4, 81.515)
+rotation = -3.14159
 scale = Vector2(3.04, 3.04)
 polygon = PackedVector2Array(-7.48644, -40.6327, -59.1393, -25.662, -64.2252, -17.6519, -58.714, -6.58774, -52.9536, 15.6578, -35.4714, 32.3776, 28.3139, 30.2975, 44.799, 2.29153, 46.3617, -16.1689, 63.3894, -19.8388, 59.2523, -28.3014, 47.2812, -33.957)
 
@@ -1633,19 +1671,18 @@ polygon = PackedVector2Array(-7.48644, -40.6327, -59.1393, -25.662, -64.2252, -1
 z_index = 2
 y_sort_enabled = true
 
-[node name="Seal" parent="." instance=ExtResource("25_oo2gf")]
-position = Vector2(1574, 425)
+[node name="encounters" type="Node2D" parent="."]
 
 [connection signal="pressed" from="CanvasLayer/main_menu/Panel/VBoxContainer2/VBoxContainer/Easy" to="." method="_on_easy_pressed"]
 [connection signal="pressed" from="CanvasLayer/main_menu/Panel/VBoxContainer2/VBoxContainer/Normal" to="." method="_on_normal_pressed"]
 [connection signal="pressed" from="CanvasLayer/main_menu/Panel/VBoxContainer2/VBoxContainer/Hard" to="." method="_on_hard_pressed"]
 [connection signal="pressed" from="CanvasLayer/main_menu/Panel/VBoxContainer2/VBoxContainer/Highscores" to="." method="_on_highscores_pressed"]
 [connection signal="pressed" from="CanvasLayer/picking_loadout/Panel/MarginContainer/VBoxContainer/MarginContainer/Begin button" to="." method="begin_game"]
-[connection signal="pressed" from="CanvasLayer/pause_menu/Panel/VBoxContainer2/Main menu" to="." method="_on_return_to_main_menu_button_pressed"]
-[connection signal="pressed" from="CanvasLayer/game_over/Panel/VBoxContainer2/VBoxContainer/Easy" to="." method="_on_easy_pressed"]
-[connection signal="pressed" from="CanvasLayer/game_over/Panel/VBoxContainer2/VBoxContainer/Normal" to="." method="_on_normal_pressed"]
-[connection signal="pressed" from="CanvasLayer/game_over/Panel/VBoxContainer2/VBoxContainer/Hard" to="." method="_on_hard_pressed"]
-[connection signal="pressed" from="CanvasLayer/game_over/Panel/VBoxContainer2/VBoxContainer/Highscores" to="." method="_on_highscores_pressed"]
+[connection signal="pressed" from="CanvasLayer/pause_menu/Panel/VBoxContainer2/Unpause button" to="." method="_on_unpause_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/pause_menu/Panel/VBoxContainer2/Main menu2" to="." method="_on_return_to_main_menu_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/game_over/Panel/VBoxContainer2/VBoxContainer/Retry" to="." method="_on_restart_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/game_over/Panel/VBoxContainer2/VBoxContainer/Main menu" to="." method="_on_return_to_main_menu_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/dialogue/Panel/dialogue box/Control/Next dialogue" to="." method="_on_next_dialogue_pressed"]
 [connection signal="pressed" from="CanvasLayer/dialogue/Panel/dialogue item picker/item" to="." method="_on_dialogue_item_picked"]
+[connection signal="pressed" from="CanvasLayer/win/Panel/VBoxContainer2/VBoxContainer/Play again" to="." method="_on_restart_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/win/Panel/VBoxContainer2/VBoxContainer/Main menu" to="." method="_on_return_to_main_menu_button_pressed"]

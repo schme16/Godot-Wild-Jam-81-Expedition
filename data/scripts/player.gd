@@ -17,7 +17,6 @@ var last_y_pos
 var last_x_pos
 @onready var sprite: Sprite2D = $sprite
 @onready var collision_polygon_2d: CollisionPolygon2D = $CollisionPolygon2D
-@onready var game: Node2D = $".."
 
 @export var is_bobbing:bool
 @export var flashing_time:float
@@ -40,6 +39,8 @@ func _ready() -> void:
 
 	global_position.y = y_pos
 	pass
+
+
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta: float) -> void:

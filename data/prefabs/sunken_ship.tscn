@@ -7,10 +7,14 @@
 y_sort_enabled = true
 script = ExtResource("1_i3hmw")
 mode = 1
-ship_damage = 10.0
+ship_damage = 20.0
 
 [node name="SunkMast" type="Sprite2D" parent="."]
+position = Vector2(0, -8.35001)
+scale = Vector2(1.5, 1.5)
 texture = ExtResource("2_5l5pv")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+position = Vector2(0, -8.35001)
+scale = Vector2(1.5, 1.5)
 polygon = PackedVector2Array(23, -7, 16.4, -32, -24, -30, -27, -3, -8, 2, -9, 25, -1, 25, 2, 6, 15, 10)

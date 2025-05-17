@@ -5,17 +5,17 @@
 
 [node name="Rock" type="StaticBody2D"]
 y_sort_enabled = true
-scale = Vector2(1.828, 1.828)
+scale = Vector2(1.5, 1.5)
 script = ExtResource("1_hvyr3")
 mode = 1
-ship_damage = 20.0
+ship_damage = 25.0
 
 [node name="Rock1" type="Sprite2D" parent="."]
 y_sort_enabled = true
-position = Vector2(0, 8.75274)
-scale = Vector2(0.930795, 0.930795)
+position = Vector2(7.13333, -7.42274)
 texture = ExtResource("2_idrxx")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+position = Vector2(7.13333, -16.1755)
 scale = Vector2(0.930795, 0.930795)
-polygon = PackedVector2Array(25.2719, 34.0877, 20.5702, 11.7544, -7.64035, -27.6228, -27.0351, -15.8684, -42.3158, 25.2719, -41.1403, 34.6754)
+polygon = PackedVector2Array(22.2032, 37.2441, 25.7844, 27.9331, 20.5702, 11.7544, 2.1487, -10.7435, 0, -22.2032, -7.64035, -27.6228, -18.6221, -25.0682, -29.3656, -14.3247, -35.8117, 10.7435, -45.1227, 27.2169, -42.974, 36.5279)

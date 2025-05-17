@@ -5,21 +5,21 @@ extends Button
 @export var item_icon:Texture2D
 @onready var game: Node2D = $"../../../../../../../.."
 
+
 var picked_icon = preload("res://data/textures/icons/item-selected.png")
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	text = item_name if !item_name.is_empty() else text
 	item_icon = icon
 
 func _process(delta: float) -> void:
 
-	if game.picked_items_ids.has(item_id):
+	if game.picked_items.has(self):
 		icon = picked_icon
 	else:
 		icon = item_icon
 
-	if game.picked_items_ids.size() >=5 and !game.picked_items_ids.has(item_id):
+	if game.picked_items.size() >= 5 and !game.picked_items.has(self):
 		disabled = true
 		focus_mode = Control.FOCUS_NONE
 	else:
@@ -27,4 +27,4 @@ func _process(delta: float) -> void:
 		focus_mode = Control.FOCUS_ALL
 
 func _pressed() -> void:
-	game.add_item_to_loadout(item_id, item_name)
+	game.add_item_to_loadout(self)
