@@ -9,8 +9,8 @@ void vertex() {
 
 void fragment() {
 	vec4 main_texture = texture(TEXTURE, UV);
-	
+
 	main_texture.rgb = mix(main_texture.rgb, colour.rgb, fade);
-	
+
 	COLOR = main_texture;
 }

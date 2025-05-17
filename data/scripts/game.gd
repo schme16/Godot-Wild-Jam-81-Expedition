@@ -93,8 +93,17 @@ var current_dialogue_section:String
 var current_dialogue_index:int
 @onready var ui_dialogue_text: RichTextLabel = $"CanvasLayer/dialogue/Panel/dialogue box/dialogue text"
 @onready var ui_next_dialogue: Button = $"CanvasLayer/dialogue/Panel/dialogue box/Control/Next dialogue"
-
+@onready var ui_dialogue_box: VBoxContainer = $"CanvasLayer/dialogue/Panel/dialogue box"
+@onready var ui_dialogue_item_picker: HBoxContainer = $"CanvasLayer/dialogue/Panel/dialogue item picker"
+@onready var ui_first_pickable_dialogue_item: Button = $"CanvasLayer/dialogue/Panel/dialogue item picker/item"
+@onready var ui_second_pickable_dialogue_item: Button = $"CanvasLayer/dialogue/Panel/dialogue item picker/item2"
+@onready var ui_third_pickable_dialogue_item: Button = $"CanvasLayer/dialogue/Panel/dialogue item picker/item3"
+@export var picked_dialogue_item:Node
+@export var picked_dialogue_item_id:int
 @export var picked_dialogue_item_name:String = ""
+@export var picked_dialogue_item_icon:Texture2D
+
+
 var dialogue:Dictionary = {
 
 
@@ -103,7 +112,9 @@ var dialogue:Dictionary = {
 
 		"intro_text": [
 			"A huge seal leaps onto the boat and makes a beeline for one of the crew members. \nThe crew member terrified, attempts to get out of the way, to no avail. \nThe sea doggo rubs up against him, unfortunately beginning to crush him.",
-			"Quick, pick an item!",
+			"\n[font_size=5]\n[/font_size][center]Quick, pick an item![/center]",
+
+
 		],
 
 		"success_text": [
@@ -115,10 +126,6 @@ var dialogue:Dictionary = {
 			"You attempt to use the <picked_item_name> on the seal. The seal seem unbothered by your actions and continues roll on the crew member. \nIt eventually loses interest and galomphs away and off the boat, but not before the breaking the poor man's legs. He is not happy."
 		],
 	}
-
-
-
-
 }
 
 
@@ -468,6 +475,8 @@ func update_clouds():
 	clouds_2.position.x = pos + 51200
 
 func start_dialogue(data):
+	ui_dialogue_box.visible = true
+	ui_dialogue_item_picker.visible = false
 	state = states.in_dialogue
 	current_dialogue = dialogue[data.dialogue_name]
 	ui_next_dialogue.grab_focus()
@@ -477,3 +486,35 @@ func start_dialogue(data):
 
 func set_dialogue_text(text:String):
 	ui_dialogue_text.text = text.replacen("<picked_item_name>", picked_dialogue_item_name)
+
+func _on_next_dialogue_pressed() -> void:
+	if current_dialogue[current_dialogue_section].get(current_dialogue_index + 1):
+		current_dialogue_index += 1
+		set_dialogue_text(current_dialogue[current_dialogue_section][current_dialogue_index])
+	else:
+		match current_dialogue_section:
+			"intro_text":
+				ui_dialogue_box.visible = false
+				ui_dialogue_item_picker.visible = true
+
+				var items_to_pick_from = picked_items
+				ui_first_pickable_dialogue_item
+				ui_second_pickable_dialogue_item
+				ui_third_pickable_dialogue_item
+
+				ui_first_pickable_dialogue_item.grab_focus()
+
+			"success_text":
+				pass
+
+			"failure_text":
+				pass
+
+
+func dialogue_item_picked(item:Node, item_id, item_name, item_icon) -> void:
+	picked_dialogue_item = item
+	picked_dialogue_item_name = item_name
+	picked_dialogue_item_id = item_id
+	picked_dialogue_item_icon = item_icon
+
+	pass # Replace with function body.
