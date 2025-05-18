@@ -173,19 +173,19 @@ var dialogue:Dictionary = {
 		"intro": [
 			"A giant seal is blocking your path",
 			"The crew are shouting, trying to shoo it away, but it hasn't even noticed them....",
-			"\n[font_size=40]\n[/font_size][center]Maybe you have something that can get it's attendtion?[/center]",
+			"\n[font_size=40]\n[/font_size][center]Maybe you have something that can get its attention?[/center]",
 
 
 		],
 
 		"success": [
 			"You wave around the [color=green]<picked_item_name>[/color].",
-			"You've definitly got it's attention!. \nYou throw the fish overboard as far from the path as possible, and watch as it quickly swims after it.",
+			"You've definitely got its attention!. \nYou throw the fish overboard as far from the path as possible, and watch as it quickly swims after it.",
 			"Time to go!",
 		],
 
 		"failure": [
-			"You attempt to get it's attention with the [color=red]<picked_item_name>[/color]",
+			"You attempt to get its attention with the [color=red]<picked_item_name>[/color]",
 			"It doesn't really seem to care... \nBut you've got a job to do, so order the sails raised, and ram the beast aside.",
 			"The crew are not happy that you'd hurt such an innocent animal..."
 		],
@@ -195,7 +195,7 @@ var dialogue:Dictionary = {
 		"required_item": "beach_ball",
 
 		"intro": [
-			"A flock of seals are playing in the water \nThe crew are watching, facinated, and won't return to their posts.",
+			"A flock of seals are playing in the water. \nThe crew are watching, facinated, and won't return to their posts.",
 			"[center]Perhaps there's something you can give them to encourage them to take their fun elsewhere?[/center]",
 
 
@@ -203,13 +203,13 @@ var dialogue:Dictionary = {
 
 		"success": [
 			"You throw the [color=green]<picked_item_name>[/color].",
-			"The seals love it!\nOne begins to balance it on it's nose, and the others quickly start chasing them around, eventually swiming off after them. \n \nThe crew cheer and clap as they go!",
+			"The seals love it!\nOne begins to balance it on its nose, and the others quickly start chasing them around, eventually swiming off after them. \n \nThe crew cheer and clap as they go!",
 			"\"Alright, back to work you lot!\" \n\nTime to set off again.",
 		],
 
 		"failure": [
 			"You dump the [color=red]<picked_item_name>[/color] into the water",
-			"It scares the seals who immediatly dip below the water's surface.",
+			"It scares the seals, who immediatly dip below the water's surface.",
 			"The crew glare at you, upset you ruined their fun."
 		],
 	},
@@ -221,7 +221,7 @@ var dialogue:Dictionary = {
 
 		"intro": [
 			"It has been smooth sailing thus far, but now you face one of the most dangerous situations you've ever encountered.",
-			"A seagull nesting ground lies ahead, and all attempts to pass has been mith the vicious nips and pecks, and what they've done to the poop deck has give it entirely new meaning! (it may never be clean again...)",
+			"A seagull nesting ground lies ahead, and all attempts to pass has been met with vicious nips and pecks. And what they've done to the poop deck has given it an entirely new meaning! (It may never be clean again...)",
 			"[center]Think! Surely you have something onboard that can help?[/center]",
 
 
@@ -229,7 +229,7 @@ var dialogue:Dictionary = {
 
 		"success": [
 			"You throw the [color=green]<picked_item_name>[/color].",
-			"The seagulls stop still for a second, before erupting in a raucous cacophony, and darting as one towards where it landed and breaking out into a fight that I'm sure their grandchildred will hear squawk of!",
+			"The seagulls stop still for a second, before erupting in a raucous cacophony. They dart as one, towards where it landed and break out into a fight that I'm sure their grandchildren will hear squawk of!",
 			"You leave hastily while the brawl continues.",
 		],
 
@@ -266,18 +266,18 @@ var dialogue:Dictionary = {
 		"set_flag_on_success":"seagull_mascot",
 		"intro": [
 			"You happen upon a rock, whose sole occupant is a large seagull",
-			"It flys over to the ship, and begins beaking around, looking for something, in doing so it is casuing chaos among the crew with several crew members try to catch the bird, but it flaps just out of reach each time.",
+			"It flies over to the ship, and begins beaking around, looking for something, in doing so it is causing chaos among the crew, with several crew members try to catch the bird, but it flaps just out of reach each time.",
 			"Maybe if you offer it the right thing you can get the bird to leave?",
 		],
 
 		"success": [
 			"You head to the stores and retrieve the [color=green]<picked_item_name>[/color] you had stored down there",
-			"Far from convicning the bird to leave, he takes a perch on the crows nest, and sets about enjoying his spoils!",
+			"Far from convincing the bird to leave, he takes a perch on the crow's nest, and sets about enjoying his spoils!",
 			"The crew have appointed the feathered rascal as the ships mascot, and you can't help but smile with them!",
 		],
 
 		"failure": [
-			"You the bird [color=red]<picked_item_name>[/color], it seems uninterested, and eventually gives up its search and flys back to its rock.",
+			"You throw the bird [color=red]<picked_item_name>[/color], it seems uninterested, and eventually gives up its search and flies back to its rock.",
 			"Despite the earlier commotion, the crew seem sad to see them go...",
 		],
 	},
@@ -295,7 +295,7 @@ var dialogue:Dictionary = {
 		],
 
 		"failure": [
-			"All you could find was a [color=red]<picked_item_name>[/color], it does little to help.\nEventually you order your crew to dig with their bare hands.\nIt takes several hours of grueling work before you're back afloat.",
+			"All you could find was a [color=red]<picked_item_name>[/color], it does little to help.\nEventually you order your crew to dig with their bare hands.\nIt takes several hours of gruelling work before you're back afloat.",
 		],
 	},
 
@@ -330,7 +330,7 @@ var dialogue:Dictionary = {
 		],
 
 		"failure": [
-			"You try to use the [color=red]<picked_item_name>[/color] as a sail, it doesn't really work...\n\nThe crew are despondant, realising that they will now be working twice as hard going forwards.",
+			"You try to use the [color=red]<picked_item_name>[/color] as a sail, it doesn't really work...\n\nThe crew are despondent, realising that they will now be working twice as hard going forwards.",
 		],
 	},
 }
