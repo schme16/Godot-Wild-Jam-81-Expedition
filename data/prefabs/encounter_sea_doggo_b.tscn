@@ -1,0 +1,27 @@
+[gd_scene load_steps=3 format=3 uid="uid://bqluvjt3imwm8"]
+
+[ext_resource type="Script" uid="uid://0d6yda6fyli7" path="res://data/scripts/collidable.gd" id="1_p7gp3"]
+[ext_resource type="Texture2D" uid="uid://d4c5hygiigmy1" path="res://data/textures/BigSeaDoggo.png" id="2_fugs7"]
+
+[node name="SeaDoggoB" type="StaticBody2D"]
+z_index = 5
+y_sort_enabled = true
+script = ExtResource("1_p7gp3")
+mode = 2
+dialogue_name = "seal_b"
+event_script_name = "huge seal"
+ship_damage = 20.0
+dialogues = ["seal_b"]
+
+[node name="sprite" type="Sprite2D" parent="."]
+y_sort_enabled = true
+texture_filter = 1
+texture_repeat = 1
+position = Vector2(34.2896, -122.298)
+scale = Vector2(2, 2)
+texture = ExtResource("2_fugs7")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+position = Vector2(-432.898, -235.693)
+scale = Vector2(1, 2)
+polygon = PackedVector2Array(172.702, 213.129, 177.626, -223.961, 93.3808, -223.961, 92.4508, 213.348)

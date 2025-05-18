@@ -38,6 +38,11 @@ enum modes {
 ##What Dialogues are compatible with this encounter/event
 @export var dialogues:Array = []
 
+@export var sprite_a:Node
+@export var sprite_b:Node
+@export var sprite_c:Node
+@export var sprite_d:Node
+
 var has_triggered:bool = false
 
 #Show/hides export variables based on the selected mode
@@ -60,7 +65,11 @@ func _validate_property(property: Dictionary) -> void:
 	var trigger_dialogue_test = [
 		#"dialogue_name",
 		"dialogues",
-		"event_script_name"
+		"event_script_name",
+		"sprite_a",
+		"sprite_b",
+		"sprite_c",
+		"sprite_d",
 	].find(property.name) > -1
 
 	var trigger_event_test = [
@@ -141,6 +150,6 @@ func invoke():
 				})
 
 			modes.trigger_event:
-				events.invoke("trigger_event", {
+				events.invoke(event_name, {
 					"event_name": event_name
 				})

@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://3rjxq0102uu2"]
+[gd_scene load_steps=51 format=3 uid="uid://3rjxq0102uu2"]
 
 [ext_resource type="Script" uid="uid://dnmxwgvrqx1ny" path="res://data/scripts/game.gd" id="1_00ru4"]
 [ext_resource type="Script" uid="uid://celv11jruaedo" path="res://data/scripts/ui.gd" id="2_nb3oj"]
@@ -13,18 +13,34 @@
 [ext_resource type="FontFile" uid="uid://dlb8a81bw1ljr" path="res://data/fonts/jorvik.TTF" id="5_jxq38"]
 [ext_resource type="Texture2D" uid="uid://b70t0r88xmkun" path="res://data/textures/Cloud3.png" id="5_nb3oj"]
 [ext_resource type="Texture2D" uid="uid://fxuir013gltu" path="res://data/textures/icons/morale-icons-dummy-sad.png" id="6_rdeqd"]
-[ext_resource type="Texture2D" uid="uid://pa6w082guxtg" path="res://data/textures/BoatDraft.png" id="7_i525v"]
 [ext_resource type="Script" uid="uid://dxf6jd5qm0fd1" path="res://data/scripts/player.gd" id="7_jxq38"]
-[ext_resource type="Texture2D" uid="uid://bumo8ks8uwk21" path="res://data/textures/icons/item-cloud-2.png" id="10_iaat3"]
+[ext_resource type="Texture2D" uid="uid://4mwxdygnkl8v" path="res://data/textures/IconBucketFish.png" id="10_fhjjv"]
 [ext_resource type="Script" uid="uid://b5r04vul51bun" path="res://data/scripts/loadout_item.gd" id="11_gsdt6"]
-[ext_resource type="Texture2D" uid="uid://bkl2elnsgyi8a" path="res://data/textures/icons/item-cloud-1.png" id="11_prsfa"]
 [ext_resource type="Texture2D" uid="uid://cyn75x6a7k6s6" path="res://data/textures/icons/item-ship.png" id="12_gsdt6"]
-[ext_resource type="Texture2D" uid="uid://bdt2a8434aafa" path="res://data/textures/icons/item-rock.png" id="13_ryjee"]
-[ext_resource type="Texture2D" uid="uid://cvoaa43wqy6t1" path="res://data/textures/icons/item-shark-fin.png" id="14_e0bto"]
+[ext_resource type="Texture2D" uid="uid://dklblemfc1h1b" path="res://data/textures/IconBeachball.png" id="13_mukhp"]
+[ext_resource type="Texture2D" uid="uid://cl67l86ih5kst" path="res://design/Exports/IconFish.png" id="15_mukhp"]
+[ext_resource type="Texture2D" uid="uid://cyo5onudqm0n3" path="res://design/Exports/IconBoxOfChips.png" id="16_32x4w"]
 [ext_resource type="Script" uid="uid://cxxuefk6k6ghr" path="res://data/scripts/dialogue_item_picked.gd" id="16_dky5v"]
+[ext_resource type="PackedScene" uid="uid://bicrvumo2rgi5" path="res://data/prefabs/encounter_seagull_rock_b.tscn" id="16_sx0by"]
+[ext_resource type="PackedScene" uid="uid://csdu8fqq2pv7" path="res://data/prefabs/encounter_seagull_rock_a.tscn" id="17_4w3h0"]
+[ext_resource type="Texture2D" uid="uid://c0637m50ibvx7" path="res://design/Exports/IconPacketChips.png" id="18_32x4w"]
+[ext_resource type="Texture2D" uid="uid://bu5r60j76qwiu" path="res://data/textures/IconSandwich.png" id="19_32x4w"]
+[ext_resource type="Texture2D" uid="uid://2sn1etla531e" path="res://data/textures/IconShovel.png" id="20_fhjjv"]
 [ext_resource type="Texture2D" uid="uid://bxade7b6nr8d3" path="res://data/textures/Wave1.png" id="20_ryjee"]
+[ext_resource type="PackedScene" uid="uid://ca5ry0pdhe7pw" path="res://data/prefabs/encounter_sand_bar.tscn" id="20_uk5b0"]
+[ext_resource type="PackedScene" uid="uid://bqgcbutwianxa" path="res://data/prefabs/encounter_whirlpool.tscn" id="21_dbalq"]
 [ext_resource type="Texture2D" uid="uid://dm40j070ouqi0" path="res://data/textures/Wave2.png" id="21_e0bto"]
+[ext_resource type="PackedScene" uid="uid://b2f8gxfggkmlx" path="res://data/prefabs/encounter_storm_cloud.tscn" id="22_fhjjv"]
 [ext_resource type="Shader" uid="uid://dv7vpxcjakb2d" path="res://data/shaders/colour_tint_basic.gdshader" id="23_e0bto"]
+[ext_resource type="Texture2D" uid="uid://biukdqjleqp3w" path="res://design/Exports/IconSeashell.png" id="23_l0f82"]
+[ext_resource type="Texture2D" uid="uid://dctb54dw22rgi" path="res://data/textures/steve_seagull.png" id="25_4xujs"]
+[ext_resource type="Texture2D" uid="uid://w5kly5m2707a" path="res://design/Exports/IconSail.png" id="25_8viff"]
+[ext_resource type="PackedScene" uid="uid://bwrf54v66o5kn" path="res://data/prefabs/encounter_flock_of_sea_doggos.tscn" id="26_dky5v"]
+[ext_resource type="PackedScene" uid="uid://dd80g1kfvbk7y" path="res://data/prefabs/encounter_sea_doggo_a.tscn" id="27_4xujs"]
+[ext_resource type="PackedScene" uid="uid://c8t5gud8jnshn" path="res://data/prefabs/encounter_seagull_rock_steve.tscn" id="27_ovxku"]
+[ext_resource type="PackedScene" uid="uid://bqluvjt3imwm8" path="res://data/prefabs/encounter_sea_doggo_b.tscn" id="28_b8ye4"]
+[ext_resource type="AudioStream" uid="uid://cin2yqcuhysni" path="res://data/music/OceanScape.mp3" id="32_sx0by"]
+[ext_resource type="Texture2D" uid="uid://dw5i0qqryudya" path="res://data/textures/Boat0.png" id="40_sx0by"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_wsfip"]
 font_size = 24
@@ -45,17 +61,17 @@ shader = ExtResource("3_duqd1")
 shader_parameter/colour = Color(1, 1, 1, 1)
 shader_parameter/fade = 1.0
 
-[sub_resource type="InputEventAction" id="InputEventAction_dky5v"]
-action = &"ui_complete"
-
-[sub_resource type="Shortcut" id="Shortcut_4xujs"]
-events = [SubResource("InputEventAction_dky5v")]
-
 [sub_resource type="InputEventAction" id="InputEventAction_oo2gf"]
 action = &"ui_cancel"
 
 [sub_resource type="Shortcut" id="Shortcut_dky5v"]
 events = [SubResource("InputEventAction_oo2gf")]
+
+[sub_resource type="InputEventAction" id="InputEventAction_dky5v"]
+action = &"ui_complete"
+
+[sub_resource type="Shortcut" id="Shortcut_4xujs"]
+events = [SubResource("InputEventAction_dky5v")]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_oo2gf"]
 shader = ExtResource("23_e0bto")
@@ -226,7 +242,6 @@ position = Vector2(142.5, 35.5)
 texture = ExtResource("6_rdeqd")
 
 [node name="main_menu" type="Control" parent="CanvasLayer"]
-visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -242,7 +257,7 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -150.0
-offset_top = -150.0
+offset_top = -203.0
 offset_right = 150.0
 offset_bottom = 150.0
 grow_horizontal = 2
@@ -313,7 +328,17 @@ theme_override_fonts/font = ExtResource("5_jxq38")
 theme_override_font_sizes/font_size = 25
 text = "Highscores"
 
+[node name="options" type="Button" parent="CanvasLayer/main_menu/Panel/VBoxContainer2/VBoxContainer"]
+custom_minimum_size = Vector2(150, 35.925)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_fonts/font = ExtResource("5_jxq38")
+theme_override_font_sizes/font_size = 25
+text = "Options"
+
 [node name="picking_loadout" type="Control" parent="CanvasLayer"]
+visible = false
 layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5
@@ -383,7 +408,8 @@ alignment = 1
 layout_mode = 2
 theme_override_constants/separation = 20
 
-[node name="item3" type="Button" parent="CanvasLayer/picking_loadout/Panel/MarginContainer/VBoxContainer/HBoxContainer/items list"]
+[node name="bucket_of_fish" type="Button" parent="CanvasLayer/picking_loadout/Panel/MarginContainer/VBoxContainer/HBoxContainer/items list"]
+texture_filter = 1
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 size_flags_horizontal = 0
@@ -392,14 +418,16 @@ theme_override_constants/icon_max_width = 50
 theme_override_fonts/font = ExtResource("5_jxq38")
 theme_override_font_sizes/font_size = 12
 text = "Bucket O' Fish "
-icon = ExtResource("10_iaat3")
+icon = ExtResource("10_fhjjv")
 autowrap_mode = 2
 icon_alignment = 1
 vertical_icon_alignment = 0
 script = ExtResource("11_gsdt6")
 item_name = "bucket_of_fish"
+item_encounter = ExtResource("27_4xujs")
 
-[node name="item2" type="Button" parent="CanvasLayer/picking_loadout/Panel/MarginContainer/VBoxContainer/HBoxContainer/items list"]
+[node name="shovel" type="Button" parent="CanvasLayer/picking_loadout/Panel/MarginContainer/VBoxContainer/HBoxContainer/items list"]
+texture_filter = 1
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 size_flags_horizontal = 0
@@ -407,14 +435,17 @@ size_flags_vertical = 0
 theme_override_constants/icon_max_width = 50
 theme_override_fonts/font = ExtResource("5_jxq38")
 theme_override_font_sizes/font_size = 12
-text = "Crate of food"
-icon = ExtResource("11_prsfa")
+text = "Shovel"
+icon = ExtResource("20_fhjjv")
 autowrap_mode = 2
 icon_alignment = 1
 vertical_icon_alignment = 0
 script = ExtResource("11_gsdt6")
+item_name = "shovel"
+item_encounter = ExtResource("20_uk5b0")
 
-[node name="item" type="Button" parent="CanvasLayer/picking_loadout/Panel/MarginContainer/VBoxContainer/HBoxContainer/items list"]
+[node name="sandwich" type="Button" parent="CanvasLayer/picking_loadout/Panel/MarginContainer/VBoxContainer/HBoxContainer/items list"]
+texture_filter = 1
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 size_flags_horizontal = 0
@@ -422,18 +453,21 @@ size_flags_vertical = 0
 theme_override_constants/icon_max_width = 50
 theme_override_fonts/font = ExtResource("5_jxq38")
 theme_override_font_sizes/font_size = 12
-text = "Crate of food"
-icon = ExtResource("12_gsdt6")
+text = "Sandwich"
+icon = ExtResource("19_32x4w")
 autowrap_mode = 2
 icon_alignment = 1
 vertical_icon_alignment = 0
 script = ExtResource("11_gsdt6")
+item_name = "sandwich"
+item_encounter = ExtResource("16_sx0by")
 
 [node name="items list2" type="VBoxContainer" parent="CanvasLayer/picking_loadout/Panel/MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 20
 
-[node name="item5" type="Button" parent="CanvasLayer/picking_loadout/Panel/MarginContainer/VBoxContainer/HBoxContainer/items list2"]
+[node name="box_of_chips" type="Button" parent="CanvasLayer/picking_loadout/Panel/MarginContainer/VBoxContainer/HBoxContainer/items list2"]
+texture_filter = 1
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 size_flags_horizontal = 0
@@ -441,14 +475,17 @@ size_flags_vertical = 0
 theme_override_constants/icon_max_width = 50
 theme_override_fonts/font = ExtResource("5_jxq38")
 theme_override_font_sizes/font_size = 12
-text = "Crate of food"
-icon = ExtResource("13_ryjee")
+text = "Box of chips"
+icon = ExtResource("16_32x4w")
 autowrap_mode = 2
 icon_alignment = 1
 vertical_icon_alignment = 0
 script = ExtResource("11_gsdt6")
+item_name = "box_of_chips"
+item_encounter = ExtResource("17_4w3h0")
 
-[node name="item" type="Button" parent="CanvasLayer/picking_loadout/Panel/MarginContainer/VBoxContainer/HBoxContainer/items list2"]
+[node name="beach_ball" type="Button" parent="CanvasLayer/picking_loadout/Panel/MarginContainer/VBoxContainer/HBoxContainer/items list2"]
+texture_filter = 1
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 size_flags_horizontal = 0
@@ -456,14 +493,17 @@ size_flags_vertical = 0
 theme_override_constants/icon_max_width = 50
 theme_override_fonts/font = ExtResource("5_jxq38")
 theme_override_font_sizes/font_size = 12
-text = "Crate of food"
-icon = ExtResource("12_gsdt6")
+text = "Beach Ball"
+icon = ExtResource("13_mukhp")
 autowrap_mode = 2
 icon_alignment = 1
 vertical_icon_alignment = 0
 script = ExtResource("11_gsdt6")
+item_name = "beach_ball"
+item_encounter = ExtResource("26_dky5v")
 
-[node name="item4" type="Button" parent="CanvasLayer/picking_loadout/Panel/MarginContainer/VBoxContainer/HBoxContainer/items list2"]
+[node name="seashell" type="Button" parent="CanvasLayer/picking_loadout/Panel/MarginContainer/VBoxContainer/HBoxContainer/items list2"]
+texture_filter = 1
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 size_flags_horizontal = 0
@@ -471,18 +511,21 @@ size_flags_vertical = 0
 theme_override_constants/icon_max_width = 50
 theme_override_fonts/font = ExtResource("5_jxq38")
 theme_override_font_sizes/font_size = 12
-text = "Crate of food"
-icon = ExtResource("14_e0bto")
+text = "Seashell"
+icon = ExtResource("23_l0f82")
 autowrap_mode = 2
 icon_alignment = 1
 vertical_icon_alignment = 0
 script = ExtResource("11_gsdt6")
+item_name = "seashell"
+item_encounter = ExtResource("21_dbalq")
 
 [node name="items list3" type="VBoxContainer" parent="CanvasLayer/picking_loadout/Panel/MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 20
 
-[node name="item2" type="Button" parent="CanvasLayer/picking_loadout/Panel/MarginContainer/VBoxContainer/HBoxContainer/items list3"]
+[node name="packet_of_chips" type="Button" parent="CanvasLayer/picking_loadout/Panel/MarginContainer/VBoxContainer/HBoxContainer/items list3"]
+texture_filter = 1
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 size_flags_horizontal = 0
@@ -490,14 +533,17 @@ size_flags_vertical = 0
 theme_override_constants/icon_max_width = 50
 theme_override_fonts/font = ExtResource("5_jxq38")
 theme_override_font_sizes/font_size = 12
-text = "Crate of food"
-icon = ExtResource("11_prsfa")
+text = "Packet of chips"
+icon = ExtResource("18_32x4w")
 autowrap_mode = 2
 icon_alignment = 1
 vertical_icon_alignment = 0
 script = ExtResource("11_gsdt6")
+item_name = "packet_of_chips"
+item_encounter = ExtResource("27_ovxku")
 
-[node name="item3" type="Button" parent="CanvasLayer/picking_loadout/Panel/MarginContainer/VBoxContainer/HBoxContainer/items list3"]
+[node name="spare_sail" type="Button" parent="CanvasLayer/picking_loadout/Panel/MarginContainer/VBoxContainer/HBoxContainer/items list3"]
+texture_filter = 1
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 size_flags_horizontal = 0
@@ -505,14 +551,17 @@ size_flags_vertical = 0
 theme_override_constants/icon_max_width = 50
 theme_override_fonts/font = ExtResource("5_jxq38")
 theme_override_font_sizes/font_size = 12
-text = "Crate of food"
-icon = ExtResource("10_iaat3")
+text = "Spare sail"
+icon = ExtResource("25_8viff")
 autowrap_mode = 2
 icon_alignment = 1
 vertical_icon_alignment = 0
 script = ExtResource("11_gsdt6")
+item_name = "spare_sail"
+item_encounter = ExtResource("22_fhjjv")
 
-[node name="item4" type="Button" parent="CanvasLayer/picking_loadout/Panel/MarginContainer/VBoxContainer/HBoxContainer/items list3"]
+[node name="juicy_fish" type="Button" parent="CanvasLayer/picking_loadout/Panel/MarginContainer/VBoxContainer/HBoxContainer/items list3"]
+texture_filter = 1
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 size_flags_horizontal = 0
@@ -520,16 +569,31 @@ size_flags_vertical = 0
 theme_override_constants/icon_max_width = 50
 theme_override_fonts/font = ExtResource("5_jxq38")
 theme_override_font_sizes/font_size = 12
-text = "Crate of food"
-icon = ExtResource("14_e0bto")
+text = "Juicy Fish"
+icon = ExtResource("15_mukhp")
 autowrap_mode = 2
 icon_alignment = 1
 vertical_icon_alignment = 0
 script = ExtResource("11_gsdt6")
+item_name = "juicy_fish"
+item_encounter = ExtResource("28_b8ye4")
 
 [node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/picking_loadout/Panel/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 54)
 layout_mode = 2
+
+[node name="back to main menu" type="Button" parent="CanvasLayer/picking_loadout/Panel/MarginContainer/VBoxContainer/MarginContainer"]
+light_mask = 0
+visibility_layer = 0
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+focus_mode = 0
+theme_override_fonts/font = ExtResource("5_jxq38")
+theme_override_font_sizes/font_size = 32
+shortcut = SubResource("Shortcut_dky5v")
+shortcut_feedback = false
+shortcut_in_tooltip = false
 
 [node name="Begin button" type="Button" parent="CanvasLayer/picking_loadout/Panel/MarginContainer/VBoxContainer/MarginContainer"]
 custom_minimum_size = Vector2(150, 50)
@@ -543,17 +607,107 @@ shortcut = SubResource("Shortcut_4xujs")
 shortcut_in_tooltip = false
 text = "Begin"
 
-[node name="back to main menu" type="Button" parent="CanvasLayer/picking_loadout/Panel/MarginContainer/VBoxContainer/MarginContainer"]
-light_mask = 0
-visibility_layer = 0
+[node name="options" type="Control" parent="CanvasLayer"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Panel" type="Panel" parent="CanvasLayer/options"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -259.5
+offset_top = -148.185
+offset_right = 259.5
+offset_bottom = 148.185
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = ExtResource("3_wyj50")
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/options/Panel"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -257.5
+offset_right = 258.5
+offset_bottom = 479.0
+grow_horizontal = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/options/Panel/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="title" type="Label" parent="CanvasLayer/options/Panel/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 54)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_jxq38")
+theme_override_font_sizes/font_size = 20
+text = "Options"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="sub-title" type="Label" parent="CanvasLayer/options/Panel/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 18.94)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("5_jxq38")
+theme_override_font_sizes/font_size = 17
+text = "SFX"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="sfx_volume" type="HSlider" parent="CanvasLayer/options/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+max_value = 1.0
+step = 0.1
+value = 0.5
+
+[node name="spacer" type="Label" parent="CanvasLayer/options/Panel/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 18.94)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("5_jxq38")
+theme_override_font_sizes/font_size = 17
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="sub-title3" type="Label" parent="CanvasLayer/options/Panel/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 18.94)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("5_jxq38")
+theme_override_font_sizes/font_size = 17
+text = "Music"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="music_volume" type="HSlider" parent="CanvasLayer/options/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+max_value = 1.0
+step = 0.1
+value = 0.5
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/options/Panel/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 54)
+layout_mode = 2
+
+[node name="Begin button" type="Button" parent="CanvasLayer/options/Panel/MarginContainer/VBoxContainer/MarginContainer"]
+custom_minimum_size = Vector2(150, 50)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_fonts/font = ExtResource("5_jxq38")
 theme_override_font_sizes/font_size = 32
-shortcut = SubResource("Shortcut_dky5v")
-shortcut_feedback = false
+shortcut = SubResource("Shortcut_4xujs")
 shortcut_in_tooltip = false
+text = "Back"
 
 [node name="pause_menu" type="Control" parent="CanvasLayer"]
 visible = false
@@ -764,6 +918,7 @@ theme_override_constants/separation = 42
 alignment = 1
 
 [node name="item" type="Button" parent="CanvasLayer/dialogue/Panel/dialogue item picker"]
+texture_filter = 1
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 size_flags_horizontal = 0
@@ -781,6 +936,7 @@ vertical_icon_alignment = 0
 script = ExtResource("16_dky5v")
 
 [node name="item2" type="Button" parent="CanvasLayer/dialogue/Panel/dialogue item picker"]
+texture_filter = 1
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 size_flags_horizontal = 0
@@ -798,6 +954,7 @@ vertical_icon_alignment = 0
 script = ExtResource("16_dky5v")
 
 [node name="item3" type="Button" parent="CanvasLayer/dialogue/Panel/dialogue item picker"]
+texture_filter = 1
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 size_flags_horizontal = 0
@@ -927,6 +1084,16 @@ offset_bottom = 468.0
 offset_top = 650.0
 offset_right = 200000.0
 offset_bottom = 658.0
+
+[node name="AudioListener2D" type="AudioListener2D" parent="Camera"]
+current = true
+
+[node name="background_music" type="AudioStreamPlayer2D" parent="Camera"]
+stream = ExtResource("32_sx0by")
+volume_db = -10.0
+autoplay = true
+bus = &"music"
+parameters/looping = true
 
 [node name="Clouds 1" type="Node2D" parent="."]
 z_index = 455
@@ -1704,8 +1871,20 @@ material = SubResource("ShaderMaterial_oo2gf")
 position = Vector2(-3.23, 0)
 rotation = -3.14159
 scale = Vector2(5, 5)
-texture = ExtResource("7_i525v")
+texture = ExtResource("40_sx0by")
 offset = Vector2(0, -15)
+
+[node name="seagull" type="Sprite2D" parent="Player/sprite"]
+visible = false
+z_index = 1
+y_sort_enabled = true
+texture_filter = 1
+texture_repeat = 1
+material = SubResource("ShaderMaterial_oo2gf")
+position = Vector2(-3.846, -39.6)
+scale = Vector2(0.375238, 0.375238)
+texture = ExtResource("25_4xujs")
+flip_h = true
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Player"]
 position = Vector2(-4, 81.515)
@@ -1723,13 +1902,16 @@ y_sort_enabled = true
 [connection signal="pressed" from="CanvasLayer/main_menu/Panel/VBoxContainer2/VBoxContainer/Normal" to="." method="_on_normal_pressed"]
 [connection signal="pressed" from="CanvasLayer/main_menu/Panel/VBoxContainer2/VBoxContainer/Hard" to="." method="_on_hard_pressed"]
 [connection signal="pressed" from="CanvasLayer/main_menu/Panel/VBoxContainer2/VBoxContainer/Highscores" to="." method="_on_highscores_pressed"]
-[connection signal="pressed" from="CanvasLayer/picking_loadout/Panel/MarginContainer/VBoxContainer/MarginContainer/Begin button" to="." method="begin_game"]
+[connection signal="pressed" from="CanvasLayer/main_menu/Panel/VBoxContainer2/VBoxContainer/options" to="." method="_on_options_pressed"]
 [connection signal="pressed" from="CanvasLayer/picking_loadout/Panel/MarginContainer/VBoxContainer/MarginContainer/back to main menu" to="." method="_on_back_to_main_menu"]
+[connection signal="pressed" from="CanvasLayer/picking_loadout/Panel/MarginContainer/VBoxContainer/MarginContainer/Begin button" to="." method="begin_game"]
+[connection signal="value_changed" from="CanvasLayer/options/Panel/MarginContainer/VBoxContainer/sfx_volume" to="." method="_on_sfx_volume_changed"]
+[connection signal="value_changed" from="CanvasLayer/options/Panel/MarginContainer/VBoxContainer/music_volume" to="." method="_on_music_volume_changed"]
+[connection signal="pressed" from="CanvasLayer/options/Panel/MarginContainer/VBoxContainer/MarginContainer/Begin button" to="." method="_on_back_to_main_menu"]
 [connection signal="pressed" from="CanvasLayer/pause_menu/Panel/VBoxContainer2/Unpause button" to="." method="_on_unpause_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/pause_menu/Panel/VBoxContainer2/Main menu2" to="." method="_on_return_to_main_menu_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/game_over/Panel/VBoxContainer2/VBoxContainer/Retry" to="." method="_on_restart_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/game_over/Panel/VBoxContainer2/VBoxContainer/Main menu" to="." method="_on_return_to_main_menu_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/dialogue/Panel/dialogue box/Control/Next dialogue" to="." method="_on_next_dialogue_pressed"]
-[connection signal="pressed" from="CanvasLayer/dialogue/Panel/dialogue item picker/item" to="." method="_on_dialogue_item_picked"]
 [connection signal="pressed" from="CanvasLayer/win/Panel/VBoxContainer2/VBoxContainer/Play again" to="." method="_on_restart_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/win/Panel/VBoxContainer2/VBoxContainer/Main menu" to="." method="_on_return_to_main_menu_button_pressed"]

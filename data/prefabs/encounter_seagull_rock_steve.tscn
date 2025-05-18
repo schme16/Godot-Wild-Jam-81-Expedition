@@ -1,0 +1,32 @@
+[gd_scene load_steps=4 format=3 uid="uid://c8t5gud8jnshn"]
+
+[ext_resource type="Script" uid="uid://0d6yda6fyli7" path="res://data/scripts/collidable.gd" id="1_x5iyv"]
+[ext_resource type="Texture2D" uid="uid://cvknacn6rfd87" path="res://data/textures/Rock1.png" id="2_mvbxr"]
+[ext_resource type="Texture2D" uid="uid://dctb54dw22rgi" path="res://data/textures/steve_seagull.png" id="3_0163m"]
+
+[node name="SeagullsSteve" type="StaticBody2D" node_paths=PackedStringArray("sprite_a")]
+z_index = 5
+script = ExtResource("1_x5iyv")
+mode = 2
+dialogue_name = "seagull_c"
+event_script_name = "new ships mascot"
+ship_damage = 20.0
+dialogues = ["seagull_c"]
+sprite_a = NodePath("SteveSeagull")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+position = Vector2(-600.898, -235.693)
+scale = Vector2(1, 2)
+polygon = PackedVector2Array(172.702, 213.129, 177.626, -223.961, 93.3808, -223.961, 92.4508, 213.348)
+
+[node name="Rock1" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(-182.34, -144.378)
+scale = Vector2(2.95224, 2.95224)
+texture = ExtResource("2_mvbxr")
+
+[node name="SteveSeagull" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(-209.081, -245.354)
+scale = Vector2(3.10916, 3.10916)
+texture = ExtResource("3_0163m")

@@ -11,3 +11,4 @@ extends Button
 
 func _pressed() -> void:
 	game.dialogue_item_picked(item)
+	game.play_sfx(game.sfx_ui_click)

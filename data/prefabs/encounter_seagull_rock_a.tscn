@@ -1,0 +1,25 @@
+[gd_scene load_steps=3 format=3 uid="uid://csdu8fqq2pv7"]
+
+[ext_resource type="Script" uid="uid://0d6yda6fyli7" path="res://data/scripts/collidable.gd" id="1_eyamv"]
+[ext_resource type="Texture2D" uid="uid://bl3xh6f05ku4p" path="res://data/textures/SeagullRock.png" id="2_8cw7r"]
+
+[node name="SeagullsA" type="StaticBody2D"]
+z_index = 5
+y_sort_enabled = true
+script = ExtResource("1_eyamv")
+mode = 2
+dialogue_name = "seagull_a"
+event_script_name = "swarm of seagulls"
+ship_damage = 20.0
+dialogues = ["seagull_a"]
+
+[node name="SeagullRock" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(-160, -157)
+scale = Vector2(2, 2)
+texture = ExtResource("2_8cw7r")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+position = Vector2(-600.898, -235.693)
+scale = Vector2(1, 2)
+polygon = PackedVector2Array(172.702, 213.129, 177.626, -223.961, 93.3808, -223.961, 92.4508, 213.348)

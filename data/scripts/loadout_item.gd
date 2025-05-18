@@ -3,6 +3,7 @@ extends Button
 @export var item_id:int = get_instance_id()
 @export var item_name:String
 @export var item_icon:Texture2D
+@export var item_encounter:Resource
 @onready var game: Node2D = $"../../../../../../../.."
 
 
@@ -28,3 +29,4 @@ func _process(delta: float) -> void:
 
 func _pressed() -> void:
 	game.add_item_to_loadout(self)
+	game.play_sfx(game.sfx_ui_click)
