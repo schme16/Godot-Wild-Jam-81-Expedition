@@ -13,30 +13,45 @@ enum states {
 	win,
 }
 
+enum difficulties {
+	easy,
+	normal,
+	hard
+}
+@export var difficulty:difficulties
+
+@export var number_of_encounters_for_difficulty:Dictionary = {
+	difficulties.easy:3,
+	difficulties.normal:3,
+	difficulties.hard:3,
+}
+
+@export var player_speeds_for_difficulty:Dictionary = {
+	difficulties.easy:250,
+	difficulties.normal:350,
+	difficulties.hard:500,
+}
+
+@export var journey_times_for_difficulty:Dictionary = {
+	difficulties.easy:60,
+	difficulties.normal:180,
+	difficulties.hard:360,
+}
+
+
 @export var player:Node2D
 @onready var clouds_1: Node2D = $"Clouds 1"
 @onready var clouds_2: Node2D = $"Clouds 2"
 
 @export var camera:Camera2D
 @export var number_of_encounters:float = 0
-@export var number_of_encounters_easy:float = 3
-@export var number_of_encounters_normal:float = 3
-@export var number_of_encounters_hard:float = 4
 @export var start_progress:float = 0
-#@export var journey_time_easy:float = 180
-#TODO: remove
-@export var journey_time_easy:float = 30
-@export var journey_time_normal:float = 360
-@export var journey_time_hard:float = 720
 @export var selected_journey_time:float = 180
 var journey_time:float
 @export var progress:float
 @export var editor_only_items:Node2D
 
 
-@export var player_speed_easy:float = 250
-@export var player_speed_normal:float = 350
-@export var player_speed_hard:float = 500
 @export var player_speed_menu:float = 60
 @export var selected_player_speed:float = 250
 @export var _player_speed:float = 250
@@ -84,6 +99,7 @@ var objects_list_array:Array
 @onready var ui_retry_button: Button = $CanvasLayer/game_over/Panel/VBoxContainer2/VBoxContainer/Retry
 @onready var ui_unpause_button: Button = $"CanvasLayer/pause_menu/Panel/VBoxContainer2/Unpause button"
 @onready var ui_play_again: Button = $"CanvasLayer/win/Panel/VBoxContainer2/VBoxContainer/Play again"
+@onready var ui_win_text: RichTextLabel = $"CanvasLayer/win/Panel/VBoxContainer2/Win text"
 
 @onready var ui_voyage_tracker: Control = $"CanvasLayer/in-game ui/voyage_tracker"
 @onready var ui_voyage_tracker_current: ColorRect = $"CanvasLayer/in-game ui/voyage_tracker/current"
@@ -122,7 +138,7 @@ var dialogue:Dictionary = {
 
 		"intro": [
 			"A huge seal leaps onto the boat and makes a beeline for one of the crew members. \nThe crew member terrified, attempts to get out of the way, to no avail. \nThe sea doggo rubs up against him, unfortunately beginning to crush him.",
-			"\n[font_size=5]\n[/font_size][center]Quick, pick an item![/center]",
+			"\n[font_size=40]\n[/font_size][center]Quick, pick an item![/center]",
 
 
 		],
@@ -148,7 +164,7 @@ var encounters = [
 var current_journey_time_encounter:float
 var current_encounter:Node
 @onready var encounters_container: Node2D = $encounters
-
+var encountered:Array = []
 
 
 
@@ -366,21 +382,15 @@ func _physics_process(delta: float) -> void:
 	update_clouds()
 
 func _on_easy_pressed() -> void:
-	number_of_encounters = number_of_encounters_easy
-	selected_player_speed = player_speed_easy
-	selected_journey_time = journey_time_easy
+	difficulty = difficulties.easy
 	new_game()
 
 func _on_normal_pressed() -> void:
-	number_of_encounters = number_of_encounters_normal
-	selected_player_speed = player_speed_normal
-	selected_journey_time = journey_time_normal
+	difficulty = difficulties.normal
 	new_game()
 
 func _on_hard_pressed() -> void:
-	number_of_encounters = number_of_encounters_hard
-	selected_player_speed = player_speed_hard
-	selected_journey_time = journey_time_hard
+	difficulty = difficulties.hard
 	new_game()
 
 func _on_highscores_pressed() -> void:
@@ -389,6 +399,8 @@ func _on_highscores_pressed() -> void:
 func _on_return_to_main_menu_button_pressed() -> void:
 	state = states.main_menu
 	clear_objects()
+	clear_encounters()
+
 
 func player_damage(data):
 	ship_health += data.ship_damage
@@ -443,6 +455,11 @@ func roll_for_new_object():
 			objects.add_child(new_object)
 
 func new_game():
+	number_of_encounters = number_of_encounters_for_difficulty[difficulty]
+	selected_player_speed = player_speeds_for_difficulty[difficulty]
+	selected_journey_time = journey_times_for_difficulty[difficulty]
+
+	player.visible = false
 
 	last_check_zone = 0
 
@@ -469,7 +486,9 @@ func new_game():
 	state = states.picking_loadout
 
 	picked_items.clear()
+
 	clear_objects()
+	clear_encounters()
 
 func clear_objects():
 	for c in objects.get_children():
@@ -477,20 +496,32 @@ func clear_objects():
 		objects.remove_child(c)
 		c.queue_free()
 
+func clear_encounters():
+	for c in encounters_container.get_children():
+		c.visible = false
+		encounters_container.remove_child(c)
+		c.queue_free()
+
 func begin_game():
 	player.current_path = player.paths.B
 	player.instant_path = true;
 	player.visible = true;
+	await G.wait(60)
 	state = states.sailing
 
 func game_over():
 	ui_groups.game_over.visible = true
 	player.visible = false
 	clear_objects()
+	clear_encounters()
 	ui_retry_button.grab_focus()
 
 
 func win():
+	ui_win_text.text = ui_win_text.text.replacen("<encounter_one>", encountered[0].event_script_name)
+	ui_win_text.text = ui_win_text.text.replacen("<encounter_two>", encountered[1].event_script_name)
+	ui_win_text.text = ui_win_text.text.replacen("<encounter_three>", encountered[2].event_script_name)
+
 	ui_groups.win.visible = true
 	player.visible = true
 	ui_play_again.grab_focus()
@@ -524,6 +555,7 @@ func update_clouds():
 
 func start_dialogue(data):
 	current_encounter = data.encounter
+	encountered.append(data.encounter)
 	ui_dialogue_box.visible = true
 	ui_dialogue_item_picker.visible = false
 	state = states.in_dialogue
@@ -652,3 +684,9 @@ func _on_restart_button_pressed() -> void:
 
 func _on_unpause_button_pressed() -> void:
 	state = states.sailing
+
+
+func _on_back_to_main_menu() -> void:
+	print(2332445234234)
+	state = states.main_menu
+	pass # Replace with function body.

@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://3rjxq0102uu2"]
+[gd_scene load_steps=35 format=3 uid="uid://3rjxq0102uu2"]
 
 [ext_resource type="Script" uid="uid://dnmxwgvrqx1ny" path="res://data/scripts/game.gd" id="1_00ru4"]
 [ext_resource type="Script" uid="uid://celv11jruaedo" path="res://data/scripts/ui.gd" id="2_nb3oj"]
@@ -44,6 +44,18 @@ shader_parameter/fade = 1.0
 shader = ExtResource("3_duqd1")
 shader_parameter/colour = Color(1, 1, 1, 1)
 shader_parameter/fade = 1.0
+
+[sub_resource type="InputEventAction" id="InputEventAction_dky5v"]
+action = &"ui_complete"
+
+[sub_resource type="Shortcut" id="Shortcut_4xujs"]
+events = [SubResource("InputEventAction_dky5v")]
+
+[sub_resource type="InputEventAction" id="InputEventAction_oo2gf"]
+action = &"ui_cancel"
+
+[sub_resource type="Shortcut" id="Shortcut_dky5v"]
+events = [SubResource("InputEventAction_oo2gf")]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_oo2gf"]
 shader = ExtResource("23_e0bto")
@@ -302,7 +314,6 @@ theme_override_font_sizes/font_size = 25
 text = "Highscores"
 
 [node name="picking_loadout" type="Control" parent="CanvasLayer"]
-visible = false
 layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5
@@ -528,7 +539,21 @@ size_flags_vertical = 4
 theme_override_fonts/font = ExtResource("5_jxq38")
 theme_override_font_sizes/font_size = 32
 disabled = true
+shortcut = SubResource("Shortcut_4xujs")
+shortcut_in_tooltip = false
 text = "Begin"
+
+[node name="back to main menu" type="Button" parent="CanvasLayer/picking_loadout/Panel/MarginContainer/VBoxContainer/MarginContainer"]
+light_mask = 0
+visibility_layer = 0
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_fonts/font = ExtResource("5_jxq38")
+theme_override_font_sizes/font_size = 32
+shortcut = SubResource("Shortcut_dky5v")
+shortcut_feedback = false
+shortcut_in_tooltip = false
 
 [node name="pause_menu" type="Control" parent="CanvasLayer"]
 visible = false
@@ -696,6 +721,7 @@ theme_override_constants/separation = 10
 custom_minimum_size = Vector2(0, 125.425)
 layout_mode = 2
 size_flags_vertical = 3
+theme_override_constants/outline_size = 2
 theme_override_constants/line_separation = 9
 theme_override_fonts/normal_font = ExtResource("5_jxq38")
 theme_override_fonts/italics_font = ExtResource("5_jxq38")
@@ -789,6 +815,7 @@ vertical_icon_alignment = 0
 script = ExtResource("16_dky5v")
 
 [node name="win" type="Control" parent="CanvasLayer"]
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -803,10 +830,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -150.0
-offset_top = -150.0
-offset_right = 150.0
-offset_bottom = 150.0
+offset_left = -331.0
+offset_top = -198.0
+offset_right = 331.0
+offset_bottom = 198.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = ExtResource("3_wyj50")
@@ -819,12 +846,31 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="game title" type="RichTextLabel" parent="CanvasLayer/win/Panel/VBoxContainer2"]
+[node name="Win title" type="RichTextLabel" parent="CanvasLayer/win/Panel/VBoxContainer2"]
+custom_minimum_size = Vector2(0, 48.4)
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_fonts/normal_font = ExtResource("4_jxq38")
+theme_override_font_sizes/normal_font_size = 34
+text = "Journey Successful"
+scroll_active = false
+shortcut_keys_enabled = false
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="Win text" type="RichTextLabel" parent="CanvasLayer/win/Panel/VBoxContainer2"]
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_fonts/normal_font = ExtResource("4_jxq38")
-theme_override_font_sizes/normal_font_size = 20
-text = "Game Over"
+theme_override_constants/outline_size = 2
+theme_override_constants/line_separation = 15
+theme_override_fonts/normal_font = ExtResource("5_jxq38")
+theme_override_font_sizes/normal_font_size = 21
+bbcode_enabled = true
+text = "After a long, and perilous journey, you reach your destination.
+The land is a sight for sore eyes, and you think about all that you've seen, and all
+that you've experienced leading up to this glorious moment, a <encounter_one>, a <encounter_two>, and even a <encounter_three>, who would have thought it possible!
+
+Well, can't sit here all day... Those villages aren't going to [color=#ff2313]PILLAGE[/color] themselves!"
 scroll_active = false
 shortcut_keys_enabled = false
 horizontal_alignment = 1
@@ -1678,6 +1724,7 @@ y_sort_enabled = true
 [connection signal="pressed" from="CanvasLayer/main_menu/Panel/VBoxContainer2/VBoxContainer/Hard" to="." method="_on_hard_pressed"]
 [connection signal="pressed" from="CanvasLayer/main_menu/Panel/VBoxContainer2/VBoxContainer/Highscores" to="." method="_on_highscores_pressed"]
 [connection signal="pressed" from="CanvasLayer/picking_loadout/Panel/MarginContainer/VBoxContainer/MarginContainer/Begin button" to="." method="begin_game"]
+[connection signal="pressed" from="CanvasLayer/picking_loadout/Panel/MarginContainer/VBoxContainer/MarginContainer/back to main menu" to="." method="_on_back_to_main_menu"]
 [connection signal="pressed" from="CanvasLayer/pause_menu/Panel/VBoxContainer2/Unpause button" to="." method="_on_unpause_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/pause_menu/Panel/VBoxContainer2/Main menu2" to="." method="_on_return_to_main_menu_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/game_over/Panel/VBoxContainer2/VBoxContainer/Retry" to="." method="_on_restart_button_pressed"]

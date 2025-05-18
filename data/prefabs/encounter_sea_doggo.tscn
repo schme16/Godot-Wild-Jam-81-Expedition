@@ -9,6 +9,7 @@ y_sort_enabled = true
 script = ExtResource("1_hkm88")
 mode = 2
 dialogue_name = "seal_a"
+event_script_name = "huge seal"
 ship_damage = 20.0
 dialogues = ["seal_a"]
 

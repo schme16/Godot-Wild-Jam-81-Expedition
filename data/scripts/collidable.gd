@@ -23,6 +23,9 @@ enum modes {
 ##The name of the dialogue to trigger on collision
 @export var dialogue_name:String
 
+##The name of the dialogue to trigger on collision
+@export var event_script_name:String
+
 ##How much damage to take on impact
 @export var ship_damage:float
 
@@ -56,7 +59,8 @@ func _validate_property(property: Dictionary) -> void:
 
 	var trigger_dialogue_test = [
 		#"dialogue_name",
-		"dialogues"
+		"dialogues",
+		"event_script_name"
 	].find(property.name) > -1
 
 	var trigger_event_test = [
