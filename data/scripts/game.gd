@@ -383,17 +383,14 @@ var sfx_ows:Array = [
 @onready var waves_b: Sprite2D = $"Waves B"
 
 var config = ConfigFile.new()
+var length = 100
+var threshold = 30
+var start_pos:Vector2
+var cur_pos:Vector2
+var swiping:bool
+var swiped_up:bool
+var swiped_down:bool
 
-func _input(event: InputEvent) -> void:
-
-	if state == states.sailing:
-		if Input.is_action_just_pressed("ui_up"):
-			if player.current_path > 0:
-				player.current_path = player.current_path - 1
-
-		if Input.is_action_just_pressed("ui_down"):
-			if player.current_path < 2:
-				player.current_path = player.current_path + 1
 
 func _ready() -> void:
 	gradient_red_orange_green.add_point(1, Color.RED)
@@ -458,6 +455,42 @@ func _ready() -> void:
 	reset_stats()
 
 func _physics_process(delta: float) -> void:
+
+	if state == states.sailing:
+		if Input.is_action_just_pressed("ui_up") or swiped_up:
+			swiped_up = false
+			if player.current_path > 0:
+				player.current_path = player.current_path - 1
+
+		if Input.is_action_just_pressed("ui_down") or swiped_down:
+			swiped_down = false
+			if player.current_path < 2:
+				player.current_path = player.current_path + 1
+
+
+	if Input.is_action_just_pressed("press"):
+		if !swiping:
+			swiping = true
+			start_pos = get_global_mouse_position()
+	if Input.is_action_pressed("press"):
+		if swiping:
+			cur_pos = get_global_mouse_position()
+	if Input.is_action_just_released("press"):
+		swiping = false
+		Input.action_press("ui_up")
+		if start_pos.distance_to(cur_pos) >= length:
+			if start_pos.y - cur_pos.y > 0:
+				swiped_up = true
+
+				Input.action_press("ui_up")
+				await G.wait(20)
+				Input.action_release("ui_up")
+			else:
+				swiped_down = true
+
+				Input.action_press("ui_down")
+				await G.wait(20)
+				Input.action_release("ui_down")
 
 	#runs once when the state is changed
 	if last_state != state:
